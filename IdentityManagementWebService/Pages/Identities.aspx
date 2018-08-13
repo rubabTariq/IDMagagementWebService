@@ -24,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <!-- Custom styles for this template -->
     <link href="../css/simple-sidebar.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
         .Background {
             background-color: Black;
             filter: alpha(opacity=90);
@@ -103,6 +104,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="togglemenu"></div>
                         <div class="togglemenu"></div>
                         <div class="togglemenu"></div>
+
                     </a>
                 </div>
                 <!-- /.navbar-header -->
