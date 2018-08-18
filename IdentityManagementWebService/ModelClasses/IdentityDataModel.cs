@@ -9,6 +9,12 @@ namespace IdentityManagementWebService.ModelClasses
 
     public class IdentityDataModel
         {
+        [JsonProperty]
+        public List<WebsiteDataModel> WebsiteDataModel
+            {
+            get;
+            set;
+            }
         //private  IList<WebsiteDataModel> _website = new List<WebsiteDataModel>();
         //private  IList<IdentityDataModel> _identities = new List<IdentityDataModel>();
         //private static IdentityDataModel instance;
@@ -107,14 +113,14 @@ namespace IdentityManagementWebService.ModelClasses
             set;
             }
 
-        //[JsonProperty]
-        //public string Gender
-        //    {
-        //    get;
-        //    set;
-        //    }
+        [JsonProperty]
+        public string Gender
+            {
+            get;
+            set;
+            }
 
-       
+
         //public void AddWebsite (WebsiteDataModel website)
         //    {
         //    _website.Add(website);

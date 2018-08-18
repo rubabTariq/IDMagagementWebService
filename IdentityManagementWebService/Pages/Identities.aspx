@@ -107,28 +107,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                 </div>
                 <!-- /.navbar-header -->
-                <ul class="nav navbar-nav navbar-right">
+                <%--<ul class="nav navbar-nav navbar-right">
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
                             <asp:Label Style="width: 70px" ID="username" runat="server" Text="Menu" /></a>
                         <ul class="dropdown-menu">
-                            <li class="m_2" <%--class="dropdown-menu-header text-center"--%>>
+                            <li class="m_2">
                                 <strong>Account</strong>
                             </li>
 
                             <li class="m_2"><a href="home1.aspx"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul>--%>
             </nav>
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
-                    <%-- <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
-                </li>--%>
                     <li>
                         <a href="#">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
@@ -178,20 +173,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <td class="tablecol">Status</td>
                                         <td class="tablecol">Action</td>
                                     </tr>
-                                    <tr>
-                                        <td id="name" class="tablecolumn">Rubab</td>
-                                        <td id="email" class="tablecolumn">rubab@gmail.com</td>
-                                        <td id="country" class="tablecolumn">Pakistan</td>
-                                        <td id="status" class="tablecolumn">Active</td>
-                                        <td id="action" class="tablecolumn" runat="server">
-                                            <a id="edit" runat="server" onclick="editIdentity()" href="/AddIdentity.aspx" style="margin-left: 0px;">
-                                                <img src="../Images/edit.png" style="width: 15px" /></a>
-                                            <a id="delete" runat="server" onclick="deleteIdentity()" href="/AddIdentity.aspx" style="margin-left: 22px;">
-                                                <img src="../Images/delete.png" style="width: 30px" />
-                                            </a>
-
-                                        </td>
-                                    </tr>
                                 </tbody>
 
                             </table>
@@ -229,14 +210,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
             });
-
-            function editIdentity() {
-
-                PageMethods.editidentity(document.getElementById('email').innerHTML);
-            }
-            function deleteIdentity() {
-
-                PageMethods.deleteidentity(document.getElementById('email').innerHTML);
+            function deleteIdentity(email) {
+                var txt;
+                if (confirm("Are you sure to delete this Identity " + email + " ?"))
+                {
+                    txt = "Yes";
+                    PageMethods.deleteidentity(email);
+                }
+                else
+                {
+                    txt = "No";
+                }
+                
+                
             }
         </script>
 

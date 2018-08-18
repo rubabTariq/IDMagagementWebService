@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using IdentityManagementWebService.ModelClasses;
+using Newtonsoft.Json;
 
 namespace IdentityManagementWebService.Pages
     {
@@ -16,58 +17,62 @@ namespace IdentityManagementWebService.Pages
 
         protected void Page_Load (object sender, EventArgs e)
             {
-            IList <IdentityDataModel> _identities = null;//IdentityDataModel.GetInstance.GetIdentities();
-            if ( null != _identities && 0 < _identities.Count )
+            string json = System.IO.File.ReadAllText(Environment.CurrentDirectory + @"\IdentitiesData.txt");
+            IdentityDataModel identity = JsonConvert.DeserializeObject<IdentityDataModel>(json);
+            if ( null != identity )
                 {
+                //    foreach ( var identity in _identities )
+                //        {
+                var tr = new HtmlTableRow();
+                HtmlTableCell name = new HtmlTableCell();
+                name.InnerText = identity.FirstName;
+                name.Attributes.Add("class", "tablecolumn");
+                tr.Cells.Add(name);
+                HtmlTableCell email = new HtmlTableCell();
+                email.InnerText = identity.Email;
+                email.Attributes.Add("class", "tablecolumn");
+                tr.Cells.Add(email);
+                HtmlTableCell country = new HtmlTableCell();
+                country.InnerText = identity.CountryOfResidence;
+                country.Attributes.Add("class", "tablecolumn");
+                tr.Cells.Add(country);
+                HtmlTableCell status = new HtmlTableCell();
+                status.InnerText = "Active";
+                status.Attributes.Add("class", "tablecolumn");
+                tr.Cells.Add(status);
 
+                HtmlAnchor _edit = new HtmlAnchor();
+                _edit.HRef = "/AddIdentity.aspx?email=" + email.InnerText;
+                _edit.Attributes.CssStyle.Add("margin-left", "0px");
+                HtmlImage editimage = new HtmlImage();
+                editimage.Attributes.Add("src", "../Images/edit.png");
+                editimage.Attributes.CssStyle.Add("width", "15px");
+                _edit.Controls.Add(editimage);
+                _edit.Attributes.Add("id", "edit"+ email.InnerText);
+                HtmlAnchor _delete = new HtmlAnchor();
+                _delete.HRef = "#";
+                _delete.Attributes.CssStyle.Add("margin-left", "22px");
+                HtmlImage deleteimage = new HtmlImage();
+                deleteimage.Attributes.Add("src", "../Images/delete.png");
+                deleteimage.Attributes.CssStyle.Add("width", "30px");
+                _delete.Attributes.Add("onclick", "deleteIdentity('" + email.InnerText + "')");
+                _delete.Attributes.Add("id", "delete" + email.InnerText);
+                _delete.Controls.Add(deleteimage);
+                HtmlTableCell actioncell = new HtmlTableCell();
+                actioncell.Controls.Add(_edit);
+                actioncell.Controls.Add(_delete);
+                actioncell.Attributes.Add("class", "tablecolumn");
+                tr.Cells.Add(actioncell);
 
-                foreach ( var identity in _identities )
-                    {
-                    var tr = new HtmlTableRow();
-                    HtmlTableCell name = new HtmlTableCell();
-                    name.InnerText = identity.FirstName;
-                    name.Attributes.Add("class", "tablecolumn");
-                    tr.Cells.Add(name);
-                    HtmlTableCell email = new HtmlTableCell();
-                    email.InnerText = identity.Email;
-                    email.Attributes.Add("class", "tablecolumn");
-                    tr.Cells.Add(email);
-                    HtmlTableCell country = new HtmlTableCell();
-                    country.InnerText = identity.CountryOfResidence;
-                    country.Attributes.Add("class", "tablecolumn");
-                    tr.Cells.Add(country);
-                    HtmlTableCell status = new HtmlTableCell();
-                    status.InnerText = "Active";
-                    status.Attributes.Add("class", "tablecolumn");
-                    tr.Cells.Add(status);
-
-                    HtmlAnchor _edit = new HtmlAnchor();
-                    _edit.HRef = "AddIdentity.aspx";
-                    _edit.Attributes.CssStyle.Add("margin-left", "0px");
-                    _edit.InnerHtml = edit.InnerHtml;
-                    HtmlAnchor _delete = new HtmlAnchor();
-                    _delete.HRef = "AddIdentity.aspx";
-                    _delete.Attributes.CssStyle.Add("margin-left", "22px");
-                    _delete.InnerHtml = delete.InnerHtml;
-                    HtmlTableCell actioncell = new HtmlTableCell();
-                    actioncell.Controls.Add(_edit);
-                    actioncell.Controls.Add(_delete);
-                    actioncell.Attributes.Add("class", "tablecolumn");
-                    tr.Cells.Add(actioncell);
-
-                    identities.Rows.Add(tr);
-                    }
-                countDiv.InnerText = (identities.Rows.Count - 1).ToString();
+                identities.Rows.Add(tr);
                 }
-            }
-        [System.Web.Services.WebMethod]
-        public static string editidentity (string email)
-            {
-            return "";
+            //countDiv.InnerText = (identities.Rows.Count - 1).ToString();
+            //}
             }
         [System.Web.Services.WebMethod]
         public static string deleteidentity (string email)
             {
+            //find idenenty from azure table through email and delete it. 
             return "";
             }
         }

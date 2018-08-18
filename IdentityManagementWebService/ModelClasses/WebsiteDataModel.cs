@@ -8,100 +8,46 @@ namespace IdentityManagementWebService.ModelClasses
     public class WebsiteDataModel
         {
 
-        private string websiteName;
 
         public string WebsiteName
             {
-            get
-                {
-                return websiteName;
-                }
-            set
-                {
-                websiteName = value;
-                }
+            get;
+            set;
             }
 
-        private string websiteID;
 
-        public string WebsiteID
+        public string UserName
             {
-            get
-                {
-                return websiteID;
-                }
-            set
-                {
-                websiteID = value;
-                }
+            get;
+            set;
             }
-        private string password;
 
         public string Password
             {
-            get
-                {
-                return password;
-                }
-            set
-                {
-                password = value;
-                }
+            get;
+            set;
             }
-        private string pin;
 
         public string PIN
             {
-            get
-                {
-                return pin;
-                }
-            set
-                {
-                pin = value;
-                }
+            get;
+            set;
             }
-        private string accountNumber;
 
         public string AccountNumber
             {
-            get
-                {
-                return accountNumber;
-                }
-            set
-                {
-                accountNumber = value;
-                }
+            get;
+            set;
             }
-        private string  securityQuestion;
-
         public string  SecurityQuestion
             {
-            get
-                {
-                return securityQuestion;
-                }
-            set
-                {
-                securityQuestion = value;
-                }
+            get;
+            set;
             }
-        private string securityAnswer;
-
         public string SecurityAnswer
             {
-            get
-                {
-                return securityAnswer;
-                }
-            set
-                {
-                securityAnswer = value;
-                }
+            get;
+            set;
             }
-
-
-
         }
     }
