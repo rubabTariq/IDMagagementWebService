@@ -10,17 +10,16 @@
 namespace IdentityManagementWebService {
     
     
-    public partial class AddIdentity
-        {
+    public partial class AddIdentity {
         
         /// <summary>
-        /// Registrationform control.
+        /// contact_form control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm Registrationform;
+        protected global::System.Web.UI.HtmlControls.HtmlForm contact_form;
         
         /// <summary>
         /// ScriptManager1 control.
@@ -32,13 +31,13 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// username control.
+        /// _username control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label username;
+        protected global::System.Web.UI.WebControls.Label _username;
         
         /// <summary>
         /// countDiv control.
@@ -48,5 +47,14 @@ namespace IdentityManagementWebService {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl countDiv;
+        
+        /// <summary>
+        /// websiteContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl websiteContainer;
     }
 }

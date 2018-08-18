@@ -1,0 +1,100 @@
+﻿        .Background {
+            background-color: Black;
+            filter: alpha(opacity=90);
+            opacity: 0.8;
+        }
+
+        .lbl {
+            font-size: 16px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .Popup {
+            background-color: #FFFFFF;
+            border-width: 3px;
+            border-style: solid;
+            border-color: black;
+            padding-top: 10px;
+            padding-left: 10px;
+            width: 500px;
+            height: 350px;
+        }
+        .togglemenu {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin-top: 5px;
+        }
+
+        .mainheading {
+            color: white;
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 30px;
+            line-height: 50px;
+        }
+
+        .active {
+            background-color: lightgray;
+        }
+
+        .input-group .form-control {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0;
+            border: 1px solid black;
+            width: 200px;
+        }
+
+        td, th {
+            width: 300px;
+            border-spacing: 1px;
+            border-left: 1px solid lightgray;
+            border-right: 1px solid lightgray;
+            padding: 1px 20px 1px 20px;
+        }
+
+        table td:first-child {
+            border-left: none;
+        }
+
+        table td:last-child {
+            border-right: none;
+        }
+
+        .labelText {
+            font-weight: bold;
+        }
+
+        .newwebsite {
+            width: 200px;
+            height: 23px;
+            font-size: small;
+            margin-left: 3px;
+        }
+
+        .btn-click {
+            color: #fff;
+            background-color: #1565c0;
+            border-color: #1565c0;
+            padding: 8.5px 12px;
+            width: 80px;
+        }
+
+        .addvalue input:focus {
+            outline: none;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+
+        select {
+            height: auto !important;
+        }
+
+        body {
+            font-size: 17px !important;
+        }
