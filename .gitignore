@@ -7,7 +7,7 @@
 *.suo
 *.user
 *.userosscache
-*.sln.docstates
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -289,7 +289,7 @@ paket-files/
 
 # JetBrains Rider
 .idea/
-*.sln.iml
+
 
 # CodeRush
 .cr/
@@ -328,5 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-*.sln
-*.csproj
+
