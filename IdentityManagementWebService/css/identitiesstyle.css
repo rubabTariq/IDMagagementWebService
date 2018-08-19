@@ -1,0 +1,61 @@
+﻿        body{
+             height: 100%;
+        }
+        .Background {
+            background-color: Black;
+            filter: alpha(opacity=90);
+            opacity: 0.8;
+        }
+
+        .lbl {
+            font-size: 16px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .Popup {
+            background-color: #FFFFFF;
+            border-width: 3px;
+            border-style: solid;
+            border-color: black;
+            padding-top: 10px;
+            padding-left: 10px;
+            width: 500px;
+            height: 350px;
+        }
+        .togglemenu {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin-top: 5px;
+        }
+
+        .mainheading {
+            color: white;
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 30px;
+            line-height: 50px;
+        }
+
+        .tablecolumn {
+            width: 250px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .tablerow {
+            border: 1px solid #ddd;
+        }
+
+        .tablecol {
+            font-weight: Bold;
+            width: 23%;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .active {
+            background-color: lightgray;
+        }

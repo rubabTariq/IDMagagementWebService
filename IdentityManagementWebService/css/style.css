@@ -20,8 +20,9 @@ p {
 html, body {
     font-family: 'Roboto', sans-serif;
     font-size: 17px;
-    background: #000;
+    background: #f2f4f8;
     overflow-x: hidden;
+
 }
 
     body a {
@@ -1018,7 +1019,7 @@ i.dollar1 {
 }
 /*-- graphs --*/
 .graphs {
-    padding: 2em 1em;
+    padding-bottom: 2em 1em;
     background: #f2f4f8;
     font-family: 'Roboto', sans-serif;
 }
@@ -1986,6 +1987,14 @@ blockquote {
 .copy_layout {
     background: #e5ebee;
     text-align: center;
+    position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
 }
 
 .login {
@@ -3184,7 +3193,7 @@ ul.new {
 
 @media (max-width:320px) {
     .graphs {
-        padding: 20px 10px;
+        padding-bottom: 200px 
     }
 
     .login-logo {

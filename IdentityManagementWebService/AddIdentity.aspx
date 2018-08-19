@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Identities.aspx.cs" Inherits="IdentityManagementWebService.AddIdentity" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddIdentity.aspx.cs" Inherits="IdentityManagementWebService.AddIdentity" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -14,16 +14,15 @@
     <!-- Custom css -->
     <link href="../css/style.css" rel='stylesheet' type='text/css' />
     <!----webfonts--->
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     <!-- Template for Navigation css -->
-    <link href="../css/custom.css" rel="stylesheet">
+    <link href="../css/custom.css" rel="stylesheet" />
     <!-- Custom styles for sidebar template -->
-    <link href="../css/simple-sidebar.css" type="text/css" rel="stylesheet">
+    <link href="../css/simple-sidebar.css" type="text/css" rel="stylesheet" />
     <!-- Styles for glyphicon -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <!-- Custom css for AddIdentity form -->
-    <link href="../css/addidentitystyle.css" type="text/css" rel="stylesheet">
-   
+    <link href="../css/addidentitystyle.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
     <form id="contact_form" runat="server" method="post">
@@ -33,7 +32,7 @@
         <div class="navbar-header" style="margin-right: auto">
             <a class="mainheading" href="index.html">Control Interface</a>
         </div>
-        <div id="wrapper">
+        <div id="wrapper" class="toggled">
             <!-- Navigation -->
             <nav class="nav top1 navbar navbar-default navbar-static-top" role="navigation" style="background-color: #1565c0; border-color: #1565c0;">
 
@@ -45,20 +44,20 @@
                     </a>
                 </div>
                 <!-- /.navbar-header -->
-                <ul class="nav navbar-nav navbar-right">
+                <%-- <ul class="nav navbar-nav navbar-right">
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
                             <asp:Label Style="width: 70px" ID="_username" runat="server" Text="Menu" /></a>
                         <ul class="dropdown-menu">
-                            <li class="m_2" <%--class="dropdown-menu-header text-center"--%>>
+                            <li class="m_2" <%--class="dropdown-menu-header text-center"-->
                                 <strong>Account</strong>
                             </li>
 
                             <li class="m_2"><a href="home1.aspx"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul>--%>
             </nav>
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
@@ -69,27 +68,27 @@
                 </li>--%>
                     <li>
                         <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
                             Task Schedule
                         </a>
                     </li>
                     <li>
                         <a id="Identities" href="/Pages/Identities.aspx">
-                            <img src="../Images/user.jpg" alt="User logo" style="display: inline; width: 10px">
+                            <img src="../Images/user.jpg" alt="User logo" style="display: inline; width: 10px"/>
                             Identities
                           <div id="countDiv" runat="server" style="display: inline; font-weight: bold; margin-left: 100px"></div>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
                             Statistics
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
-                            Task Archives
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            Access Control
                         </a>
                     </li>
                 </ul>
@@ -107,8 +106,9 @@
                                     <tr>
                                         <td>
                                             <div style="float: right;">
-                                                <input id="buttonAddNewWebsite" class="btn btn-click" type="button" onclick="AddNewWebsite()" value="Add New Website"
+                                                <input id="buttonAddNewWebsite" class="btn btn-click" type="button" onclick="AddNewWebsite()" value="Add New Website *"
                                                     style="margin-right: 50px; align-items: center; width: 200px" />
+                                                
                                             </div>
                                         </td>
                                     </tr>
@@ -153,34 +153,34 @@
                                         Website
                                         <p style="display: inline; color: red">*</p>
                                         :</label>
-                                    <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required />
+                                    <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required="required" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">
                                         Username
                                         <p style="display: inline; color: red">*</p>
                                         :</label>
-                                    <input id="username" placeholder="JohnSmith" type="text" class="newwebsite" size="20" required />
+                                    <input id="username" placeholder="JohnSmith" type="text" class="newwebsite" maxlength="20" required="required" pattern="[A-Za-z]*" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Password:</label>
-                                    <input id="password" placeholder="*****" type="text" class="newwebsite" />
+                                    <input id="password" placeholder="*****" type="password" class="newwebsite" size="20" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Account Number:</label>
-                                    <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" />
+                                    <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" maxlength="25" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">PIN:</label>
-                                    <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" />
+                                    <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" minlength="5" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Security Question:</label>
-                                    <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" />
+                                    <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" minlength="5" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Security Answer:</label>
-                                    <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" />
+                                    <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" minlength="5" />
                                 </div>
                                 <div class="input-group">
                                     <input class="btn btn-click" type="button" onclick="SubmitWebsiteData()" value="Done" style="margin-left: 80px; margin-right: 500px" />
@@ -201,7 +201,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                    <select id="title" name="title" class="form-control" style="border: 1px solid black;">
+                                                    <select id="title" runat="server" name="title" class="form-control" style="border: 1px solid black;">
                                                         <option disabled="disabled">Select a title</option>
                                                         <option>Mr</option>
                                                         <option>Miss</option>
@@ -221,8 +221,8 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <input id="first_name" name="first_name" placeholder="First Name" class="form-control" type="text"
-                                                        required="required" maxlength="20" minlength="3" title="only alphabets allowed" />
+                                                    <input id="first_name" runat="server" name="first_name" placeholder="First Name" class="form-control" type="text"
+                                                        required="required" maxlength="20" minlength="3" title="only alphabets allowed" pattern="[A-Za-z]*" />
                                                 </div>
                                             </div>
                                         </div>
@@ -237,8 +237,8 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <input id="last_name" name="last_name" placeholder="Last Name" class="form-control" type="text"
-                                                        required="required" maxlength="20" minlength="3" title="only alphabets allowed" />
+                                                    <input id="last_name" runat="server" name="last_name" placeholder="Last Name" class="form-control" type="text"
+                                                        required="required" maxlength="20" minlength="3" title="only alphabets allowed" pattern="[A-Za-z]*" />
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +255,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                                    <input id="email" name="email" placeholder="xyz@email.com" class="form-control" type="email"
+                                                    <input id="email" runat="server" name="email" placeholder="xyz@email.com" class="form-control" type="email"
                                                         required="required" minlength="7" maxlength="25" title="Invalid email" />
                                                 </div>
                                             </div>
@@ -269,8 +269,8 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                                    <input id="phone" name="phone" placeholder="xxxx-xxx-xxxxx" class="form-control" type="tel"
-                                                        minlength="7" maxlength="13" title="Invalid phone number" />
+                                                    <input id="phone" runat="server" name="phone" placeholder="xxxx-xxx-xxxxx" class="form-control" type="tel"
+                                                        title="Invalid phone number" pattern="[0-9]{4}-[0-9]{3}-[0-9]{5}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +282,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                    <input id="address" name="address" placeholder="Address" class="form-control" type="text"
+                                                    <input id="address" runat="server" name="address" placeholder="Address" class="form-control" type="text"
                                                         minlength="7" maxlength="25" />
                                                 </div>
                                             </div>
@@ -297,7 +297,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                    <input id="date" name="date" value="01/01/2018" class="form-control" type="date" />
+                                                    <input id="date" runat="server" name="date" value="01/01/2018" class="form-control" type="date" />
                                                 </div>
                                             </div>
                                         </div>
@@ -309,7 +309,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                                                    <select id="country" name="country" class="form-control" data-placeholder="Choose Country...">
+                                                    <select id="country" runat="server" name="country" class="form-control" data-placeholder="Choose Country...">
                                                         <option disabled="disabled">Select a country..</option>
                                                         <option value="United States">United States</option>
                                                         <option value="United Kingdom">United Kingdom</option>
@@ -564,8 +564,8 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                    <input id="zip" name="zip" placeholder="Zip Code" class="form-control" type="text" data-bv-integer-message="true"
-                                                        minlength="5" maxlength="7" />
+                                                    <input id="zip" runat="server" name="zip" placeholder="Zip Code" class="form-control" type="text" data-bv-integer-message="true"
+                                                        pattern="[0-9]*" maxlength="10" minlength="3" />
                                                 </div>
                                             </div>
                                         </div>
@@ -578,8 +578,8 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                    <input id="city" name="city" placeholder="city" class="form-control" type="text"
-                                                        minlength="3" maxlength="15" />
+                                                    <input id="city" runat="server" name="city" placeholder="city" class="form-control" type="text"
+                                                        minlength="3" maxlength="15" pattern="[A-Za-z ]*" />
                                                 </div>
                                             </div>
                                         </div>
@@ -591,7 +591,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                    <select id="state" name-="state" class="form-control selectpicker">
+                                                    <select id="state" runat="server" name-="state" class="form-control selectpicker">
                                                         <option disabled="disabled">Select a state..</option>
                                                         <option>Alabama</option>
                                                         <option>Alaska</option>
@@ -656,7 +656,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                    <select id="language" name="language" class="form-control selectpicker" data-placeholder="Choose a Language...">
+                                                    <select id="language" runat="server" name="language" class="form-control selectpicker" data-placeholder="Choose a Language...">
                                                         <option disabled="disabled">Choose a language...</option>
                                                         <option value="AF">Afrikanns</option>
                                                         <option value="SQ">Albanian</option>
@@ -744,7 +744,7 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-                                                    <select id="currency" name="currency" class="form-control selectpicker">
+                                                    <select id="currency" runat="server" name="currency" class="form-control selectpicker">
                                                         <option disabled="disabled">Select currency..</option>
                                                         <option value="USD">United States Dollars</option>
                                                         <option value="EUR">Euro</option>
@@ -837,12 +837,12 @@
                                             <div>
 
                                                 <label style="display: inline;">
-                                                    <input type="radio" name="gender" value="Male" checked="checked" />
+                                                    <input id="male" runat="server" type="radio" class="gender" name="gender" value="Male" checked="true" />
                                                     Male
                                                 </label>
 
                                                 <label style="display: inline; margin-left: 20px">
-                                                    <input type="radio" name="gender" value="Female" />
+                                                    <input id="female" runat="server" type="radio" class="gender" name="gender" value="Female" />
                                                     Female
                                                 </label>
 
@@ -856,8 +856,8 @@
                                             <div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                                                    <input class="form-control" type="text" id="birthcountry" name="birthcountry" placeholder="enter birth country name.."
-                                                        minlength="3" maxlength="25" />
+                                                    <input class="form-control" runat="server" type="text" id="birthcountry" name="birthcountry" placeholder="enter birth country name.."
+                                                        minlength="3" maxlength="25" pattern="[A-Za-z ]*" />
                                                 </div>
                                             </div>
                                         </div>
@@ -871,6 +871,10 @@
                         </fieldset>
                         <div class="alert alert-success" role="alert" id="success_message" style="visibility: hidden; margin-top: 0px; margin-right: 1000px; padding: 5px;">Success &nbsp<i class="glyphicon glyphicon-thumbs-up"></i>&nbsp Information is added successfully</div>
                         <div class="alert alert-danger" role="alert" id="error_message" style="visibility: hidden; margin-top: 0px; margin-right: 1000px; padding: 5px;">Error &nbsp<i class="glyphicon glyphicon-warning-sign"></i>&nbsp Fill all mandatory(*) fields in correct format</div>
+                    </div>
+                </div>
+                </div>
+            </div>
     </form>
     <div class="copy_layout">
         <p>Copyright © 2018 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
@@ -902,6 +906,7 @@
             }
 
         }
+        var websites = [];
         var _websiteName, _username, _userPassword, _securityQuestion, _securityAnswer, _websiteAccountNumber, _pin = null;
         function SubmitWebsiteData() {
             var websitename = $("#websiteName")[0].value;
@@ -928,14 +933,14 @@
                 _securityAnswer = $("#websiteAnswer")[0].value;
 
 
-                $("#websiteContainer").append("<div id=\"" + _username + "\" style=\"border:solid;Background-color:white;height:210px;word-wrap: break-word;\">" +
+                $("#websiteContainer").append("<div id=\"" + _username + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
                                    "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
                                 "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
                                    "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
                                  "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
                                   "<label class=\"labelText\" style=\"display:inline\">Password:</label>" +
                                  "<p type=\"text\" class=\"AddPassword\"    readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                   "<label class=\"labelText\" style=\"\display:inline\">Account Number:</label>" +
+                                   "<label class=\"labelText\" style=\"display:inline\">Account Number:</label>" +
                                  "<p type=\"text\" class=\"AddWebsiteAccountNumber\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
                                    "<label class=\"labelText\" style=\"display:inline\">PIN:</label>" +
                                  "<p type=\"text\" class=\"AddWebsitePIN\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
@@ -953,7 +958,19 @@
                 $("#" + _username + " .AddWebsitequestion").text(_securityQuestion);
                 $("#" + _username + " .AddWebsiteAnswer").text(_securityAnswer);
                 $("#websiteContainer")[0].style.visibility = 'visible';
-                PageMethods.AddWebsite(_websiteName, _username, _userPassword, _websiteAccountNumber, _pin, _securityQuestion, _securityAnswer);
+
+                var website = {
+                    WebsiteName: websitename,
+                    UserName: $("#username")[0].value,
+                    UserPassword: $("#password")[0].value,
+                    WebsiteAccountNumber: $("#websiteAccountNumber")[0].value,
+                    PIN: $("#websitePIN")[0].value,
+                    SecurityQuestion: $("#websitequestion")[0].value,
+                    SecurityAnswer: $("#websiteAnswer")[0].value,
+                };
+
+                websites.push(website);
+                // PageMethods.AddWebsite(_websiteName, _username, _userPassword, _websiteAccountNumber, _pin, _securityQuestion, _securityAnswer);
             }
 
 
@@ -979,38 +996,41 @@
                 $("#success_message")[0].style.visibility = 'hidden';
             }
             else {
-                var identityData = new Object();
-                identityData["Title"] = $("#title").find(":selected").text();
-                identityData["FirstName"] = $("#first_name").val();
-                identityData["LastName"] = $("#last_name").val();
-                identityData["Email"] = $("#email").val();
-                identityData["Phone"] = $("#phone").val();
-                identityData["Address"] = $("#address").val();
-                identityData["DateOfBirth"] = $("#date").val();
-                identityData["CountryOfResidence"] = $("#country").find(":selected").text();
-                identityData["ZipCode"] = $("#zip").val();
-                identityData["City"] = $("#city").val();
-                identityData["State"] = $("#state").find(":selected").text();
-                identityData["Language"] = $("#language").find(":selected").text();
-                identityData["Currency"] = $("#currency").find(":selected").text();
-                identityData["CountryOfBirth"] = $("#birthcountry").val();
-                updateIdentity(identityData);
+                var IdentityData = {
+                    Title: $("#title").find(":selected").text(),
+                    FirstName: $("#first_name").val(),
+                    LastName: $("#last_name").val(),
+                    Email: $("#email").val(),
+                    Phone: $("#phone").val(),
+                    Address: $("#address").val(),
+                    DateOfBirth: $("#date").val(),
+                    CountryOfResidence: $("#country").find(":selected").text(),
+                    ZipCode: $("#zip").val(),
+                    City: $("#city").val(),
+                    State: $("#state").find(":selected").text(),
+                    Language: $("#language").find(":selected").text(),
+                    Currency: $("#currency").find(":selected").text(),
+                    CountryOfBirth: $("#birthcountry").val(),
+                    Gender: $('input[name=gender]:checked').val(),
+                    WebsiteDataModel: websites,
+                };
+                updateIdentity(IdentityData);
                 //var identityData = { title, firstName, last_Name, email, phone, address, date, country, zip, city, state, language, currency, birthCountry };
                 //PageMethods.Send(identityData);
             }
         }
-        function updateIdentity(identityData) {
+        function updateIdentity(IdentityData) {
             $.ajax({
                 type: "POST",
                 url: "AddIdentity.aspx/Send",
-                data: JSON.stringify(identityData),
+                data: JSON.stringify({ IdentityData: IdentityData }),//'{"Title":"' + identityData.Title + '","City":"' + identityData.City+ '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    alert(result.d);
+                    window.location.href="/Pages/Identities.aspx";
                 },
                 error: function (result) {
-                    console.log(result)
+
                 }
             });
         }
@@ -1035,7 +1055,7 @@
             }
         }
         function Cancel() {
-            window.Location("~/Pages/Identities.aspx");
+            window.location.href = "/Pages/Identities.aspx";
         }
         $("#submitButton").off().on("click", Send);
         $("#draftButton").off().on("click", Draft);

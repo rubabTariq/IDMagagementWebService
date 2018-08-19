@@ -24,6 +24,7 @@ namespace IdentityManagementWebService.Pages
                 //    foreach ( var identity in _identities )
                 //        {
                 var tr = new HtmlTableRow();
+                tr.ID = identity.Email;
                 HtmlTableCell name = new HtmlTableCell();
                 name.InnerText = identity.FirstName;
                 name.Attributes.Add("class", "tablecolumn");
@@ -70,10 +71,10 @@ namespace IdentityManagementWebService.Pages
             //}
             }
         [System.Web.Services.WebMethod]
-        public static string deleteidentity (string email)
+        public static bool deleteidentity (string email)
             {
             //find idenenty from azure table through email and delete it. 
-            return "";
+            return true;
             }
         }
     }

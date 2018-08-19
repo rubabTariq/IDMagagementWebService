@@ -24,68 +24,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <!-- Custom styles for this template -->
     <link href="../css/simple-sidebar.css" type="text/css" rel="stylesheet">
-    <style type="text/css">
-        .Background {
-            background-color: Black;
-            filter: alpha(opacity=90);
-            opacity: 0.8;
-        }
-
-        .lbl {
-            font-size: 16px;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        .Popup {
-            background-color: #FFFFFF;
-            border-width: 3px;
-            border-style: solid;
-            border-color: black;
-            padding-top: 10px;
-            padding-left: 10px;
-            width: 500px;
-            height: 350px;
-        }
-    </style>
-    <style>
-        .togglemenu {
-            width: 30px;
-            height: 4px;
-            background-color: white;
-            margin-top: 5px;
-        }
-
-        .mainheading {
-            color: white;
-            float: left;
-            height: 50px;
-            padding: 15px 15px;
-            font-size: 30px;
-            line-height: 50px;
-        }
-
-        .tablecolumn {
-            width: 250px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        .tablerow {
-            border: 1px solid #ddd;
-        }
-
-        .tablecol {
-            font-weight: Bold;
-            width: 23%;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        .active {
-            background-color: lightgray;
-        }
-    </style>
+    <link href="../css/identitiesstyle.css" type="text/css" rel="stylesheet">
+   
 </head>
 <body>
     <form id="UsersIdentities" runat="server">
@@ -95,7 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="navbar-header" style="margin-right: auto">
             <a class="mainheading" href="index.html">Control Interface</a>
         </div>
-        <div id="wrapper">
+        <div id="wrapper" class="toggled">
             <!-- Navigation -->
             <nav class="nav top1 navbar navbar-default navbar-static-top" role="navigation" style="background-color: #1565c0; border-color: #1565c0;">
 
@@ -144,9 +84,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="Signup.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
-                            Task Archives
+                            Access Control
                         </a>
                     </li>
                 </ul>
@@ -156,7 +96,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="graphs">
                 <div class="xs">
 
-                    <h3>
+                    <h3 style="padding-top: 2%;padding-left: 2%;">
                         <img src="../Images/user.jpg" alt="User logo" style="display: inline;">
                         Users\Identities     
                         <a style="color: cornflowerblue; display: inline; font-size: medium" href="/AddIdentity.aspx">Add Identites</a>
@@ -181,7 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="clearfix"></div>
                 </div>
                 <div class="copy_layout">
-                    <p>Copyright © 2016 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
+                    <p>Copyright © 2018 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
                 </div>
             </div>
         </div>
@@ -215,7 +155,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 if (confirm("Are you sure to delete this Identity " + email + " ?"))
                 {
                     txt = "Yes";
-                    PageMethods.deleteidentity(email);
+                    PageMethods.deleteidentity(email, function (result) {
+                        if(result==true)
+                        {
+                            var rownumber = document.getElementById(email).tabIndex;
+                            document.getElementById("identities").deleteRow(rownumber);
+                        }
+
+                    });
                 }
                 else
                 {
