@@ -107,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <table id="identities" class="tableidentities" runat="server" style="border-collapse: collapse; width: auto">
                                 <tbody>
                                     <tr class="tablerow">
-                                        <td class="tablecol">Name (first and last name)</td>
+                                        <td class="tablecol">Name</td>
                                         <td class="tablecol">Email</td>
                                         <td class="tablecol">Country of Residence</td>
                                         <td class="tablecol">Status</td>

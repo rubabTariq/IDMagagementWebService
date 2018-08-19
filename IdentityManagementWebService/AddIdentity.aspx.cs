@@ -67,7 +67,7 @@ namespace IdentityManagementWebService
             {
             string json = JsonConvert.SerializeObject(IdentityData);
             //write string to file
-            System.IO.File.WriteAllText(Environment.CurrentDirectory + @"\IdentitiesData.txt", json);
+            System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\IdentitiesData.txt", json);
             }
         [System.Web.Services.WebMethod]
         public static void AddWebsite (string websiteName, string websiteId, string userPassword, string websiteAccountNumber, string PIN, string SecurityQuestion, string SecurityAnswer)
