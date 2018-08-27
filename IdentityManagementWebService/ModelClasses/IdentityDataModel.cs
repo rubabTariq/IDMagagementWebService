@@ -15,18 +15,6 @@ namespace IdentityManagementWebService.ModelClasses
             get;
             set;
             }
-        //private  IList<WebsiteDataModel> _website = new List<WebsiteDataModel>();
-        //private  IList<IdentityDataModel> _identities = new List<IdentityDataModel>();
-        //private static IdentityDataModel instance;
-        //public static IdentityDataModel GetInstance
-        //    {
-        //    get
-        //        {
-        //        if ( null == instance )
-        //            instance = new IdentityDataModel();
-        //        return instance;
-        //        }
-        //    }
         [JsonProperty]
         public string Address
             {
@@ -119,40 +107,5 @@ namespace IdentityManagementWebService.ModelClasses
             get;
             set;
             }
-
-
-        //public void AddWebsite (WebsiteDataModel website)
-        //    {
-        //    _website.Add(website);
-        //    }
-        //public IList<WebsiteDataModel> GetWebsites ()
-        //    {
-        //    return _website;
-        //    }
-        //public void AddIdentity (IdentityDataModel Identity)
-        //    {
-        //    _identities.Add(Identity);
-        //    }
-        //public IList<IdentityDataModel> GetIdentities ()
-        //    {
-        //    return _identities;
-        //    }
-        //public IdentityDataModel (string title, string firstName, string lastName, string email, string phone, string address, string date, string country, string zip, string city, string state, string language, string currency, string birthCountry)
-        //    {
-        //    Title = title;
-        //    FirstName = firstName;
-        //    LastName = lastName;
-        //    Email = email;
-        //    Phone = phone;
-        //    Address = address;
-        //    DateOfBirth = date;
-        //    CountryOfResidence = country;
-        //    ZipCode = zip;
-        //    City = city;
-        //    State = state;
-        //    Language = language;
-        //    Currency = currency;
-        //    CountryOfBirth = birthCountry;
-        //    }
         }
     }

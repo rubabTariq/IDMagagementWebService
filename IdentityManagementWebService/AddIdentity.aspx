@@ -68,26 +68,26 @@
                 </li>--%>
                     <li>
                         <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Task Schedule
                         </a>
                     </li>
                     <li>
                         <a id="Identities" href="/Pages/Identities.aspx">
-                            <img src="../Images/user.jpg" alt="User logo" style="display: inline; width: 10px"/>
+                            <img src="../Images/user.jpg" alt="User logo" style="display: inline; width: 10px" />
                             Identities
                           <div id="countDiv" runat="server" style="display: inline; font-weight: bold; margin-left: 100px"></div>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Statistics
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Access Control
                         </a>
                     </li>
@@ -108,7 +108,7 @@
                                             <div style="float: right;">
                                                 <input id="buttonAddNewWebsite" class="btn btn-click" type="button" onclick="AddNewWebsite()" value="Add New Website *"
                                                     style="margin-right: 50px; align-items: center; width: 200px" />
-                                                
+
                                             </div>
                                         </td>
                                     </tr>
@@ -153,34 +153,40 @@
                                         Website
                                         <p style="display: inline; color: red">*</p>
                                         :</label>
-                                    <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required="required" />
+                                    <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required="required"
+                                        pattern="[http://|https://]www.[A-Za-z0-9]*.[A-Za-z]*" title="http:// or https:// is required" />
                                 </div>
                                 <div class="input-group">
-                                    <label class="labelText">
+                                    <label class="labelText" for="username">
                                         Username
                                         <p style="display: inline; color: red">*</p>
                                         :</label>
-                                    <input id="username" placeholder="JohnSmith" type="text" class="newwebsite" maxlength="20" required="required" pattern="[A-Za-z]*" />
+                                    <input id="username" name="username" placeholder="JohnSmith" type="text" class="newwebsite"
+                                        required="required" maxlength="20" title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Password:</label>
-                                    <input id="password" placeholder="*****" type="password" class="newwebsite" size="20" />
+                                    <input id="password" placeholder="*****" type="password" class="newwebsite" maxlength="20" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Account Number:</label>
-                                    <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" maxlength="25" />
+                                    <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" maxlength="25"
+                                        title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">PIN:</label>
-                                    <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" minlength="5" />
+                                    <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" minlength="5" maxlength="20"
+                                        title="Only numbers are allowed" pattern="[0-9]*" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Security Question:</label>
-                                    <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" minlength="5" />
+                                    <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" minlength="5" maxlength="20"
+                                        title="Only Alphabets,numbers and Question mark are allowed" pattern="[A-Za-z0-9?]*" />
                                 </div>
                                 <div class="input-group">
                                     <label class="labelText">Security Answer:</label>
-                                    <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" minlength="5" />
+                                    <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" minlength="5" maxlength="20"
+                                        title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
                                 </div>
                                 <div class="input-group">
                                     <input class="btn btn-click" type="button" onclick="SubmitWebsiteData()" value="Done" style="margin-left: 80px; margin-right: 500px" />
@@ -256,7 +262,7 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                                                     <input id="email" runat="server" name="email" placeholder="xyz@email.com" class="form-control" type="email"
-                                                        required="required" minlength="7" maxlength="25" title="Invalid email" />
+                                                        required="required" minlength="7" maxlength="25" title="Invalid email" pattern="[A-Za-z0-9]{3,25}@[A-Za-z]{3,10}.[A-Za-z]*" />
                                                 </div>
                                             </div>
                                         </div>
@@ -873,8 +879,8 @@
                         <div class="alert alert-danger" role="alert" id="error_message" style="visibility: hidden; margin-top: 0px; margin-right: 1000px; padding: 5px;">Error &nbsp<i class="glyphicon glyphicon-warning-sign"></i>&nbsp Fill all mandatory(*) fields in correct format</div>
                     </div>
                 </div>
-                </div>
             </div>
+        </div>
     </form>
     <div class="copy_layout">
         <p>Copyright © 2018 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
@@ -883,7 +889,6 @@
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../script/metisMenu.min.js"></script>
@@ -892,7 +897,27 @@
     <script src="../script/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="../script/bootstrap.min.js"></script>
-    <script>
+    <script type="text/javascript" language="javascript">
+        var getEmail = null;
+        $(window).on("load", function () {
+            var urlParams = new URLSearchParams(location.search);
+            getEmail = urlParams.get('email');
+            var divarray = document.getElementById("websiteContainer").getElementsByTagName("div");
+            if (null != getEmail && (divarray != undefined || divarray != null)) {
+                for (var i = 0; i < divarray.length; i++) {
+                    var savedwebsite = {
+                        WebsiteName: divarray[i].children[1].innerText,
+                        UserName: divarray[i].children[4].innerText,
+                        UserPassword: divarray[i].children[7].innerText,
+                        WebsiteAccountNumber: divarray[i].children[10].innerText,
+                        PIN: divarray[i].children[13].innerText,
+                        SecurityQuestion: divarray[i].children[16].innerText,
+                        SecurityAnswer: divarray[i].children[19].innerText,
+                    };
+                    websites.push(savedwebsite);
+                }
+            }
+        });
 
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
@@ -932,33 +957,6 @@
                 _securityQuestion = $("#websitequestion")[0].value;
                 _securityAnswer = $("#websiteAnswer")[0].value;
 
-
-                $("#websiteContainer").append("<div id=\"" + _username + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
-                                   "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
-                                "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                   "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
-                                 "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                  "<label class=\"labelText\" style=\"display:inline\">Password:</label>" +
-                                 "<p type=\"text\" class=\"AddPassword\"    readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                   "<label class=\"labelText\" style=\"display:inline\">Account Number:</label>" +
-                                 "<p type=\"text\" class=\"AddWebsiteAccountNumber\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                   "<label class=\"labelText\" style=\"display:inline\">PIN:</label>" +
-                                 "<p type=\"text\" class=\"AddWebsitePIN\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                   "<label class=\"labelText\" style=\"display:inline\">Security Question:</label>" +
-                                 "<p type=\"text\" class=\"AddWebsitequestion\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                   "<label class=\"labelText\" style=\"display:inline\">Security Answer:</label>" +
-                                 "<p type=\"text\" class=\"AddWebsiteAnswer\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                 "</div><br />");
-
-                $("#" + _username + " .AddWebsiteName").text(_websiteName);
-                $("#" + _username + " .Addusername").text(_username);
-                $("#" + _username + " .AddPassword").text(_userPassword);
-                $("#" + _username + " .AddWebsiteAccountNumber").text(_websiteAccountNumber);
-                $("#" + _username + " .AddWebsitePIN").text(_pin);
-                $("#" + _username + " .AddWebsitequestion").text(_securityQuestion);
-                $("#" + _username + " .AddWebsiteAnswer").text(_securityAnswer);
-                $("#websiteContainer")[0].style.visibility = 'visible';
-
                 var website = {
                     WebsiteName: websitename,
                     UserName: $("#username")[0].value,
@@ -968,12 +966,44 @@
                     SecurityQuestion: $("#websitequestion")[0].value,
                     SecurityAnswer: $("#websiteAnswer")[0].value,
                 };
+                var isValidWebsiteInfo = CheckWebsiteFormValidation(website, websites)
+                if (isValidWebsiteInfo == true) {
+                    $("#websiteContainer").append("<div id=\"" + _username + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
+                                       "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
+                                    "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                       "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
+                                     "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                      "<label class=\"labelText\" style=\"display:inline\">Password:</label>" +
+                                     "<p type=\"text\" class=\"AddPassword\"    readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                       "<label class=\"labelText\" style=\"display:inline\">Account Number:</label>" +
+                                     "<p type=\"text\" class=\"AddWebsiteAccountNumber\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                       "<label class=\"labelText\" style=\"display:inline\">PIN:</label>" +
+                                     "<p type=\"text\" class=\"AddWebsitePIN\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                       "<label class=\"labelText\" style=\"display:inline\">Security Question:</label>" +
+                                     "<p type=\"text\" class=\"AddWebsitequestion\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                       "<label class=\"labelText\" style=\"display:inline\">Security Answer:</label>" +
+                                     "<p type=\"text\" class=\"AddWebsiteAnswer\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                     "</div><br />");
 
-                websites.push(website);
+                    $("#" + _username + " .AddWebsiteName").text(_websiteName);
+                    $("#" + _username + " .Addusername").text(_username);
+                    $("#" + _username + " .AddPassword").text(_userPassword);
+                    $("#" + _username + " .AddWebsiteAccountNumber").text(_websiteAccountNumber);
+                    $("#" + _username + " .AddWebsitePIN").text(_pin);
+                    $("#" + _username + " .AddWebsitequestion").text(_securityQuestion);
+                    $("#" + _username + " .AddWebsiteAnswer").text(_securityAnswer);
+                    $("#websiteContainer")[0].style.visibility = 'visible';
+
+
+                    websites.push(website);
+                }
                 // PageMethods.AddWebsite(_websiteName, _username, _userPassword, _websiteAccountNumber, _pin, _securityQuestion, _securityAnswer);
             }
 
 
+        }
+        function UpdateWebsiteList(websitearray) {
+            websites.push(websitearray);
         }
         function editIdentity() {
 
@@ -988,9 +1018,8 @@
             var lname = $("#last_name")[0].value;
             var _email = $("#email")[0].value;
             var _webname = $("#" + _username + " .AddWebsiteName").text();
-
-            if (fname == null || fname == '' || fname == undefined || lname == null || lname == '' || lname == undefined
-                || _email == null || _email == '' || _email == undefined || _webname == null || _webname == '' || _webname == undefined)//|| !websiteName.match(re))
+            if (getEmail == null && (fname == null || fname == '' || fname == undefined || lname == null || lname == '' || lname == undefined
+                    || _email == null || _email == '' || _email == undefined || _webname == null || _webname == '' || _webname == undefined))//|| !websiteName.match(re))
             {
                 $("#error_message")[0].style.visibility = 'visible';
                 $("#success_message")[0].style.visibility = 'hidden';
@@ -1014,7 +1043,10 @@
                     Gender: $('input[name=gender]:checked').val(),
                     WebsiteDataModel: websites,
                 };
-                updateIdentity(IdentityData);
+                var isValid = CheckIdentityFormValidation(IdentityData);
+                if (isValid == true) {
+                    updateIdentity(IdentityData);
+                }
                 //var identityData = { title, firstName, last_Name, email, phone, address, date, country, zip, city, state, language, currency, birthCountry };
                 //PageMethods.Send(identityData);
             }
@@ -1027,10 +1059,18 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    window.location.href="/Pages/Identities.aspx";
+                    if (result.d.Statusvalue == false) {
+                        $("#error_message")[0].style.visibility = 'visible';
+                        $("#success_message")[0].style.visibility = 'hidden';
+                        $("#error_message").text("Error: " + result.d.ResponseMessage);
+                    }
+                    else if (result.d.Statusvalue == true)
+                        window.location.href = "/Pages/Identities.aspx";
                 },
                 error: function (result) {
-
+                    $("#error_message")[0].style.visibility = 'visible';
+                    $("#success_message")[0].style.visibility = 'hidden';
+                    $("#error_message").text('Server error occured due to unknown cause, please try again');
                 }
             });
         }
@@ -1056,6 +1096,92 @@
         }
         function Cancel() {
             window.location.href = "/Pages/Identities.aspx";
+        }
+        function CheckIdentityFormValidation(IdentityData) {
+            var check = false;
+            var message = "";
+            var emailPattern = new RegExp(document.getElementById("email").pattern);
+            var textfieldPattern = new RegExp("[A-Za-z]*");
+            var phonepattern = new RegExp(document.getElementById("phone").pattern);
+            var zipcodePattern = new RegExp("[0-9]*");
+            if (!emailPattern.test(IdentityData.Email)) {
+                message = "Invalid Email"
+                check = true;
+            }
+            if (!phonepattern.test(IdentityData.Phone)) {
+                message = "Invalid Phone Number"
+                check = true;
+            }
+            if (!textfieldPattern.test(IdentityData.FirstName)) {
+                message = "Invalid First Name"
+                check = true;
+            }
+            if (!textfieldPattern.test(IdentityData.LastName)) {
+                message = "Invalid Last Name"
+                check = true;
+            }
+            if (!textfieldPattern.test(IdentityData.CountryOfBirth)) {
+                message = "Invalid Country Of Birth Name"
+                check = true;
+            }
+            if (!zipcodePattern.test(IdentityData.ZipCode)) {
+                message = "Invalid ZipCode"
+                check = true;
+            }
+            if (check == true) {
+                $("#error_message")[0].style.visibility = 'visible';
+                $("#success_message")[0].style.visibility = 'hidden';
+                $("#error_message").text("Error: " + message);
+                return false;
+            }
+            return true;
+        }
+        function CheckWebsiteFormValidation(website, websites) {
+            var check = false;
+            var message = "";
+            var websitePattern = new RegExp(document.getElementById("websiteName").pattern);
+            var textfieldPattern = new RegExp("[A-Za-z0-9]*");
+            var userpattern = new RegExp("[A-Za-z0-9]*");
+            var pinPattern = new RegExp("[0-9]*");
+            var questionPattern = new RegExp("[A-Za-z?]*");
+            if (!websitePattern.test(website.WebsiteName)) {
+                message = "Invalid Website Name"
+                check = true;
+            }
+            if (!userpattern.test(website.UserName)) {
+                message = "Invalid User Name"
+                check = true;
+            }
+            if (!textfieldPattern.test(website.WebsiteAccountNumber)) {
+                message = "Invalid Account Number"
+                check = true;
+            }
+            if (!pinPattern.test(website.PIN)) {
+                message = "Invalid PIN"
+                check = true;
+            }
+            if (!questionPattern.test(website.SecurityQuestion)) {
+                message = "Invalid Security Question"
+                check = true;
+            }
+            if (!questionPattern.test(website.SecurityAnswer)) {
+                message = "Invalid Security Answer"
+                check = true;
+            }
+            for (var i = 0; i < websites.length; i++) {
+                if (websites[i].WebsiteName == website.WebsiteName) {
+                    message = "\"" + websites[i].WebsiteName + "\" is already exist in the list"
+                    check = true;
+                    break;
+                }
+            }
+            if (check == true) {
+                $("#error_message")[0].style.visibility = 'visible';
+                $("#success_message")[0].style.visibility = 'hidden';
+                $("#error_message").text("Error: " + message);
+                return false;
+            }
+            return true;
         }
         $("#submitButton").off().on("click", Send);
         $("#draftButton").off().on("click", Draft);
