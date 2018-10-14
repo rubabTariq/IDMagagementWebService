@@ -64,16 +64,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
                     <li>
-                        <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
+                        <a id="TaskSchedule" href="TaskSchedule.aspx">
+                            <span class="glyphicon glyphicon-tasks" style="display:inline"></span>
                             Task Schedule
                         </a>
                     </li>
                     <li>
                         <a id="Identities" href="Identities.aspx">
-                            <img src="../Images/user.jpg" alt="User logo" style="display: inline; width: 10px">
+                            <span class="glyphicon glyphicon-user" style="display: inline;"></span>
                             Identities
-                          <div id="Div1" runat="server" style="display: inline; font-weight: bold; margin-left: 100px"></div>
+                           <div id="countDiv" runat="server" style="display: inline; font-weight: bold; margin-left: 100px"></div>
                         </a>
                     </li>
                     <li>
@@ -84,7 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </li>
                     <li>
                         <a id="accesscontrol" href="Signup.aspx" class="active">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
+                            <span class="glyphicon glyphicon-lock" style="display: inline;"></span>
                             Access Control
                         </a>
                     </li>
@@ -95,7 +95,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="graphs">
                 <div class="xs">
                     <h3 style="padding-top: 2%; padding-left: 2%;">
-                        <img src="../Images/user.jpg" alt="User logo" style="display: inline;">
+                        <span class="glyphicon glyphicon-lock" style="display: inline;"></span>
                         Access Control    
                     </h3>
 
@@ -113,6 +113,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <br />
                                     <input id="emailsignup" name="emailsignup" runat="server" type="email" style="font-weight: bold;" required="required" />
                                     <label id="Email_err" runat="server"></label>
+                                    <br />
+                                    <label id="newemail_signup" for="newemailsignup" style="font-weight: bold;">New Email Adress</label>
+                                    <br />
+                                    <input id="newemailsignup" name="newemailsignup" runat="server" type="email" style="font-weight: bold;" required="required" />
+                                    <label id="newEmail_err" runat="server"></label>
                                     <br />
                                     <label id="name_signup" for="u_name_signup" style="font-weight: bold;">Choose a User Name</label>
                                     <br />
@@ -189,12 +194,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
             $("#createaccount_signup").on('click', function () {
                 var email = $("#emailsignup").val();
+                var newemail = $("#newemailsignup").val();
                 var username = $("#u_name_signup").val();
                 var password = $("#u_password_signup").val();
                 var newPass= $("#newpassword").val();
                 if (email != '' && username != '' && password != newPass && password != '' && newPass != '' && password.length>4 && newPass.length>4)
                 {
-                    PageMethods.EditAccount(email, username, newPass, function (result) {
+                    PageMethods.EditAccount(email,newemail, username, newPass, password, function (result) {
                         if (result == true) {
                             alert("Account Updated Successfully");
                             $("#checkAccount").text("");

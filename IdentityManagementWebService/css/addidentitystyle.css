@@ -4,28 +4,32 @@
             opacity: 0.8;
         }
 
-        .lbl {
-            font-size: 16px;
-            font-style: italic;
-            font-weight: bold;
-        }
+.lbl {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+}
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+.Popup {
+    background-color: #FFFFFF;
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 500px;
+    height: 350px;
+}
 
-        .Popup {
-            background-color: #FFFFFF;
-            border-width: 3px;
-            border-style: solid;
-            border-color: black;
-            padding-top: 10px;
-            padding-left: 10px;
-            width: 500px;
-            height: 350px;
-        }
-        .togglemenu {
-            width: 30px;
-            height: 4px;
-            background-color: white;
-            margin-top: 5px;
-        }
+.togglemenu {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+    margin-top: 5px;
+}
 
         .mainheading {
             color: white;
@@ -40,29 +44,34 @@
             background-color: lightgray;
         }
 
-        .input-group .form-control {
-            position: relative;
-            z-index: 2;
-            margin-bottom: 0;
-            border: 1px solid black;
-            width: 200px;
-        }
+.input-group .form-control {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0;
+    border: 1px solid black;
+    width: 120px;
+}
 
-        td, th {
-            width: 300px;
-            border-spacing: 1px;
-            border-left: 1px solid lightgray;
-            border-right: 1px solid lightgray;
-            padding: 1px 20px 1px 20px;
-        }
-
-        table td:first-child {
+td, th {
+    width: 40px;
+    border-spacing: 1px;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    padding: 1px 20px 1px 20px;
+}
+@media only screen and (max-width: 600px) {
+   table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+}
+	
+/*table td:first-child {
             border-left: none;
-        }
+        }*/
 
-        table td:last-child {
+/*table td:last-child {
             border-right: none;
-        }
+        }*/
 
         .labelText {
             font-weight: bold;
@@ -95,6 +104,29 @@
             height: auto !important;
         }
 
-        body {
-            font-size: 17px !important;
-        }
+body {
+    font-size: 17px !important;
+}
+.box-header.with-border {
+    border-bottom: 1px solid #f4f4f4;
+}
+.box.box-solid {
+    border-top: 0;
+}
+
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.box-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 10px;
+}

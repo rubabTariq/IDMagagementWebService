@@ -8,11 +8,22 @@ namespace IdentityManagementWebService.ModelClasses
     {
     public class Response
         {
-        public Response (bool statusvalue, string responseMessage, List<IdentityDataModel> identity =null)
+        public Response (bool statusvalue, string responseMessage)
+            {
+            Statusvalue = statusvalue;
+            ResponseMessage = responseMessage;
+            }
+        public Response (bool statusvalue, string responseMessage, List<IdentityDataModel> identity)
             {
             Statusvalue = statusvalue;
             ResponseMessage = responseMessage;
             IdentityDataModel = identity;
+            }
+        public Response (bool statusvalue, string responseMessage, List<IdentityTaskData> identity)
+            {
+            Statusvalue = statusvalue;
+            ResponseMessage = responseMessage;
+            IdentityTaskData = identity;
             }
         private List<IdentityDataModel> identityDataModel;
 
@@ -25,6 +36,19 @@ namespace IdentityManagementWebService.ModelClasses
             set
                 {
                 identityDataModel = value;
+                }
+            }
+        private List<IdentityTaskData> identityTaskData;
+
+        public List<IdentityTaskData> IdentityTaskData
+            {
+            get
+                {
+                return identityTaskData;
+                }
+            set
+                {
+                identityTaskData = value;
                 }
             }
 

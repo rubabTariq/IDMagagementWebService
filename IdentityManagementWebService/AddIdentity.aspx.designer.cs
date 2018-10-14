@@ -40,13 +40,22 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl countDiv;
         
         /// <summary>
-        /// websiteContainer control.
+        /// uname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl websiteContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText uname;
+        
+        /// <summary>
+        /// email control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl email;
         
         /// <summary>
         /// title control.
@@ -67,6 +76,15 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.HtmlControls.HtmlInputText first_name;
         
         /// <summary>
+        /// middlename control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText middlename;
+        
+        /// <summary>
         /// last_name control.
         /// </summary>
         /// <remarks>
@@ -76,13 +94,13 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.HtmlControls.HtmlInputText last_name;
         
         /// <summary>
-        /// email control.
+        /// dateob control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl email;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText dateob;
         
         /// <summary>
         /// phone control.
@@ -103,31 +121,13 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.HtmlControls.HtmlInputText address;
         
         /// <summary>
-        /// date control.
+        /// Text1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl date;
-        
-        /// <summary>
-        /// country control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect country;
-        
-        /// <summary>
-        /// zip control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText zip;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Text1;
         
         /// <summary>
         /// city control.
@@ -139,31 +139,31 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.HtmlControls.HtmlInputText city;
         
         /// <summary>
+        /// zip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText zip;
+        
+        /// <summary>
+        /// country control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect country;
+        
+        /// <summary>
         /// state control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect state;
-        
-        /// <summary>
-        /// language control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect language;
-        
-        /// <summary>
-        /// currency control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect currency;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText state;
         
         /// <summary>
         /// male control.
@@ -184,6 +184,33 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton female;
         
         /// <summary>
+        /// selectaffiliate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect selectaffiliate;
+        
+        /// <summary>
+        /// language control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect language;
+        
+        /// <summary>
+        /// currency control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect currency;
+        
+        /// <summary>
         /// birthcountry control.
         /// </summary>
         /// <remarks>
@@ -191,5 +218,14 @@ namespace IdentityManagementWebService {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText birthcountry;
+        
+        /// <summary>
+        /// websiteContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl websiteContainer;
     }
 }

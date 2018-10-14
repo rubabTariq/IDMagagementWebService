@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using Amazon;
@@ -7,26 +9,28 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
+using IdentityManagementWebService.Connection;
 using Newtonsoft.Json;
 
 namespace IdentityManagementWebService.ModelClasses
     {
-   
-    public class AmazonDynamoDBTable
+
+    public class AmazonDynamoDBIdentityTable
         {
-        private AmazonDynamoDBClient client;
-        private static AmazonDynamoDBTable instance;
-        public static AmazonDynamoDBTable Instance
+
+        private static AmazonDynamoDBIdentityTable instance;
+        public static AmazonDynamoDBIdentityTable Instance
             {
             get
                 {
-                if(null==instance)
+                if ( null == instance )
                     {
-                    instance = new AmazonDynamoDBTable();
+                    instance = new AmazonDynamoDBIdentityTable();
                     }
                 return instance;
                 }
             }
+        private string _tableName = "Identities";
         private Table table;
 
         public Table Table
@@ -35,7 +39,7 @@ namespace IdentityManagementWebService.ModelClasses
                 {
                 if ( null == table )
                     {
-                    table = GetTableObject("Identities");
+                    table = GetTableObject(_tableName);
                     }
                 return table;
                 }
@@ -70,7 +74,7 @@ namespace IdentityManagementWebService.ModelClasses
                 TableName = tablename
                 };
 
-            var response = client.CreateTable(request);
+            var response = AmazonDynamoDBClientConnection.Client.CreateTable(request);
 
             var tableDescription = response.TableDescription;
             Console.WriteLine("{1}: {0} \t ReadsPerSec: {2} \t WritesPerSec: {3}",
@@ -93,7 +97,7 @@ namespace IdentityManagementWebService.ModelClasses
                 System.Threading.Thread.Sleep(5000); // Wait 5 seconds.
                 try
                     {
-                    var res = client.DescribeTable(new DescribeTableRequest
+                    var res = AmazonDynamoDBClientConnection.Client.DescribeTable(new DescribeTableRequest
                         {
                         TableName = tableName
                         });
@@ -112,38 +116,17 @@ namespace IdentityManagementWebService.ModelClasses
             }
         public Table GetTableObject (string tableName)
             {
-            // First, set up a DynamoDB client for DynamoDB Local
-            AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();
-            // This client will access the US East 1 region.
-
-            clientConfig.AuthenticationRegion = "us-east-1";// RegionEndpoint.USEast1.ToString().Trim();
-            clientConfig.ServiceURL = "http://localhost:4059/";
-            BasicAWSCredentials b = new BasicAWSCredentials("AKIAJEIYFJM7PDDLCHBA", "OsrTNk8w9QxEj46nEoFUENDBCCqyI+wTzPMHM7oL");
-            var t = b.GetCredentials();
-            clientConfig.RegionEndpoint = RegionEndpoint.USEast1;
-          
-            try
-                {
-                client = new AmazonDynamoDBClient(b,clientConfig);
-             
-                }
-            catch ( Exception ex )
-                {
-                Console.WriteLine("\n Error: failed to create a DynamoDB client; " + ex.Message);
-                return (null);
-                }
-
             // Now, create a Table object for the specified table
             Table table=null;
             try
                 {
                 if ( null == table )
                     {
-                  //  CreateTable(tableName);
-                    table = Table.LoadTable(client, tableName);
+                    //  CreateTable(tableName);
+                    table = Table.LoadTable(AmazonDynamoDBClientConnection.Client, tableName);
                     }
-                    }
-           // "The remote name could not be resolved: 'dynamodb.us-east-1.amazonaws.com'";
+                }
+            // "The remote name could not be resolved: 'dynamodb.us-east-1.amazonaws.com'";
             catch ( Exception ex )
                 {
                 Console.WriteLine("\n Error: failed to load the table; " + ex.Message);
@@ -260,12 +243,172 @@ namespace IdentityManagementWebService.ModelClasses
                     website.WebsiteAccountNumber = string.IsNullOrEmpty(website.WebsiteAccountNumber) ? " " : website.WebsiteAccountNumber;
                     website.SecurityQuestion = string.IsNullOrEmpty(website.SecurityQuestion) ? " " : website.SecurityQuestion;
                     website.SecurityAnswer = string.IsNullOrEmpty(website.SecurityAnswer) ? " " : website.SecurityAnswer;
+                    website.Notes = string.IsNullOrEmpty(website.Notes) ? " " : website.Notes;
                     list.Add(website);
                     }
               
                 }
             identityData.WebsiteDataModel = list;
             return identityData;
+            }
+        internal IdentityDataModel ConvertToLowerCase (IdentityDataModel identityData)
+            {
+            List<WebsiteDataModel> list = new List<WebsiteDataModel>();
+            //identityData.Address = identityData.Address.ToLower();
+            //identityData.City = identityData.City.ToLower();
+            //identityData.CountryOfBirth = identityData.CountryOfBirth.ToLower();
+            identityData.CountryOfResidence = identityData.CountryOfResidence.ToLower();
+            //identityData.Currency = identityData.Currency.ToLower();
+            //identityData.DateOfBirth = identityData.DateOfBirth.ToLower();
+            identityData.Email = identityData.Email.ToLower();
+            identityData.FirstName = identityData.FirstName.ToLower();
+            //identityData.Gender = identityData.Gender.ToLower();
+            //identityData.Language = identityData.Language.ToLower();
+            identityData.LastName = identityData.LastName.ToLower();
+            //identityData.Phone = identityData.Phone.ToLower();
+            //identityData.State = identityData.State.ToLower();
+            //identityData.Title = identityData.Title.ToLower();
+            //identityData.ZipCode = identityData.ZipCode.ToLower();
+            if ( identityData.WebsiteDataModel.Count > 0 )
+                {
+
+                foreach ( var website in identityData.WebsiteDataModel )
+                    {
+                    //if(!String.IsNullOrEmpty(website.WebsiteName))
+                    //website.WebsiteName = website.WebsiteName.ToLower();
+                    //if ( !String.IsNullOrEmpty(website.UserName) )
+                    //    website.UserName = website.UserName.ToLower();
+                    if ( !String.IsNullOrEmpty(website.UserPassword) )
+                        website.UserPassword = website.UserPassword.ToLower();
+                    if ( !String.IsNullOrEmpty(website.PIN) )
+                        website.PIN = website.PIN.ToLower();
+                    if ( !String.IsNullOrEmpty(website.WebsiteAccountNumber) )
+                        website.WebsiteAccountNumber = website.WebsiteAccountNumber.ToLower();
+                    if ( !String.IsNullOrEmpty(website.SecurityQuestion) )
+                        website.SecurityQuestion = website.SecurityQuestion.ToLower();
+                    if ( !String.IsNullOrEmpty(website.SecurityAnswer) )
+                        website.SecurityAnswer = website.SecurityAnswer.ToLower();
+                    if ( !String.IsNullOrEmpty(website.Notes) )
+                        website.Notes = website.Notes.ToLower();
+                    list.Add(website);
+                    }
+
+                }
+           // identityData.WebsiteDataModel = list;
+            return identityData;
+            }
+        internal IdentityDataModel ConvertToTitleCase (IdentityDataModel identityData)
+            {
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            List<WebsiteDataModel> list = new List<WebsiteDataModel>();
+            //identityData.Address = textInfo.ToTitleCase(identityData.Address);
+            //identityData.City = textInfo.ToTitleCase(identityData.City);
+            //identityData.CountryOfBirth = textInfo.ToTitleCase(identityData.CountryOfBirth);
+            identityData.CountryOfResidence = textInfo.ToTitleCase(identityData.CountryOfResidence);
+            //identityData.Currency = textInfo.ToTitleCase(identityData.Currency);
+            //identityData.DateOfBirth = textInfo.ToTitleCase(identityData.DateOfBirth);
+            //identityData.Email = textInfo.ToTitleCase(identityData.Email);
+            identityData.FirstName = textInfo.ToTitleCase(identityData.FirstName);
+            //identityData.Gender = textInfo.ToTitleCase(identityData.Gender);
+            //identityData.Language = textInfo.ToTitleCase(identityData.Language);
+            identityData.LastName = textInfo.ToTitleCase(identityData.LastName);
+            //identityData.Phone = textInfo.ToTitleCase(identityData.Phone);
+            //identityData.State = textInfo.ToTitleCase(identityData.State);
+            //identityData.Title = textInfo.ToTitleCase(identityData.Title);
+            //identityData.ZipCode = textInfo.ToTitleCase(identityData.ZipCode);
+            if ( identityData.WebsiteDataModel.Count > 0 )
+                {
+
+                foreach ( var website in identityData.WebsiteDataModel )
+                    {
+                    //website.WebsiteName = textInfo.ToTitleCase(website.WebsiteName);
+                    //if ( !String.IsNullOrEmpty(website.UserName) )
+                    //    website.UserName = textInfo.ToTitleCase(website.UserName);
+                    if ( !String.IsNullOrEmpty(website.UserPassword) )
+                        website.UserPassword = textInfo.ToTitleCase(website.UserPassword);
+                    if ( !String.IsNullOrEmpty(website.PIN) )
+                        website.PIN = textInfo.ToTitleCase(website.PIN);
+                    if ( !String.IsNullOrEmpty(website.WebsiteAccountNumber) )
+                        website.WebsiteAccountNumber = textInfo.ToTitleCase(website.WebsiteAccountNumber);
+                    if ( !String.IsNullOrEmpty(website.SecurityQuestion) )
+                        website.SecurityQuestion = textInfo.ToTitleCase(website.SecurityQuestion);
+                    if ( !String.IsNullOrEmpty(website.SecurityAnswer) )
+                        website.SecurityAnswer = textInfo.ToTitleCase(website.SecurityAnswer);
+                    if ( !String.IsNullOrEmpty(website.Notes) )
+                        website.Notes = textInfo.ToTitleCase(website.Notes);
+                    list.Add(website);
+                    }
+
+                }
+           // identityData.WebsiteDataModel = list;
+            return identityData;
+            }
+        internal Response DynamoDbSearchIdentities (IdentitiesFilterCriteria filterCriteria)
+            {
+            if ( (null == filterCriteria.FirstName || "" == filterCriteria.FirstName) && (null == filterCriteria.LastName || "" == filterCriteria.LastName)
+                && (null == filterCriteria.Email || "" == filterCriteria.Email) && (null == filterCriteria.CountryofResidence || "" == filterCriteria.CountryofResidence)
+                && (null == filterCriteria.Date || "" == filterCriteria.Date) )
+                {
+                return new Response(false, "First enter Search String");
+                }
+            Dictionary<string, Condition> filter = new Dictionary<string, Condition>();
+            if ( null != filterCriteria.FirstName && ""!= filterCriteria.FirstName )
+                {
+                filter.Add("Name", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.FirstName.ToLower()}
+                               }
+                    });
+                }
+            if ( null != filterCriteria.Email && "" != filterCriteria.Email )
+                {
+
+                filter.Add("Email", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.Email.ToLower() }
+                               }
+                    });
+                }
+            if ( null != filterCriteria.CountryofResidence && "" != filterCriteria.CountryofResidence )
+                {
+
+                filter.Add("CountryOfResidence", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.CountryofResidence.ToLower() }
+                               }
+                    });
+                }
+            if ( null != filterCriteria.Date && "" != filterCriteria.Date )
+                {
+
+                filter.Add("CurrentDate", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.Date.ToLower() }
+                               }
+                    });
+                }
+            ScanRequest request = new ScanRequest
+                {
+                TableName = _tableName,
+                AttributesToGet = new List<string> { "CurrentDate", "FirstName", "LastName", "Email", "CountryOfResidence", "WebsiteDataModel" },
+                ScanFilter = filter
+
+                };
+            ScanResponse response = AmazonDynamoDBClientConnection.Client.Scan(request);
+            List<IdentityDataModel> identityList = CovertresponseIntoJSON(response);
+            return new Response(true, "Search data found", identityList);
             }
 
         public Response GetAllDataInDynamoDb ()
@@ -281,55 +424,12 @@ namespace IdentityManagementWebService.ModelClasses
                     TableName = "Identities",
                     };
 
-                var response = client.Scan(request);
-                List<Dictionary<string,AttributeValue>> result = response.Items;
-                if ( null == result )
+                ScanResponse response = AmazonDynamoDBClientConnection.Client.Scan(request);
+                List<IdentityDataModel> identityList = CovertresponseIntoJSON(response);
+                if ( null == identityList )
                     {
-                    return new Response(false, "Identity no more exist in database");
+                    new Response(false, "Identity no more exist in database");
                     }
-                List<IdentityDataModel> identityList = new List<IdentityDataModel>();
-                IdentityDataModel identity = new IdentityDataModel();
-                List<WebsiteDataModel> listofWebsiteData = new List<WebsiteDataModel>();
-                foreach ( Dictionary<string, AttributeValue> items in result )
-                    {
-                    Dictionary<string, string> item = new Dictionary<string, string>();
-                    Dictionary<string, List<string>> websiteDataModel = new Dictionary<string, List<string>>();
-                    foreach (var val in items )
-                        {
-                        if ( val.Key == "WebsiteDataModel" )
-                            {
-                            foreach ( var web in val.Value.L )
-                                {
-                                WebsiteDataModel model = new WebsiteDataModel();
-                                foreach ( var w in web.M )
-                                    {
-                                    if( w.Key== "WebsiteAccountNumber" )
-                                    model.WebsiteAccountNumber = w.Value.S;
-                                    if ( w.Key == "WebsiteName" )
-                                        model.WebsiteName = w.Value.S;
-                                    if ( w.Key == "PIN" )
-                                        model.PIN = w.Value.S;
-                                    if ( w.Key == "UserName" )
-                                        model.UserName = w.Value.S;
-                                    if ( w.Key == "UserPassword" )
-                                        model.UserPassword = w.Value.S;
-                                    if ( w.Key == "SecurityQuestion" )
-                                        model.SecurityQuestion = w.Value.S;
-                                    if ( w.Key == "SecurityAnswer" )
-                                        model.SecurityAnswer = w.Value.S;
-                                    }
-                                listofWebsiteData.Add(model);
-                                }
-                           
-                            }
-                        item.Add(val.Key, val.Value.S);
-                        }
-                    string jsonString = JsonConvert.SerializeObject(item, Formatting.Indented);
-                    identity = JsonConvert.DeserializeObject<IdentityDataModel>(jsonString);
-                    identity.WebsiteDataModel = listofWebsiteData;
-                    identityList.Add(identity);
-                    }
-               
                 return new Response(true, "Found Element", identityList);
                 }
             catch ( Exception exception )
@@ -337,6 +437,112 @@ namespace IdentityManagementWebService.ModelClasses
                 Console.WriteLine(exception.Message);
                 return new Response(false, exception.Message);
                 }
+            }
+        private List<IdentityDataModel> CovertresponseIntoJSON (ScanResponse response)
+            {
+            List<Dictionary<string, AttributeValue>> result = response.Items;
+            if ( null == result )
+                {
+                return null;
+                }
+            List<IdentityDataModel> identityList = new List<IdentityDataModel>();
+            IdentityDataModel identity = new IdentityDataModel();
+            List<WebsiteDataModel> listofWebsiteData;
+            foreach ( Dictionary<string, AttributeValue> items in result )
+                {
+                listofWebsiteData = new List<WebsiteDataModel>();
+                Dictionary<string, string> item = new Dictionary<string, string>();
+                Dictionary<string, List<string>> websiteDataModel = new Dictionary<string, List<string>>();
+                foreach ( var val in items )
+                    {
+                    if ( val.Key == "WebsiteDataModel" )
+                        {
+                        foreach ( var web in val.Value.L )
+                            {
+                            WebsiteDataModel model = new WebsiteDataModel();
+                            foreach ( var w in web.M )
+                                {
+                                if ( w.Key == "WebsiteAccountNumber" )
+                                    model.WebsiteAccountNumber = w.Value.S;
+                                if ( w.Key == "WebsiteName" )
+                                    model.WebsiteName = w.Value.S;
+                                if ( w.Key == "PIN" )
+                                    model.PIN = w.Value.S;
+                                if ( w.Key == "UserName" )
+                                    model.UserName = w.Value.S;
+                                if ( w.Key == "UserPassword" )
+                                    model.UserPassword = w.Value.S;
+                                if ( w.Key == "SecurityQuestion" )
+                                    model.SecurityQuestion = w.Value.S;
+                                if ( w.Key == "SecurityAnswer" )
+                                    model.SecurityAnswer = w.Value.S;
+                                if ( w.Key == "Notes" )
+                                    model.Notes = w.Value.S;
+                                }
+                            listofWebsiteData.Add(model);
+                            }
+
+                        }
+                    item.Add(val.Key, val.Value.S);
+                    }
+                string jsonString = JsonConvert.SerializeObject(item, Formatting.Indented);
+                identity = JsonConvert.DeserializeObject<IdentityDataModel>(jsonString);
+                identity.WebsiteDataModel = listofWebsiteData;
+                identityList.Add(identity);
+                }
+            return identityList;
+            }
+        public Response DeleteDataInDynamoDb (string email)
+            {
+            Document identityemail = Table.GetItem(email);
+            if ( null != identityemail )
+                {
+                Document response = Table.DeleteItem(identityemail);
+                return new Response(true, null);
+                }
+            return new Response(false, "Identity no more exist in database");
+            }
+        public Response EditWebsite (string websitename, string email)
+            {
+            Response response = GetAllDataInDynamoDb();
+            foreach ( var identity in response.IdentityDataModel )
+                {
+                if ( identity.Email == email )
+                    {
+                    foreach ( var website in identity.WebsiteDataModel )
+                        {
+                        if ( website.WebsiteName == websitename )
+                            {
+                            List<IdentityDataModel> listofIdentities = new List<IdentityDataModel>();
+                            listofIdentities.Add(identity);
+                            return new Response(true, "element found", listofIdentities);
+                            }
+                        }
+                    }
+                }
+            return new Response(false, "Information not found");
+            }
+        public Response DeleteWebsite (string websitename, string email)
+            {
+            Response response = GetAllDataInDynamoDb();
+            foreach ( var identity in response.IdentityDataModel )
+                {
+                if ( identity.Email == email )
+                    {
+                    foreach ( var website in identity.WebsiteDataModel )
+                        {
+                        if ( website.WebsiteName == websitename )
+                            {
+                            identity.WebsiteDataModel.Remove(website);
+                            string json = JsonConvert.SerializeObject(identity);
+                            Document item = Document.FromJson(json);
+                            Document responsecontent = Table.UpdateItem(item);
+                            return new Response(true, null);
+                            }
+                        }
+                    }
+                }
+            return new Response(false, "Information not found");
             }
         }
     }

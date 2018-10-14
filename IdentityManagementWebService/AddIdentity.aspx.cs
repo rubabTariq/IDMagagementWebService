@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -7,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Amazon.DynamoDBv2.DocumentModel;
 using IdentityManagementWebService.ModelClasses;
+using IdentityManagementWebService.Pages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -21,23 +23,24 @@ namespace IdentityManagementWebService
             getEmail = Request.QueryString["email"];
             if ( null != getEmail )
                 {
-                Response response = AmazonDynamoDBTable.Instance.GetDataInDynamoDb(getEmail);
+                Response response = AmazonDynamoDBIdentityTable.Instance.GetDataInDynamoDb(getEmail.ToLower());
                 identity = response.IdentityDataModel.FirstOrDefault();
+                identity = AmazonDynamoDBIdentityTable.Instance.ConvertToTitleCase(identity);
                 //find identity from azure table and render content in fields.
                 ListItem selectedtitle = title.Items.FindByText(identity.Title);
                 selectedtitle.Selected = true;
                 first_name.Value = identity.FirstName;
                 last_name.Value = identity.LastName;
+                uname.Value = identity.UserName;
                 email.Value = identity.Email;
                 phone.Value = identity.Phone;
                 address.Value = identity.Address;
-                date.Value = identity.DateOfBirth;
+                dateob.Value = identity.DateOfBirth;
                 ListItem Selectedcountry = country.Items.FindByText(identity.CountryOfResidence);
                 Selectedcountry.Selected = true;
                 zip.Value = identity.ZipCode;
                 city.Value = identity.City;
-                ListItem Selectedstate = state.Items.FindByText(identity.State);
-                Selectedstate.Selected = true;
+                state.Value = identity.State;
                 ListItem Selectedlanguage = language.Items.FindByText(identity.Language);
                 Selectedlanguage.Selected = true;
                 ListItem Selectedcurrency = currency.Items.FindByText(identity.Currency);
@@ -71,26 +74,31 @@ namespace IdentityManagementWebService
                                          "<p type=\"text\" class=\"AddWebsitequestion\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.SecurityQuestion + "</p><br />" +
                                            "<label class=\"labelText\" style=\"display:inline\">Security Answer:</label>" +
                                          "<p type=\"text\" class=\"AddWebsiteAnswer\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.SecurityAnswer + "</p><br />" +
-                                         "</div><br />";
+                                           "<label class=\"labelText\" style=\"display:inline\">Notes:</label>" +
+                                         "<p type=\"text\" class=\"AddNotes\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.Notes + "</p><br />" +
+                                        "<div style=\"background-color: lightgray;\"><input class=\"btn btn-click\" type=\"button\" onclick=\"EditWebsite('" + website.UserName + "','" + identity.Email.ToLower() + "')\" value=\"Edit\" style=\"margin-left: 0px;display:inline;\" /><input class=\"btn btn-click\" type=\"button\" onclick=\"DeleteWebsite('" + website.UserName + "','" + identity.Email + "')\" value=\"Delete\" style=\"margin-left: 50px;display:inline;\" /></div><br /></div>";
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "Javascript", "UpdateWebsiteList('" + websitearray + "');", true);
                         }
                     }
                 }
-            countDiv.InnerText = "2";
+            countDiv.InnerText = DashBoard.Count.ToString();
             }
         [System.Web.Services.WebMethod]
         public static Response Send (IdentityDataModel IdentityData)
             {
             Response status;
-            IdentityData=AmazonDynamoDBTable.Instance.SetEmptyValuestoNull(IdentityData);
+            IdentityData=AmazonDynamoDBIdentityTable.Instance.SetEmptyValuestoNull(IdentityData);
+            IdentityData = AmazonDynamoDBIdentityTable.Instance.ConvertToLowerCase(IdentityData);
+            IdentityData.CurrentDate = System.DateTime.Now.Date.ToString("dd.MM.yyy");
+            IdentityData.Name = IdentityData.FirstName + " " + IdentityData.LastName;
             string json = JsonConvert.SerializeObject(IdentityData);
             if ( null == getEmail )
                 {
-                status = AmazonDynamoDBTable.Instance.SaveDataInDynamoDb(json, IdentityData);
+                status = AmazonDynamoDBIdentityTable.Instance.SaveDataInDynamoDb(json, IdentityData);
                 }
             else
                 {
-                status = AmazonDynamoDBTable.Instance.UpdateDataInDynamoDb(json, IdentityData);
+                status = AmazonDynamoDBIdentityTable.Instance.UpdateDataInDynamoDb(json, IdentityData);
                 }
             return status;
             }
@@ -112,6 +120,18 @@ namespace IdentityManagementWebService
         public static void Draft (string title, string firstName, string last_Name, string email, string phone, string address, string date, string country, string zip, string city, string state, string language, string currency, string birthCountry)
             {
             // IdentityDataModel.GetInstance.AddIdentity(new IdentityDataModel(title, firstName, last_Name, email, phone, address, date, country, zip, city, state, language, currency, birthCountry));
+            }
+        [System.Web.Services.WebMethod]
+        public static Response EditWebsite (string websitename,string email)
+            {
+            Response response = AmazonDynamoDBIdentityTable.Instance.EditWebsite(websitename.ToLower(),email.ToLower());
+            return response;
+            }
+        [System.Web.Services.WebMethod]
+        public static Response DeleteWebsite (string websitename, string email)
+            {
+            Response response = AmazonDynamoDBIdentityTable.Instance.DeleteWebsite(websitename.ToLower(),email.ToLower());
+            return response;
             }
         }
     }

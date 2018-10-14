@@ -31,13 +31,13 @@ namespace IdentityManagementWebService.Pages {
         protected global::System.Web.UI.ScriptManager ScriptManager2;
         
         /// <summary>
-        /// Div1 control.
+        /// countDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl countDiv;
         
         /// <summary>
         /// emailsignup control.
@@ -56,6 +56,24 @@ namespace IdentityManagementWebService.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Email_err;
+        
+        /// <summary>
+        /// newemailsignup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl newemailsignup;
+        
+        /// <summary>
+        /// newEmail_err control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl newEmail_err;
         
         /// <summary>
         /// u_name_signup control.

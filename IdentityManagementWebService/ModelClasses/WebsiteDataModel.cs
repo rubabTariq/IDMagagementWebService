@@ -15,7 +15,12 @@ namespace IdentityManagementWebService.ModelClasses
             get;
             set;
             }
-
+        [JsonProperty]
+        public string Notes
+            {
+            get;
+            set;
+            }
         [JsonProperty]
         public string UserName
             {

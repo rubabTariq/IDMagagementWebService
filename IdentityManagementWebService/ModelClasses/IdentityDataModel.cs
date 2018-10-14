@@ -16,6 +16,18 @@ namespace IdentityManagementWebService.ModelClasses
             set;
             }
         [JsonProperty]
+        public List<IdentityTaskData> IdentityTaskData
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string CurrentDate
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
         public string Address
             {
             get;
@@ -52,7 +64,19 @@ namespace IdentityManagementWebService.ModelClasses
             set;
             }
         [JsonProperty]
+        public string UserName
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
         public string Email
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string Name
             {
             get;
             set;
