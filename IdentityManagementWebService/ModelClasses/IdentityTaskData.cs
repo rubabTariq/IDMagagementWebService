@@ -6,81 +6,8 @@ using Newtonsoft.Json;
 
 namespace IdentityManagementWebService.ModelClasses
     {
-
-    public class IdentityDataModel
+    public class IdentityTaskData
         {
-        [JsonProperty]
-        public List<WebsiteDataModel> WebsiteDataModel
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public List<IdentityTaskData> IdentityTaskData
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string CurrentDate
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string Address
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string City
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string Status
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string Affiliate
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string CountryOfBirth
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string CountryOfResidence
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string Currency
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string DateOfBirth
-            {
-            get;
-            set;
-            }
-        [JsonProperty]
-        public string UserName
-            {
-            get;
-            set;
-            }
         [JsonProperty]
         public string Email
             {
@@ -88,63 +15,91 @@ namespace IdentityManagementWebService.ModelClasses
             set;
             }
         [JsonProperty]
-        public string Name
+        public List<string> SelectedIdentities
             {
             get;
             set;
             }
         [JsonProperty]
-        public string FirstName
+        public List<string> SelectedGames
             {
             get;
             set;
             }
         [JsonProperty]
-        public string Language
+        public string TaskName
             {
             get;
             set;
             }
         [JsonProperty]
-        public string LastName
+        public string TaskWebsite
             {
             get;
             set;
             }
         [JsonProperty]
-        public string MiddleName
+        public string SelectTask
             {
             get;
             set;
             }
         [JsonProperty]
-        public string Phone
+        public string Section
             {
             get;
             set;
             }
         [JsonProperty]
-        public string State
+        public string SelectBrowser
             {
             get;
             set;
             }
-
         [JsonProperty]
-        public string Title
-            {
-            get;
-            set;
-            }    
-        [JsonProperty]
-        public string ZipCode
+        public string SelectMode
             {
             get;
             set;
             }
-
         [JsonProperty]
-        public string Gender
+        public string WagerAmount
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string BalanceTarget
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string BalanceLimit
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string StopLoss
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string BetSizeOption
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string BetSize
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string MaxBetSize
             {
             get;
             set;

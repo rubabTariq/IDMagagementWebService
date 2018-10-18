@@ -30,11 +30,18 @@ namespace IdentityManagementWebService
                 ListItem selectedtitle = title.Items.FindByText(identity.Title);
                 selectedtitle.Selected = true;
                 first_name.Value = identity.FirstName;
+                middlename.Value = identity.MiddleName;
                 last_name.Value = identity.LastName;
+                setstatus.InnerText = identity.Status;
+                if ( null != identity.Status && identity.Status.ToLower().Equals("active") )
+                    setstatus.Style.Add("background-color", "#00a65a");
+                if ( null != identity.Status && identity.Status.ToLower().Equals("onhold") )
+                    setstatus.Style.Add("background-color", "#dfdf3afc");                   
                 uname.Value = identity.UserName;
                 email.Value = identity.Email;
                 phone.Value = identity.Phone;
                 address.Value = identity.Address;
+                selectaffiliate.Value = identity.Affiliate;
                 dateob.Value = identity.DateOfBirth;
                 ListItem Selectedcountry = country.Items.FindByText(identity.CountryOfResidence);
                 Selectedcountry.Selected = true;
@@ -49,34 +56,35 @@ namespace IdentityManagementWebService
                 birthcountry.Value = identity.CountryOfBirth;
 
                 List<WebsiteDataModel> websitelist = identity.WebsiteDataModel;
-                if ( websitelist!=null && websitelist.Count > 0 )
+                if ( websitelist != null && websitelist.Count > 0 )
                     {
 
                     foreach ( WebsiteDataModel website in websitelist )
                         {
                         websiteContainer.Attributes.CssStyle.Add("Visibility", "visible");
-                    var websitearray = "{ WebsiteName:"+ website.WebsiteName + ", UserName: "+ website.UserName + ",  UserPassword: "+ website.UserPassword + "," +
-                    "WebsiteAccountNumber: " + website.WebsiteAccountNumber + ", PIN:  " + website.PIN + ", SecurityQuestion: " + website.SecurityQuestion + "," +
-                    "SecurityAnswer: " + website.SecurityAnswer + "}";
+                        var websitearray = "{ WebsiteName:" + website.WebsiteName + ", UserName: " + website.UserName + ",  UserPassword: " + website.UserPassword + "," +
+                        "WebsiteAccountNumber: " + website.WebsiteAccountNumber + ", PIN:  " + website.PIN + ", SecurityQuestion: " + website.SecurityQuestion + "," +
+                        "SecurityAnswer: " + website.SecurityAnswer + "}";
 
-                    websiteContainer.InnerHtml += "<div id=\"" + website.UserName + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
-                                           "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
-                                        "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.WebsiteName + "</p><br />" +
-                                           "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
-                                         "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.UserName + "</p><br />" +
-                                          "<label class=\"labelText\" style=\"display:inline\">Password:</label>" +
-                                         "<p type=\"text\" class=\"AddPassword\"    readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.UserPassword + "</p><br />" +
-                                           "<label class=\"labelText\" style=\"display:inline\">Account Number:</label>" +
-                                         "<p type=\"text\" class=\"AddWebsiteAccountNumber\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.WebsiteAccountNumber + "</p><br />" +
-                                           "<label class=\"labelText\" style=\"display:inline\">PIN:</label>" +
-                                         "<p type=\"text\" class=\"AddWebsitePIN\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.PIN + "</p><br />" +
-                                           "<label class=\"labelText\" style=\"display:inline\">Security Question:</label>" +
-                                         "<p type=\"text\" class=\"AddWebsitequestion\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.SecurityQuestion + "</p><br />" +
-                                           "<label class=\"labelText\" style=\"display:inline\">Security Answer:</label>" +
-                                         "<p type=\"text\" class=\"AddWebsiteAnswer\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.SecurityAnswer + "</p><br />" +
-                                           "<label class=\"labelText\" style=\"display:inline\">Notes:</label>" +
-                                         "<p type=\"text\" class=\"AddNotes\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.Notes + "</p><br />" +
-                                        "<div style=\"background-color: lightgray;\"><input class=\"btn btn-click\" type=\"button\" onclick=\"EditWebsite('" + website.UserName + "','" + identity.Email.ToLower() + "')\" value=\"Edit\" style=\"margin-left: 0px;display:inline;\" /><input class=\"btn btn-click\" type=\"button\" onclick=\"DeleteWebsite('" + website.UserName + "','" + identity.Email + "')\" value=\"Delete\" style=\"margin-left: 50px;display:inline;\" /></div><br /></div>";
+                        websiteContainer.InnerHtml += "<div id=\"" + website.UserName + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
+                                  "<div><button class=\"btn btn-default\" type=\"button\" onclick=\"EditWebsite('" + website.UserName + "','" + identity.Email.ToLower() + "')\" style=\"margin-left: 75%;display:inline;\" ><span class=\"glyphicon glyphicon-edit\"></span></button><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('" + website.UserName + "','" + identity.Email.ToLower() + "')\" style=\"display:inline;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br />" +
+                                "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
+                                            "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.WebsiteName + "</p><br />" +
+                                               "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
+                                             "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.UserName + "</p><br />" +
+                                              "<label class=\"labelText\" style=\"display:inline\">Password:</label>" +
+                                             "<p type=\"text\" class=\"AddPassword\"    readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.UserPassword + "</p><br />" +
+                                               "<label class=\"labelText\" style=\"display:inline\">Account Number:</label>" +
+                                             "<p type=\"text\" class=\"AddWebsiteAccountNumber\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.WebsiteAccountNumber + "</p><br />" +
+                                               "<label class=\"labelText\" style=\"display:inline\">PIN:</label>" +
+                                             "<p type=\"text\" class=\"AddWebsitePIN\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.PIN + "</p><br />" +
+                                               "<label class=\"labelText\" style=\"display:inline\">Security Question:</label>" +
+                                             "<p type=\"text\" class=\"AddWebsitequestion\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.SecurityQuestion + "</p><br />" +
+                                               "<label class=\"labelText\" style=\"display:inline\">Security Answer:</label>" +
+                                             "<p type=\"text\" class=\"AddWebsiteAnswer\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.SecurityAnswer + "</p><br />" +
+                                               "<label class=\"labelText\" style=\"display:inline\">Notes:</label>" +
+                                             "<p type=\"text\" class=\"AddNotes\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.Notes + "</p><br />" +
+                                              "</div>";
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "Javascript", "UpdateWebsiteList('" + websitearray + "');", true);
                         }
                     }
@@ -87,7 +95,7 @@ namespace IdentityManagementWebService
         public static Response Send (IdentityDataModel IdentityData)
             {
             Response status;
-            IdentityData=AmazonDynamoDBIdentityTable.Instance.SetEmptyValuestoNull(IdentityData);
+            IdentityData = AmazonDynamoDBIdentityTable.Instance.SetEmptyValuestoNull(IdentityData);
             IdentityData = AmazonDynamoDBIdentityTable.Instance.ConvertToLowerCase(IdentityData);
             IdentityData.CurrentDate = System.DateTime.Now.Date.ToString("dd.MM.yyy");
             IdentityData.Name = IdentityData.FirstName + " " + IdentityData.LastName;
@@ -117,20 +125,26 @@ namespace IdentityManagementWebService
             }
 
         [System.Web.Services.WebMethod]
-        public static void Draft (string title, string firstName, string last_Name, string email, string phone, string address, string date, string country, string zip, string city, string state, string language, string currency, string birthCountry)
+        public static void Draft (string title, string firstName, string last_Name,string MiddleName, string email, string phone, string address, string date, string country, string zip, string city, string state, string language, string currency, string birthCountry, string affiliate)
             {
             // IdentityDataModel.GetInstance.AddIdentity(new IdentityDataModel(title, firstName, last_Name, email, phone, address, date, country, zip, city, state, language, currency, birthCountry));
             }
         [System.Web.Services.WebMethod]
-        public static Response EditWebsite (string websitename,string email)
+        public static Response EditWebsite (string websitename, string email)
             {
-            Response response = AmazonDynamoDBIdentityTable.Instance.EditWebsite(websitename.ToLower(),email.ToLower());
+            Response response = AmazonDynamoDBIdentityTable.Instance.EditWebsite(websitename.ToLower(), email.ToLower());
             return response;
             }
         [System.Web.Services.WebMethod]
         public static Response DeleteWebsite (string websitename, string email)
             {
-            Response response = AmazonDynamoDBIdentityTable.Instance.DeleteWebsite(websitename.ToLower(),email.ToLower());
+            Response response = AmazonDynamoDBIdentityTable.Instance.DeleteWebsite(websitename.ToLower(), email.ToLower());
+            return response;
+            }
+        [System.Web.Services.WebMethod]
+        public static List<WebsiteDataModel> SearchIdentitiesWebsite (IdentitiesFilterCriteria FilterCriteria)
+            {
+            List<WebsiteDataModel> response = AmazonDynamoDBIdentityTable.Instance.DynamoDbSearchWebsites(FilterCriteria);
             return response;
             }
         }

@@ -40,6 +40,8 @@ namespace IdentityManagementWebService.Pages
         }
         private void CreateHTMLTable (List<IdentityDataModel> Identities)
             {
+            Response response = AmazonDynamoDBTaskTable.Instance.GetAllDataInDynamoDb();
+            List<IdentityTaskData> TaskIdentities = response.IdentityTaskData;
             int tasknumber = 0;
             foreach ( IdentityDataModel Identity in Identities )
                 {
@@ -75,11 +77,37 @@ namespace IdentityManagementWebService.Pages
                 country.Attributes.Add("class", "tablecolumn");
                 tr.Cells.Add(country);
                 HtmlTableCell status = new HtmlTableCell();
-                status.InnerText = "Active";
+                HtmlGenericControl identityStatus = new HtmlGenericControl("span");
+                identityStatus.Attributes.Add("class", "label label-success");
+                if( null!= identity.Status && identity.Status.ToLower().Equals("active"))
+                identityStatus.Attributes.CssStyle.Add("background-color", "#00a65a");
+                if (null!= identity.Status && identity.Status.ToLower().Equals("onhold") )
+                    identityStatus.Attributes.CssStyle.Add("background-color", "#dfdf3afc");
+                identityStatus.InnerText=identity.Status;
+                status.Controls.Add(identityStatus);
                 status.Attributes.Add("class", "tablecolumn");
                 //status.Attributes.CssStyle.Add("background-color", "#06d995");
                 //status.Attributes.CssStyle.Add("color", "#ffffff");
                 tr.Cells.Add(status);
+                int taskCount = 0;
+                if ( null != TaskIdentities )
+                    {
+                    foreach ( IdentityTaskData taskIdentity in TaskIdentities )
+                        {
+                        foreach ( string identityName in taskIdentity.SelectedIdentities )
+                            {
+                            if ( identityName.ToLower().Equals(identity.Email) )
+                                {
+                                taskCount++;
+                                }
+                            
+                            }
+                        }
+                    }
+                HtmlTableCell identityTask = new HtmlTableCell();
+                identityTask.InnerText = taskCount.ToString();
+                identityTask.Attributes.Add("class", "tablecolumn");
+                tr.Cells.Add(identityTask);
 
                 HtmlAnchor _edit = new HtmlAnchor();
                 _edit.HRef = "/AddIdentity.aspx?email=" + email.InnerText;

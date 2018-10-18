@@ -117,7 +117,7 @@ namespace IdentityManagementWebService.ModelClasses
         public Table GetTableObject (string tableName)
             {
             // Now, create a Table object for the specified table
-            Table table=null;
+            Table table = null;
             try
                 {
                 if ( null == table )
@@ -134,24 +134,24 @@ namespace IdentityManagementWebService.ModelClasses
                 }
             return (table);
             }
-        public Response SaveDataInDynamoDb (string jsonText,IdentityDataModel identity)
+        public Response SaveDataInDynamoDb (string jsonText, IdentityDataModel identity)
             {
             try
                 {
 
                 if ( null == Table )
                     {
-                    return new Response(false,"Table not Found");
+                    return new Response(false, "Table not Found");
                     }
-              
-                var identityemail=Table.GetItem(identity.Email);
+
+                var identityemail = Table.GetItem(identity.Email);
                 if ( null == identityemail )
                     {
                     var item = Document.FromJson(jsonText);
                     Document response = Table.PutItem(item);
                     return new Response(true, null);
                     }
-                  return new Response(false, "Identity already Exist");
+                return new Response(false, "Identity already Exist");
                 }
             catch ( Exception exception )
                 {
@@ -204,7 +204,7 @@ namespace IdentityManagementWebService.ModelClasses
                 string json = identityemail.ToJson();
                 IdentityDataModel identity = JsonConvert.DeserializeObject<IdentityDataModel>(json);
                 Identities.Add(identity);
-                return new Response(true,"Found Element", Identities);
+                return new Response(true, "Found Element", Identities);
                 }
             catch ( Exception exception )
                 {
@@ -217,8 +217,8 @@ namespace IdentityManagementWebService.ModelClasses
             {
             List<WebsiteDataModel> list = new List<WebsiteDataModel>();
             identityData.Address = string.IsNullOrEmpty(identityData.Address) ? " " : identityData.Address;
-            identityData.City= string.IsNullOrEmpty(identityData.City) ? " " : identityData.City;
-            identityData.CountryOfBirth= string.IsNullOrEmpty(identityData.CountryOfBirth) ? " " : identityData.CountryOfBirth;
+            identityData.City = string.IsNullOrEmpty(identityData.City) ? " " : identityData.City;
+            identityData.CountryOfBirth = string.IsNullOrEmpty(identityData.CountryOfBirth) ? " " : identityData.CountryOfBirth;
             identityData.CountryOfResidence = string.IsNullOrEmpty(identityData.CountryOfResidence) ? " " : identityData.CountryOfResidence;
             identityData.Currency = string.IsNullOrEmpty(identityData.Currency) ? " " : identityData.Currency;
             identityData.DateOfBirth = string.IsNullOrEmpty(identityData.DateOfBirth) ? " " : identityData.DateOfBirth;
@@ -226,14 +226,14 @@ namespace IdentityManagementWebService.ModelClasses
             identityData.FirstName = string.IsNullOrEmpty(identityData.FirstName) ? " " : identityData.FirstName;
             identityData.Gender = string.IsNullOrEmpty(identityData.Gender) ? " " : identityData.Gender;
             identityData.Language = string.IsNullOrEmpty(identityData.Language) ? " " : identityData.Language;
-            identityData.LastName= string.IsNullOrEmpty(identityData.LastName) ? " " : identityData.LastName;
-            identityData.Phone= string.IsNullOrEmpty(identityData.Phone) ? " " : identityData.Phone;
+            identityData.LastName = string.IsNullOrEmpty(identityData.LastName) ? " " : identityData.LastName;
+            identityData.Phone = string.IsNullOrEmpty(identityData.Phone) ? " " : identityData.Phone;
             identityData.State = string.IsNullOrEmpty(identityData.State) ? " " : identityData.State;
             identityData.Title = string.IsNullOrEmpty(identityData.Title) ? " " : identityData.Title;
             identityData.ZipCode = string.IsNullOrEmpty(identityData.ZipCode) ? " " : identityData.ZipCode;
             if ( identityData.WebsiteDataModel.Count > 0 )
                 {
-               
+
                 foreach ( var website in identityData.WebsiteDataModel )
                     {
                     website.WebsiteName = string.IsNullOrEmpty(website.WebsiteName) ? " " : website.WebsiteName;
@@ -246,7 +246,7 @@ namespace IdentityManagementWebService.ModelClasses
                     website.Notes = string.IsNullOrEmpty(website.Notes) ? " " : website.Notes;
                     list.Add(website);
                     }
-              
+
                 }
             identityData.WebsiteDataModel = list;
             return identityData;
@@ -410,7 +410,57 @@ namespace IdentityManagementWebService.ModelClasses
             List<IdentityDataModel> identityList = CovertresponseIntoJSON(response);
             return new Response(true, "Search data found", identityList);
             }
+        internal List<WebsiteDataModel> DynamoDbSearchWebsites (IdentitiesFilterCriteria filterCriteria)
+            {
+            if ( (null == filterCriteria.Email || "" == filterCriteria.Email) && (null == filterCriteria.WebsiteName || "" == filterCriteria.WebsiteName))
+                {
+                return null;
+                }
+            Dictionary<string, Condition> filter = new Dictionary<string, Condition>();
+            //if ( null != filterCriteria.WebsiteName && "" != filterCriteria.WebsiteName )
+            //    {
+            //    filter.Add("Name", new Condition
+            //        {
+            //        ComparisonOperator = "CONTAINS",
+            //        AttributeValueList = new List<AttributeValue>()
+            //                   {
+            //                   new AttributeValue {S=filterCriteria.FirstName.ToLower()}
+            //                   }
+            //        });
+            //    }
+            if ( null != filterCriteria.Email && "" != filterCriteria.Email )
+                {
 
+                filter.Add("Email", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.Email.ToLower() }
+                               }
+                    });
+                }
+            ScanRequest request = new ScanRequest
+                {
+                TableName = _tableName,
+                AttributesToGet = new List<string> { "Email", "WebsiteDataModel" },
+                ScanFilter = filter
+
+                };
+            ScanResponse response = AmazonDynamoDBClientConnection.Client.Scan(request);
+            List<IdentityDataModel> identityList = CovertresponseIntoJSON(response);
+            if ( 0 < identityList.FirstOrDefault().WebsiteDataModel.Count )
+                {
+                List<WebsiteDataModel> websitelist = new List<WebsiteDataModel>();
+                foreach ( WebsiteDataModel website in identityList.FirstOrDefault().WebsiteDataModel )
+                    {
+                    if ( website.WebsiteName.ToLower().Contains(filterCriteria.WebsiteName.ToLower()) )
+                        websitelist.Add(website);
+                    }
+                return websitelist;
+                }
+            return null;
+            }
         public Response GetAllDataInDynamoDb ()
             {
             try

@@ -12,7 +12,6 @@
             font-style: italic;
             font-weight: bold;
         }
-
         .Popup {
             background-color: #FFFFFF;
             border-width: 3px;
@@ -52,7 +51,7 @@
 
         .tablecol {
             font-weight: Bold;
-            width: 10%;
+            width: 7%;
             border: 1px solid #ddd;
             text-align: center;
         }

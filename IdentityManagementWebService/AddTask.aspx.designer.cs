@@ -10,7 +10,7 @@
 namespace IdentityManagementWebService {
     
     
-    public partial class AddIdentity {
+    public partial class AddTask {
         
         /// <summary>
         /// contact_form control.
@@ -31,6 +31,15 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// taskcount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl taskcount;
+        
+        /// <summary>
         /// countDiv control.
         /// </summary>
         /// <remarks>
@@ -40,201 +49,165 @@ namespace IdentityManagementWebService {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl countDiv;
         
         /// <summary>
-        /// setstatus control.
+        /// task_name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl setstatus;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText task_name;
         
         /// <summary>
-        /// uname control.
+        /// selectwebsite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText uname;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect selectwebsite;
         
         /// <summary>
-        /// email control.
+        /// selecttask control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl email;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect selecttask;
         
         /// <summary>
-        /// title control.
+        /// section control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect title;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText section;
         
         /// <summary>
-        /// first_name control.
+        /// selectbrowser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText first_name;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect selectbrowser;
         
         /// <summary>
-        /// middlename control.
+        /// selectmode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText middlename;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect selectmode;
         
         /// <summary>
-        /// last_name control.
+        /// wageramount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText last_name;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText wageramount;
         
         /// <summary>
-        /// dateob control.
+        /// balancetarget control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText dateob;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText balancetarget;
         
         /// <summary>
-        /// phone control.
+        /// balancelimit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl phone;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText balancelimit;
         
         /// <summary>
-        /// address control.
+        /// stoploss control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText address;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText stoploss;
         
         /// <summary>
-        /// Text1 control.
+        /// betsizeoption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Text1;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect betsizeoption;
         
         /// <summary>
-        /// city control.
+        /// betsize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText city;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText betsize;
         
         /// <summary>
-        /// zip control.
+        /// maxbetsize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText zip;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText maxbetsize;
         
         /// <summary>
-        /// country control.
+        /// taskIdentities control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect country;
+        protected global::System.Web.UI.HtmlControls.HtmlTable taskIdentities;
         
         /// <summary>
-        /// state control.
+        /// selectgames control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText state;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect selectgames;
         
         /// <summary>
-        /// male control.
+        /// gamesContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton male;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl gamesContainer;
         
         /// <summary>
-        /// female control.
+        /// hiddenselectedIdentities control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton female;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hiddenselectedIdentities;
         
         /// <summary>
-        /// selectaffiliate control.
+        /// hiddenselectedGames control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selectaffiliate;
-        
-        /// <summary>
-        /// language control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect language;
-        
-        /// <summary>
-        /// currency control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect currency;
-        
-        /// <summary>
-        /// birthcountry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText birthcountry;
-        
-        /// <summary>
-        /// websiteContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl websiteContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hiddenselectedGames;
     }
 }

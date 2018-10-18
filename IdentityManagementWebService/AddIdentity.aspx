@@ -21,6 +21,7 @@
     <link href="../css/simple-sidebar.css" type="text/css" rel="stylesheet" />
     <!-- Styles for glyphicon -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom css for AddIdentity form -->
     <link href="../css/addidentitystyle.css" type="text/css" rel="stylesheet" />
 </head>
@@ -105,6 +106,7 @@
                                     <legend>
                                         <img src="../Images/user.jpg" alt="User logo" style="display: inline;">
                                         Edit User/Identity
+                                        <span id="setstatus" runat="server" class="label label-success" style="float:right"></span>
                                     </legend>
                                     <tr>
                                         <th></th>
@@ -187,7 +189,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                                         <input id="middlename" runat="server" name="middle_name" placeholder="Middle Name" class="form-control" type="text"
-                                                            required="required" maxlength="20" minlength="3" title="only alphabets allowed" pattern="[A-Za-z]*" />
+                                                            required="required" maxlength="20" minlength="3" title="only alphabets allowed" pattern="[A-Za-z0-9]*" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -719,130 +721,139 @@
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <td colspan="4">
+                                            <button id="submitButton" class="btn btn btn-click" style="margin: 0px 10px; float: right">
+                                                Save
+                                         <span class="glyphicon glyphicon-send"></span>
+                                            </button>
+                                            <button id="cancelButton" class="btn btn-click" style="margin: 0px 10px; float: right; background-color: lightgrey; color: black">Cancel</button>
+                                            <button id="draftButton" class="btn btn btn-click" style="margin: 0px 10px; float: right; width: 130px; background-color: lightgrey; color: black">
+                                                Put On Hold
+                                     <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
-                            <div class="col-sm-7 WebsiteList">
+                            <div class="col-md-6 WebsiteList">
                                 <div>
                                     <a href="javascript:void(0)" id="buttonAddNewWebsite" onclick="AddNewWebsite()" data-toggle="modal" data-target="#website_modal" title="" style="margin-left: 20%; padding: 0px 20% 1%; font-size: 62px; width: 100%; color: #ccc; background: #ecf0f5; border: 3px dotted #ccc;" data-original-title="Add New Website"><span class="glyphicon glyphicon-plus"></span></a>
                                 </div>
-                                <input type="text" name="search" id="websiteSearch" placeholder="Search Websites" class="form-control" style="margin-bottom: 12px; margin-top: 2%; margin-left: 20%; background-color: white !important;" />
-                                <div class="website-box col-md-9 " data-websitename="Slots Heaven">
-                                    <div class="box box-solid">
-                                        <div class="box-header with-border">
-                                            <h3 class="box-title">Slots Heaven</h3>
-
+                                <input type="text" name="search" id="websiteSearch" placeholder="Search Websites" onchange="searchWebsite()"  class="form-control" style="margin-bottom: 12px; margin-top: 2%; margin-left: 20%; background-color: white !important;" />
+                                <i id="refreshicon" class="fa fa-refresh fa-spin" style="font-size:24px;visibility:hidden"></i>
+                                <div class="website-box col-md-9 ">
+                                    <%--  <div class="box box-solid">--%>
+                                    <%--                                        <div class="box-header with-border">
                                             <div class="pull-right">
                                                 <button data-toggle="modal" data-target="#website_modal" data-website="{&quot;id&quot;:&quot;19&quot;,&quot;user_id&quot;:&quot;55&quot;,&quot;website_id&quot;:&quot;5&quot;,&quot;username&quot;:&quot;f&quot;,&quot;email&quot;:null,&quot;password&quot;:&quot;f&quot;,&quot;account_number&quot;:&quot;&quot;,&quot;pin&quot;:&quot;&quot;,&quot;security_que&quot;:&quot;&quot;,&quot;security_ans&quot;:&quot;&quot;,&quot;notes&quot;:&quot;&quot;,&quot;amount&quot;:&quot;0&quot;,&quot;is_manual&quot;:&quot;0&quot;,&quot;created_at&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;updated_at&quot;:&quot;2018-10-14 05:03:31&quot;,&quot;url&quot;:&quot;https:\/\/www.slotsheaven.com\/&quot;,&quot;website_name&quot;:&quot;Slots Heaven&quot;,&quot;website_status&quot;:&quot;1&quot;}" class="btn btn-default" style="padding: 2px 6px;"><i class="fa fa-edit"></i></button>
                                                 <button class="btn btn-default" data-toggle="modal" data-target="#delete_website_modal" data-id="19" data-action="http://wtshub.com/ciadmin/users/userWebsiteDelete/19" data-original-title="Delete" style="padding: 2px 6px;"><i class="fa fa-trash"></i></button>
                                             </div>
 
-                                        </div>
-                                        <div class="box-body">
-                                            <dl class="dl-horizontal">
-                                                <dt>Username</dt>
-                                                <dd>f</dd>
-                                                <dt>Password</dt>
-                                                <dd>f</dd>
-                                            </dl>
-                                        </div>
+                                        </div>--%>
+                                    <div id="websiteContainer" runat="server" class="box-body">
                                     </div>
+                                    <%--</div>--%>
                                 </div>
-
-                                <table style="float: right;">
-                                    <tbody style="background-color: #e5ebee">
-                                        <tr>
-                                            <td>
-                                                <div style="float: right;">
-                                                    <input id="uttonAddNewWebsite" class="btn btn-click" type="button" onclick="AddNewWebsite()" value="Add New Website"
-                                                        style="margin-right: 50px; align-items: center; width: 200px" />
-
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div id="websiteContainer" style="float: right; margin-top: 100px; border: 1px solid black; height: 250px; width: 250px; visibility: hidden; overflow: auto"
-                                                    runat="server">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr style="float: right; margin-top: 200px">
-                                            <div class="form-group">
-                                                <%--<td style="width: 10px">
-
-                                                <button id="draftButton" class="btn btn btn-click">Draft <span class="glyphicon glyphicon-pencil"></span></button>
-                                            </td>--%>
-                                                <td style="width: 10px">
-
-                                                    <button id="submitButton" class="btn btn btn-click">
-                                                        Save
-                                         <span class="glyphicon glyphicon-send"></span>
-                                                    </button>
-
-
-                                                </td>
-                                                <td style="width: 10px">
-
-                                                    <button id="cancelButton" class="btn btn-click">Cancel</button>
-
-                                                </td>
-
-                                            </div>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                         <%--  Dialog for adding website --%>
-                        <div id="addNewWebsite" style="float: right; margin-right: auto; border: 1px solid black; height: 550px; width: 250px; display: inline; visibility: hidden; margin-left: 50px;">
-                            <div class="input-group">
-                                <label class="labelText">
-                                    Website
+
+                        <!-- Modal content -->
+                        <div id="addNewWebsite" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 style="color: white">Website</h3>
+                                    <span class="close">&times;</span>
+
+                                </div>
+                                <div class="modal-body">
+                                    <table style="height: 350px;">
+                                        <tr>
+                                            <th style="display: none"></th>
+                                            <th style="display: none"></th>
+                                        </tr>
+                                        <tbody style="background-color: white;">
+                                            <tr>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">
+                                                            Website
                                         <p style="display: inline; color: red">*</p>
-                                    :</label>
-                                <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required="required"
-                                    pattern="www.[A-Za-z0-9]*.[A-Za-z]*" title="www is required" />
-                                <%--[http://|https://]--%>
-                            </div>
-                            <div class="input-group">
-                                <label class="labelText" for="username">
-                                    Username
+                                                            :</label>
+                                                        <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required="required"
+                                                            pattern="www.[A-Za-z0-9]*.[A-Za-z]*" title="www is required" />
+                                                        <%--[http://|https://]--%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText" for="username">
+                                                            Username
                                         <p style="display: inline; color: red">*</p>
-                                    :</label>
-                                <input id="username" name="username" placeholder="JohnSmith" type="text" class="newwebsite"
-                                    required="required" maxlength="20" title="Only alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
-                            </div>
-                            <div class="input-group">
-                                <label class="labelText">Password:</label>
-                                <input id="password" placeholder="*****" type="password" class="newwebsite" maxlength="20" />
-                            </div>
-                            <div class="input-group">
-                                <label class="labelText">Account Number:</label>
-                                <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" maxlength="25"
-                                    title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
-                            </div>
-                            <div class="input-group">
-                                <label class="labelText">PIN:</label>
-                                <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" minlength="5" maxlength="20"
-                                    title="Only numbers are allowed" pattern="[0-9]*" />
-                            </div>
-                            <div class="input-group">
-                                <label class="labelText">Security Question:</label>
-                                <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" minlength="5" maxlength="40"
-                                    title="Only Alphabets,numbers and Question mark are allowed" pattern="[A-Za-z0-9?]*" />
-                            </div>
-                            <div class="input-group">
-                                <label class="labelText">Security Answer:</label>
-                                <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" minlength="5" maxlength="40"
-                                    title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
-                            </div>
-                            <div class="input-group">
-                                <label class="labelText">Notes:</label>
-                                <input id="notes" placeholder="write note" type="text" class="newnote" minlength="5"
-                                    title="Only Alphabets and numbers are allowed" />
-                            </div>
-                            <div class="input-group">
-                                <input class="btn btn-click" type="button" onclick="SubmitWebsiteData()" value="Done" style="margin-left: 80px; margin-right: 500px" />
+                                                            :</label>
+                                                        <input id="username" name="username" placeholder="JohnSmith" type="text" class="newwebsite"
+                                                            required="required" maxlength="20" title="Only alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Password:</label>
+                                                        <input id="password" placeholder="*****" type="text" class="newwebsite" maxlength="20" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Account Number:</label>
+                                                        <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" maxlength="25"
+                                                            title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">PIN:</label>
+                                                        <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" minlength="5" maxlength="20"
+                                                            title="Only numbers are allowed" pattern="[0-9]*" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Security Question:</label>
+                                                        <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" minlength="5" maxlength="40"
+                                                            title="Only Alphabets,numbers and Question mark are allowed" pattern="[A-Za-z0-9?]*" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Security Answer:</label>
+                                                        <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" minlength="5" maxlength="40"
+                                                            title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Notes:</label>
+                                                        <input id="notes" placeholder="write note" type="text" class="newnote" minlength="5"
+                                                            title="Only Alphabets and numbers are allowed" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="input-group">
+                                        <input class="btn btn-click" type="button" onclick="SubmitWebsiteData()" value="Done" style="margin-left: 50%; margin-right: 50%;" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- Success message -->
@@ -915,12 +926,18 @@
             $("#wrapper").toggleClass("toggled");
         });
         function AddNewWebsite() {
-            var element = $("#addNewWebsite")[0];
-            if (element.style.visibility === 'hidden') {
-                element.style.visibility = 'visible';
-                $("#buttonAddNewWebsite").disabled = true;
+            $("#addNewWebsite")[0].style.display = "block";
+            $("#buttonAddNewWebsite").disabled = true;
+        }
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+            $("#addNewWebsite")[0].style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == $("#addNewWebsite")[0]) {
+                $("#addNewWebsite")[0].style.display = "none";
             }
-
         }
         var websites = [];
         var _websiteName, _username, _userPassword, _securityQuestion, _securityAnswer, _websiteAccountNumber, _pin, _notes = null;
@@ -942,7 +959,7 @@
             }
             else {
                 $("#buttonAddNewWebsite")[0].disabled = false;
-                $("#addNewWebsite")[0].style.visibility = 'hidden';
+                $("#addNewWebsite")[0].style.display = "none";
                 $(".newwebsite")[0].value = null;
                 $("#error_message")[0].style.visibility = 'hidden';
                 $("#success_message")[0].style.visibility = 'visible';
@@ -968,7 +985,7 @@
                 };
                 var isValidWebsiteInfo = CheckWebsiteFormValidation(website, websites)
                 for (var i = 0; i < websites.length; i++) {
-                    for (var i = 0; i < $("#websiteContainer div").length - 1; i++) {
+                    for (var j = 0; j < $("#websiteContainer div").length - 1; j++) {
                         if (websites[i].UserName == website.UserName || websites[i].WebsiteName == website.WebsiteName) {
                             if ($("#" + websites[i].UserName).length) {
                                 $("#" + websites[i].UserName + " .AddWebsiteName")[0].innerText = websitename;
@@ -987,7 +1004,8 @@
                 if (isValidWebsiteInfo == true) {
                     if (Appenddiv == true) {
                         $("#websiteContainer").append("<div id=\"" + _username + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
-                                           "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
+                                        "<div style=\"\"><button class=\"btn btn-default\" type=\"button\" onclick=\"EditWebsite('" + _username + "','" + $("#email")[0].value + "')\" style=\"margin-left: 75%;display:inline;\" ><span class=\"glyphicon glyphicon-edit\"></span></button><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('" + _username + "','" + $("#email")[0].value + "')\" style=\"display:inline;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br />" +
+                                        "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
                                         "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
                                            "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
                                          "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
@@ -1003,7 +1021,7 @@
                                          "<p type=\"text\" class=\"AddWebsiteAnswer\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
                                          "<label class=\"labelText\" style=\"display:inline\">Notes:</label>" +
                                          "<p type=\"text\" class=\"AddNotes\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
-                                         "<div style=\"background-color: lightgray;\"><input class=\"btn btn-click\" type=\"button\" onclick=\"EditWebsite('" + _username + "','" + $("#email")[0].value + "')\" value=\"Edit\" style=\"margin-left: 0px;display:inline;\" /><input class=\"btn btn-click\" type=\"button\" onclick=\"DeleteWebsite('" + _username + "','" + $("#email")[0].value + "')\" value=\"Delete\" style=\"margin-left: 50px;display:inline;\" /></div><br /></div>");
+                                         +"</div>");
 
                         $("#" + _username + " .AddWebsiteName").text(_websiteName);
                         $("#" + _username + " .Addusername").text(_username);
@@ -1034,7 +1052,13 @@
 
             PageMethods.deleteidentity($('#email').innerHTML);
         }
+        function Draft() {
+            Save("OnHold");
+        }
         function Send() {
+            Save("Active");
+        }
+        function Save(status) {
             var fname = $("#first_name")[0].value;
             var lname = $("#last_name")[0].value;
             var _email = $("#email")[0].value;
@@ -1052,6 +1076,7 @@
                     Title: $("#title").find(":selected").text(),
                     FirstName: $("#first_name").val(),
                     LastName: $("#last_name").val(),
+                    MiddleName: $("#middlename").val(),
                     UserName: $("#uname").val(),
                     Email: $("#email").val(),
                     Phone: $("#phone").val(),
@@ -1060,11 +1085,13 @@
                     CountryOfResidence: $("#country").find(":selected").text(),
                     ZipCode: $("#zip").val(),
                     City: $("#city").val(),
+                    Affiliate: $("#selectaffiliate").val(),
                     State: $("#state").val(),
                     Language: $("#language").find(":selected").text(),
                     Currency: $("#currency").find(":selected").text(),
                     CountryOfBirth: $("#birthcountry").val(),
                     Gender: $('input[name=gender]:checked').val(),
+                    Status:status,
                     WebsiteDataModel: websites,
                 };
                 var isValid = CheckIdentityFormValidation(IdentityData);
@@ -1099,26 +1126,6 @@
 
                 }
             });
-        }
-        function Draft() {
-            if (null != $("#first_name") && null != $("#last_name") && null != $("#email") && null != $("#websiteName")) {
-                var title = $("#title").find(":selected").text();
-                var firstName = $("#first_name").val();
-                var last_Name = $("#last_name").val();
-                var email = $("#email").val();
-                var phone = $("#phone").val();
-                var address = $("#address").val();
-                var date = $("#dateob").val();
-                var country = $("#country").find(":selected").text();
-                var zip = $("#zip").val();
-                var city = $("#city").val();
-                var state = $("#state").val();
-                var language = $("#language").find(":selected").text();
-                var currency = $("#currency").find(":selected").text();
-                var birthCountry = $("#birthcountry").val();
-
-                PageMethods.Draft(title, firstName, last_Name, email, phone, address, date, country, zip, city, state, language, currency, birthCountry);
-            }
         }
         function Cancel() {
             window.location.href = "/Pages/Identities.aspx";
@@ -1263,6 +1270,61 @@
 
             //});
         }
+
+        document.getElementById("contact_form").onkeypress = function (e) {
+            var key = e.charCode || e.keyCode || 0;
+            if (key == 13) {
+                $("#websiteSearch").blur();
+                e.preventDefault();
+            }
+        }
+        function searchWebsite() {
+            $("#refreshicon")[0].style.visibility = 'visible';
+            var websitename = $("#websiteSearch").val();
+            var email = $("#email").val();
+            var FilterCriteria = {
+                WebsiteName: websitename,
+                Email: email
+            };
+            if ("" == FilterCriteria.WebsiteName || "" == FilterCriteria.Email) {
+                window.location.reload();
+                return false;
+            }
+            $("#websiteContainer").html("");
+            PageMethods.SearchIdentitiesWebsite(FilterCriteria, function (website) {
+                if (website.length > 0 && website != null) {
+                    for (var i = 0; i < website.length; i++) {
+                        $("#websiteContainer").append("<div id=\"" + website[i].UserName + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
+                                     "<div><button class=\"btn btn-default\" type=\"button\" onclick=\"EditWebsite('" + website[i].UserName + "','" + FilterCriteria.Email + "')\" style=\"margin-left: 75%;display:inline;\" ><span class=\"glyphicon glyphicon-edit\"></span></button><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('" + website[i].UserName + "','" + FilterCriteria.Email + "')\" style=\"display:inline;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br />" +
+                                   "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
+                                               "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].WebsiteName + "</p><br />" +
+                                                  "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
+                                                "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].UserName + "</p><br />" +
+                                                 "<label class=\"labelText\" style=\"display:inline\">Password:</label>" +
+                                                "<p type=\"text\" class=\"AddPassword\"    readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].UserPassword + "</p><br />" +
+                                                  "<label class=\"labelText\" style=\"display:inline\">Account Number:</label>" +
+                                                "<p type=\"text\" class=\"AddWebsiteAccountNumber\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].WebsiteAccountNumber + "</p><br />" +
+                                                  "<label class=\"labelText\" style=\"display:inline\">PIN:</label>" +
+                                                "<p type=\"text\" class=\"AddWebsitePIN\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].PIN + "</p><br />" +
+                                                  "<label class=\"labelText\" style=\"display:inline\">Security Question:</label>" +
+                                                "<p type=\"text\" class=\"AddWebsitequestion\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].SecurityQuestion + "</p><br />" +
+                                                  "<label class=\"labelText\" style=\"display:inline\">Security Answer:</label>" +
+                                                "<p type=\"text\" class=\"AddWebsiteAnswer\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].SecurityAnswer + "</p><br />" +
+                                                  "<label class=\"labelText\" style=\"display:inline\">Notes:</label>" +
+                                                "<p type=\"text\" class=\"AddNotes\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website[i].Notes + "</p><br />" +
+                                                 "</div>");
+                    }
+
+                }
+                else {
+                    $("#error_message").text("Search Result not found");
+                    $("#error_message")[0].style.visibility = 'visible';
+                    $("#success_message")[0].style.visibility = 'hidden';
+                }
+            });
+            $("#refreshicon")[0].style.visibility = 'hidden';
+        }
+ 
         $("#submitButton").off().on("click", Send);
         $("#draftButton").off().on("click", Draft);
         $("#cancelButton").off().on("click", Cancel);

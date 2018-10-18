@@ -113,6 +113,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <th class="tablecol" style="width: 10%;">Website Amount</th>
                                         <th class="tablecol">Country of Residence</th>
                                         <th class="tablecol">Status</th>
+                                        <th class="tablecol">Tasks</th>
                                         <th class="tablecol" style="width: 100%;">Action</th>
                                     </tr>
                                     <tr class="tablerow">
@@ -129,6 +130,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <th class="tablecol"></th>
                                         <th class="tablecol">
                                             <input id="countryofResidence" type="search" placeholder="Search Country" style="width: 145px; font-size: 12px;" onsearch="searchIdentities()" /></th>
+                                        <th class="tablecol"></th>
                                         <th class="tablecol"></th>
                                         <th class="tablecol"></th>
                                     </tr>
