@@ -81,11 +81,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="AddAffiliate.aspx" />
     <Content Include="AddTask.aspx" />
     <Content Include="css\addidentitystyle.css" />
     <Content Include="css\identitiesstyle.css" />
     <Content Include="Images\edit.jpg" />
     <Content Include="Images\sliderimage.png" />
+    <Content Include="Pages\Affiliate.aspx" />
     <Content Include="Pages\Signup.aspx" />
     <Content Include="Pages\TaskSchedule.aspx" />
     <Content Include="vendor\bootstrap\css\bootstrap.css.map" />
@@ -141,6 +143,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddAffiliate.aspx.cs">
+      <DependentUpon>AddAffiliate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddAffiliate.aspx.designer.cs">
+      <DependentUpon>AddAffiliate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddIdentity.aspx.cs">
       <DependentUpon>AddIdentity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -158,7 +167,9 @@
     <Compile Include="Connection\AmazonDynamoDBClientConnection.cs" />
     <Compile Include="ModelClasses\AccountInfoDynamoDb.cs" />
     <Compile Include="ModelClasses\AcountInformation.cs" />
-    <Compile Include="ModelClasses\AmazonDynamoDBTable.cs" />
+    <Compile Include="ModelClasses\AffiliateDataModel.cs" />
+    <Compile Include="ModelClasses\AmazonDynamoDBAffiliateTable.cs" />
+    <Compile Include="ModelClasses\AmazonDynamoDBIdentityTable.cs" />
     <Compile Include="ModelClasses\AmazonDynamoDBTaskTable.cs" />
     <Compile Include="ModelClasses\Connection.cs" />
     <Compile Include="ModelClasses\IdentitiesFilterCriteria.cs" />
@@ -167,6 +178,13 @@
     <Compile Include="ModelClasses\Response.cs" />
     <Compile Include="ModelClasses\TasksFilterCriteria.cs" />
     <Compile Include="ModelClasses\WebsiteDataModel.cs" />
+    <Compile Include="Pages\Affiliate.aspx.cs">
+      <DependentUpon>Affiliate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Affiliate.aspx.designer.cs">
+      <DependentUpon>Affiliate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Identities.aspx.cs">
       <DependentUpon>Identities.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -25,6 +25,13 @@ namespace IdentityManagementWebService.ModelClasses
             ResponseMessage = responseMessage;
             IdentityTaskData = identity;
             }
+        public Response (bool statusvalue, string responseMessage, List<AffiliateDataModel> identity)
+            {
+            Statusvalue = statusvalue;
+            ResponseMessage = responseMessage;
+            AffiliateDataModel = identity;
+            }
+        
         private List<IdentityDataModel> identityDataModel;
 
         public List<IdentityDataModel> IdentityDataModel
@@ -49,6 +56,19 @@ namespace IdentityManagementWebService.ModelClasses
             set
                 {
                 identityTaskData = value;
+                }
+            }
+        private List<AffiliateDataModel> identityAffiliateData;
+
+        public List<AffiliateDataModel> AffiliateDataModel
+            {
+            get
+                {
+                return identityAffiliateData;
+                }
+            set
+                {
+                identityAffiliateData = value;
                 }
             }
 

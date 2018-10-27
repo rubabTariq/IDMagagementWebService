@@ -81,9 +81,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
-                            Statistics
+                         <a href="Affiliate.aspx">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            Affiliate
                         </a>
                     </li>
                     <li>
@@ -106,7 +106,7 @@
                                     <legend>
                                         <img src="../Images/user.jpg" alt="User logo" style="display: inline;">
                                         Edit User/Identity
-                                        <span id="setstatus" runat="server" class="label label-success" style="float:right"></span>
+                                        <span id="setstatus" runat="server" class="label label-success" style="float: right"></span>
                                     </legend>
                                     <tr>
                                         <th></th>
@@ -741,8 +741,8 @@
                                 <div>
                                     <a href="javascript:void(0)" id="buttonAddNewWebsite" onclick="AddNewWebsite()" data-toggle="modal" data-target="#website_modal" title="" style="margin-left: 20%; padding: 0px 20% 1%; font-size: 62px; width: 100%; color: #ccc; background: #ecf0f5; border: 3px dotted #ccc;" data-original-title="Add New Website"><span class="glyphicon glyphicon-plus"></span></a>
                                 </div>
-                                <input type="text" name="search" id="websiteSearch" placeholder="Search Websites" onchange="searchWebsite()"  class="form-control" style="margin-bottom: 12px; margin-top: 2%; margin-left: 20%; background-color: white !important;" />
-                                <i id="refreshicon" class="fa fa-refresh fa-spin" style="font-size:24px;visibility:hidden"></i>
+                                <input type="text" name="search" id="websiteSearch" placeholder="Search Websites" onchange="searchWebsite()" class="form-control" style="margin-bottom: 12px; margin-top: 2%; margin-left: 20%; background-color: white !important;" />
+                                <i id="refreshicon" class="fa fa-refresh fa-spin" style="font-size: 24px; visibility: hidden"></i>
                                 <div class="website-box col-md-9 ">
                                     <%--  <div class="box box-solid">--%>
                                     <%--                                        <div class="box-header with-border">
@@ -775,6 +775,15 @@
                                             <th style="display: none"></th>
                                         </tr>
                                         <tbody style="background-color: white;">
+                                            <tr>
+                                                <div class="input-group">
+                                                    <label class="labelText">
+                                                        Website Label
+                                               <p style="display: inline; color: red">*</p>
+                                                        :</label>
+                                                    <input id="websiteLabel" placeholder="Google" type="text" class="newwebsite" size="20" required="required" />
+                                                </div>
+                                            </tr>
                                             <tr>
                                                 <td>
                                                     <div class="input-group">
@@ -862,13 +871,14 @@
                         <div class="alert alert-success" role="alert" id="success_message" style="visibility: hidden; display: inline; margin-top: 0px; margin-right: 1000px; padding: 5px;">Success &nbsp<i class="glyphicon glyphicon-thumbs-up"></i>&nbsp Information is added successfully</div>
                         <div class="alert alert-danger" role="alert" id="error_message" style="visibility: hidden; margin-top: 0px; margin-right: 1000px; padding: 5px;">Error &nbsp<i class="glyphicon glyphicon-warning-sign"></i>&nbsp Fill all mandatory(*) fields in correct format</div>
                     </div>
-                </div>
+                </div> 
             </div>
+             <div class="copy_layout">
+                    <p>Copyright © 2018 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
+                </div>
         </div>
     </form>
-    <div class="copy_layout">
-        <p>Copyright © 2018 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
-    </div>
+
     <!-- /.container -->
 
 
@@ -944,9 +954,10 @@
         function SubmitWebsiteData() {
             var Appenddiv = true;
             var websitename = $("#websiteName")[0].value;
+            var websitelabel = $("#websiteLabel")[0].value;
             var username = $("#username")[0].value;
             var re = new RegExp(/^((?:(?:(?:\w[\.\-\+]?)*)\w)+)((?:(?:(?:\w[\.\-\+]?){0,62})\w)+)\.(\w{2,6})$/);
-            if (websitename == null || websitename == '' || websitename == undefined || username == null || username == '' || username == undefined)//|| !websiteName.match(re))
+            if (websitelabel == null || websitelabel == '' || websitelabel == undefined || websitename == null || websitename == '' || websitename == undefined || username == null || username == '' || username == undefined)//|| !websiteName.match(re))
             {
                 $("#error_message")[0].style.visibility = 'visible';
                 $("#success_message")[0].style.visibility = 'hidden';
@@ -965,6 +976,7 @@
                 $("#success_message")[0].style.visibility = 'visible';
 
                 _websiteName = websitename;
+                _websiteLabel = websitelabel;
                 _username = $("#username")[0].value;
                 _userPassword = $("#password")[0].value;
                 _websiteAccountNumber = $("#websiteAccountNumber")[0].value;
@@ -975,6 +987,7 @@
 
                 var website = {
                     WebsiteName: websitename,
+                    WebsiteLabel: websitelabel,
                     UserName: $("#username")[0].value,
                     UserPassword: $("#password")[0].value,
                     WebsiteAccountNumber: $("#websiteAccountNumber")[0].value,
@@ -1005,7 +1018,9 @@
                     if (Appenddiv == true) {
                         $("#websiteContainer").append("<div id=\"" + _username + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
                                         "<div style=\"\"><button class=\"btn btn-default\" type=\"button\" onclick=\"EditWebsite('" + _username + "','" + $("#email")[0].value + "')\" style=\"margin-left: 75%;display:inline;\" ><span class=\"glyphicon glyphicon-edit\"></span></button><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('" + _username + "','" + $("#email")[0].value + "')\" style=\"display:inline;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br />" +
-                                        "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
+                                        "<label class=\"labelText\" style=\"display:inline\">Website Label:</label>" +
+                                        "<p type=\"text\" class=\"AddWebsiteLabel\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
+                                        "<label class=\"labelText\" style=\"display:inline\">Website Name:</label>" +
                                         "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
                                            "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
                                          "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
@@ -1022,7 +1037,7 @@
                                          "<label class=\"labelText\" style=\"display:inline\">Notes:</label>" +
                                          "<p type=\"text\" class=\"AddNotes\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />" +
                                          +"</div>");
-
+                        $("#" + _username + " .AddWebsiteLabel").text(_websiteLabel);
                         $("#" + _username + " .AddWebsiteName").text(_websiteName);
                         $("#" + _username + " .Addusername").text(_username);
                         $("#" + _username + " .AddPassword").text(_userPassword);
@@ -1091,7 +1106,7 @@
                     Currency: $("#currency").find(":selected").text(),
                     CountryOfBirth: $("#birthcountry").val(),
                     Gender: $('input[name=gender]:checked').val(),
-                    Status:status,
+                    Status: status,
                     WebsiteDataModel: websites,
                 };
                 var isValid = CheckIdentityFormValidation(IdentityData);
@@ -1179,6 +1194,10 @@
             var questionPattern = /^[A-Za-z?]+$/;
             if ("" == website.WebsiteName || !websitePattern.test(website.WebsiteName)) {
                 message = "Invalid Website Name"
+                check = true;
+            }
+            if ("" == website.WebsiteLabel) {
+                message = "Fill field of Website Label"
                 check = true;
             }
             if ("" == website.UserName || !website.UserName.match(userpattern)) {
@@ -1324,7 +1343,7 @@
             });
             $("#refreshicon")[0].style.visibility = 'hidden';
         }
- 
+
         $("#submitButton").off().on("click", Send);
         $("#draftButton").off().on("click", Draft);
         $("#cancelButton").off().on("click", Cancel);

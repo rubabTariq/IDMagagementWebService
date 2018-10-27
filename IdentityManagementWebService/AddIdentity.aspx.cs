@@ -21,6 +21,12 @@ namespace IdentityManagementWebService
         protected void Page_Load (object sender, EventArgs e)
             {
             getEmail = Request.QueryString["email"];
+            Response responseaffiliate=AmazonDynamoDBAffiliateTable.Instance.GetAllDataInDynamoDb();
+            List<AffiliateDataModel> affiliateList = responseaffiliate.AffiliateDataModel;
+            foreach ( AffiliateDataModel affiliate in affiliateList )
+                {
+                selectaffiliate.Items.Add(affiliate.Name);
+                }
             if ( null != getEmail )
                 {
                 Response response = AmazonDynamoDBIdentityTable.Instance.GetDataInDynamoDb(getEmail.ToLower());
@@ -62,13 +68,15 @@ namespace IdentityManagementWebService
                     foreach ( WebsiteDataModel website in websitelist )
                         {
                         websiteContainer.Attributes.CssStyle.Add("Visibility", "visible");
-                        var websitearray = "{ WebsiteName:" + website.WebsiteName + ", UserName: " + website.UserName + ",  UserPassword: " + website.UserPassword + "," +
+                        var websitearray = "{ WebsiteLabel:" + website.WebsiteLabel + ", WebsiteName:" + website.WebsiteName + ", UserName: " + website.UserName + ",  UserPassword: " + website.UserPassword + "," +
                         "WebsiteAccountNumber: " + website.WebsiteAccountNumber + ", PIN:  " + website.PIN + ", SecurityQuestion: " + website.SecurityQuestion + "," +
                         "SecurityAnswer: " + website.SecurityAnswer + "}";
 
                         websiteContainer.InnerHtml += "<div id=\"" + website.UserName + "\" style=\"border:solid;Background-color:white;height:auto;word-wrap: break-word;\">" +
                                   "<div><button class=\"btn btn-default\" type=\"button\" onclick=\"EditWebsite('" + website.UserName + "','" + identity.Email.ToLower() + "')\" style=\"margin-left: 75%;display:inline;\" ><span class=\"glyphicon glyphicon-edit\"></span></button><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('" + website.UserName + "','" + identity.Email.ToLower() + "')\" style=\"display:inline;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br />" +
-                                "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
+                               "<label class=\"labelText\" style=\"display:inline\">Website Label:</label>" +
+                                        "<p type=\"text\" class=\"AddWebsiteLabel\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.WebsiteLabel + "</p><br />" +
+                                  "<label class=\"labelText\" style=\"display:inline\">Website:</label>" +
                                             "<p type=\"text\" class=\"AddWebsiteName\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.WebsiteName + "</p><br />" +
                                                "<label class=\"labelText\" style=\"display:inline\">ID:</label>" +
                                              "<p type=\"text\" class=\"Addusername\"   readonly=\"readonly\" style=\"border:none;background:none;display:inline\">" + website.UserName + "</p><br />" +
@@ -107,6 +115,11 @@ namespace IdentityManagementWebService
             else
                 {
                 status = AmazonDynamoDBIdentityTable.Instance.UpdateDataInDynamoDb(json, IdentityData);
+                }
+            if ( null != IdentityData.Affiliate )
+                {
+                Response affiliateResponse=AmazonDynamoDBAffiliateTable.Instance.GetDataInDynamoDb(IdentityData.Affiliate);
+                AmazonDynamoDBAffiliateTable.Instance.UpdateDataInDynamoDb(affiliateResponse.AffiliateDataModel.FirstOrDefault(), IdentityData.Email);
                 }
             return status;
             }

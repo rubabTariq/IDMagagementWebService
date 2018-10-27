@@ -16,6 +16,12 @@ namespace IdentityManagementWebService.ModelClasses
             set;
             }
         [JsonProperty]
+        public string WebsiteLabel
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
         public string Notes
             {
             get;

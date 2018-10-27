@@ -454,7 +454,7 @@ namespace IdentityManagementWebService.ModelClasses
                 List<WebsiteDataModel> websitelist = new List<WebsiteDataModel>();
                 foreach ( WebsiteDataModel website in identityList.FirstOrDefault().WebsiteDataModel )
                     {
-                    if ( website.WebsiteName.ToLower().Contains(filterCriteria.WebsiteName.ToLower()) )
+                    if ( website.WebsiteName.ToLower().Contains(filterCriteria.WebsiteName.ToLower()) || website.WebsiteLabel.ToLower().Contains(filterCriteria.WebsiteName.ToLower()) )
                         websitelist.Add(website);
                     }
                 return websitelist;

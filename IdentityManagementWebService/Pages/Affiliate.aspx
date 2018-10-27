@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Identities.aspx.cs" Inherits="IdentityManagementWebService.Pages.DashBoard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Affiliate.aspx.cs" Inherits="IdentityManagementWebService.Pages.Affiliate" %>
 
 <!DOCTYPE html>
 
@@ -97,23 +97,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     <h3 style="padding-top: 2%; padding-left: 2%;">
                         <span class="glyphicon glyphicon-user" style="display: inline;"></span>
-                        Identities     
-                      <a style="color: cornflowerblue; display: inline; font-size: large; background-color: #1565c0; color: white;" href="/AddIdentity.aspx">Add Identites</a>
+                        Affiliates     
+                      <a style="color: cornflowerblue; display: inline; font-size: large; background-color: #1565c0; color: white;" href="/AddAffiliate.aspx">Add Affiliate</a>
                     </h3>
                     <div class="col-md-8 inbox_right" style="width: 1000px; height: 600px;">
                         <div class="mailbox-content" style="height: 450px; width: 1640px;">
 
-                            <table id="identities" class="tableidentities" runat="server" style="border-collapse: collapse; width: auto">
+                            <table id="affiliates" class="tableidentities" runat="server" style="border-collapse: collapse; width: auto">
                                 <tbody>
                                     <tr class="tablerow">
                                         <th class="tablecol">Sr.no</th>
                                         <th class="tablecol">Date</th>
                                         <th class="tablecol" style="width: 10%;">Name</th>
-                                        <th class="tablecol" style="width: 15%;">Email</th>
-                                        <th class="tablecol" style="width: 10%;">Website Amount</th>
-                                        <th class="tablecol">Country of Residence</th>
-                                        <th class="tablecol">Status</th>
-                                        <th class="tablecol">Tasks</th>
+                                        <th class="tablecol" style="width: 15%;">Identities</th>
                                         <th class="tablecol" style="width: 100%;">Action</th>
                                     </tr>
                                     <tr class="tablerow">
@@ -124,13 +120,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             </div>
                                         </th>
                                         <th class="tablecol">
-                                            <input id="name" type="search" placeholder="Search Name" style="width: 145px; font-size: 12px;" onsearch="searchIdentities()" /></th>
-                                        <th class="tablecol">
-                                            <input id="email" type="search" placeholder="Search Email" style="width: 200px; font-size: 12px;" onsearch="searchIdentities()" /></th>
-                                        <th class="tablecol"></th>
-                                        <th class="tablecol">
-                                            <input id="countryofResidence" type="search" placeholder="Search Country" style="width: 145px; font-size: 12px;" onsearch="searchIdentities()" /></th>
-                                        <th class="tablecol"></th>
+                                            <input id="searchname" type="search" placeholder="Search Name" style="width: 145px; font-size: 12px;" onsearch="searchIdentities()" />
+                                        </th>
                                         <th class="tablecol"></th>
                                         <th class="tablecol"></th>
                                     </tr>
@@ -212,33 +203,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
             }
-            function ShowTasks(email) {
-                if (email != null) {
-
-                    window.location.href = '/Pages/TaskSchedule.aspx?email=' + email;
-                    return false;
-                }
-            }
-            function copyPersonalData(email) {
+            function copyPersonalData(name) {
                 // Create a dummy input to copy the string array inside it
 
-                var identiyPersonalData, _firstname, _lastname, _email, _bday;
+                var identiyPersonalData,fname, identities, date;
                 var check = false;
                 $.ajax({
                     type: "POST",
-                    url: "Identities.aspx/CopyIdentityContent",
-                    data: '{"email":"' + email + '"}',
+                    url: "Affiliate.aspx/CopyIdentityContent",
+                    data: '{"name":"' + name + '"}',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     async: false,
                     success: function (result) {
                         if (result.d.Statusvalue == true) {
                             check = true;
-                            _firstname = result.d.IdentityDataModel[0].FirstName;
-                            _lastname = result.d.IdentityDataModel[0].LastName;
-                            _email = result.d.IdentityDataModel[0].Email;
-                            _bday = result.d.IdentityDataModel[0].DateOfBirth;
-                            identiyPersonalData = JSON.stringify(result.d.IdentityDataModel);
+                            fname = result.d.AffiliateDataModel[0].Name;
+                            identities = result.d.AffiliateDataModel[0].Identities;
+                            date = result.d.AffiliateDataModel[0].CurrentDate;
+                            identiyPersonalData = JSON.stringify(result.d.AffiliateDataModel);
                         }
                     },
                     error: function (result) {
@@ -252,62 +235,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     var dummy = document.getElementById("dummy");
                     document.getElementById("dummy").style.display = "block";
                     // Output the array into it
-                    dummy.innerHTML = _firstname + " " + _lastname + " " + _bday + "\n" + _email;
-                    // Select it
-                    dummy.select();
-
-                    // Copy its contents
-                    document.execCommand("copy");
-                    document.getElementById("dummy").style.display = "none";
-                }
-            }
-            function copyCompletePersonalData(email) {
-                // Create a dummy input to copy the string array inside it
-
-                var identiyPersonalData, _firstname, _lastname, _email, address, country, phone, language, state, currency, cob, city, dob, title, gender, zipcode, bday;
-                var check = false;
-                $.ajax({
-                    type: "POST",
-                    url: "Identities.aspx/CopyIdentityContent",
-                    data: '{"email":"' + email + '"}',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    async: false,
-                    success: function (result) {
-                        if (result.d.Statusvalue == true) {
-                            check = true;
-                            _firstname = result.d.IdentityDataModel[0].FirstName;
-                            _lastname = result.d.IdentityDataModel[0].LastName;
-                            _email = result.d.IdentityDataModel[0].Email;
-                            address = result.d.IdentityDataModel[0].Address;
-                            country = result.d.IdentityDataModel[0].CountryOfResidence;
-                            phone = result.d.IdentityDataModel[0].Phone;
-                            language = result.d.IdentityDataModel[0].Language;
-                            state = result.d.IdentityDataModel[0].State;
-                            currency = result.d.IdentityDataModel[0].Currency;
-                            cob = result.d.IdentityDataModel[0].CountryOfBirth;
-                            city = result.d.IdentityDataModel[0].City;
-                            dob = result.d.IdentityDataModel[0].DateOfBirth;
-                            title = result.d.IdentityDataModel[0].Title;
-                            gender = result.d.IdentityDataModel[0].Gender;
-                            zipcode = result.d.IdentityDataModel[0].ZipCode;
-                            identiyPersonalData = JSON.stringify(result.d.IdentityDataModel);
-                        }
-                    },
-                    error: function (result) {
-                        $("#error_message").text('Server error occured due to unknown cause, please try again');
-                        $("#error_message")[0].style.visibility = 'visible';
-                        $("#success_message")[0].style.visibility = 'hidden';
-                        check = false;
-                    }
-                });
-                if (check == true) {
-                    var dummy = document.getElementById("dummy");
-                    document.getElementById("dummy").style.display = "block";
-                    // Output the array into it
-                    dummy.innerHTML = "Gender: " + gender + "\n" + _firstname + " " + _lastname + " " + dob + " " + cob +
-                        "\n" + address + "\n" + zipcode + " " + city + "\n" + state + "\n" + country + "\n\n\n" + _email + "\n" + phone;
-
+                    dummy.innerHTML = fname + "\n" + identities + "\n" + date;
                     // Select it
                     dummy.select();
 
@@ -318,58 +246,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }
             function searchIdentities() {
                 var date = $("#searchdate").val();
-                var name = $("#name").val();
-                var fname = name.split(" ");
-                var email = $("#email").val();
-                var countryOfResidence = $("#countryofResidence").val();
+                var name = $("#searchname").val();
                 var FilterCriteria = {
                     Date: date,
-                    FirstName: fname[0],
-                    // LastName:fname[1],
-                    Email: email,
-                    CountryOfResidence: countryOfResidence
-
+                    FirstName: name,
                 };
-                if ("" == FilterCriteria.FirstName && "" == FilterCriteria.Date && "" == FilterCriteria.Email && "" == FilterCriteria.CountryOfResidence) {
+                if ("" == FilterCriteria.FirstName && "" == FilterCriteria.Date) {
                     window.location.reload();
                     return false;
                 }
                 PageMethods.SearchIdentities(FilterCriteria, function (result) {
                     if (result.Statusvalue == true) {
-                        var countofRows = $("#identities")[0].rows.length;
+                        var countofRows = $("#affiliates")[0].rows.length;
                         for (var i = countofRows - 1; i != 1; i--) {
-                            document.getElementById("identities").deleteRow(i);
+                            document.getElementById("affiliates").deleteRow(i);
                         }
 
-                        var table = document.getElementById("identities");
+                        var table = document.getElementById("affiliates");
                         var rowcount = 2;
                         var srnumber = 1;
-                        for (var j = 0; j < result.IdentityDataModel.length; j++) {
+                        for (var j = 0; j < result.AffiliateDataModel.length; j++) {
 
-                            if (null != result.IdentityDataModel[j]) {
+                            if (null != result.AffiliateDataModel[j]) {
                                 var row = table.insertRow(rowcount);
-                                row.id = result.IdentityDataModel[j].Email;
-                                var value = result.IdentityDataModel[j].Email;
+                                row.id = result.AffiliateDataModel[j].Name;
+                                var value = result.AffiliateDataModel[j].Name;
                                 var cell1 = row.insertCell(0);
                                 cell1.innerHTML = srnumber;
                                 cell1.className = "tablecolumn";
                                 var cell2 = row.insertCell(1);
-                                cell2.innerHTML = result.IdentityDataModel[j].CurrentDate;
+                                cell2.innerHTML = result.AffiliateDataModel[j].CurrentDate;
                                 cell2.className = "tablecolumn";
                                 var cell3 = row.insertCell(2);
-                                cell3.innerHTML = result.IdentityDataModel[j].FirstName + " " + result.IdentityDataModel[j].LastName;
+                                cell3.innerHTML = result.AffiliateDataModel[j].Name;
                                 cell3.className = "tablecolumn";
-                                var cell4 = row.insertCell(3);
-                                cell4.innerHTML = result.IdentityDataModel[j].Email;
-                                cell4.className = "tablecolumn";
-                                var cell4 = row.insertCell(4);
-                                cell4.innerHTML = result.IdentityDataModel[j].WebsiteDataModel.length;
-                                cell4.className = "tablecolumn";
-                                var cell5 = row.insertCell(5);
-                                cell5.innerHTML = result.IdentityDataModel[j].CountryOfResidence;
-                                cell5.className = "tablecolumn";
-                                var cell6 = row.insertCell(6);
-                                cell6.innerHTML = "Active";
+                                var cell6 = row.insertCell(3);
+                                cell6.innerHTML = result.AffiliateDataModel[j].Identities.length;
                                 cell6.className = "tablecolumn";
 
                                 //Edit link
@@ -377,10 +289,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 btneditimg.src = "../Images/edit.png";
                                 btneditimg.style.width = "15px";
                                 var btneditlink = document.createElement('a');
-                                btneditlink.href = "/AddIdentity.aspx?email=" + result.IdentityDataModel[j].Email;
+                                btneditlink.href = "/AddIdentity.aspx?email=" + result.AffiliateDataModel[j].Email;
                                 btneditlink.style.marginLeft = "0px";
                                 btneditlink.appendChild(btneditimg);
-                                btneditlink.id = "edit" + result.IdentityDataModel[j].Email;
+                                btneditlink.id = "edit" + result.AffiliateDataModel[j].FirstName;
                                 //Delete Link
                                 var btndeleteimg = document.createElement('img');
                                 btndeleteimg.src = "../Images/delete.png";
@@ -388,7 +300,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 var btndeletelink = document.createElement('a');
                                 btndeletelink.style.marginLeft = "22px";
                                 btndeletelink.appendChild(btndeleteimg);
-                                btndeletelink.id = "delete" + result.IdentityDataModel[j].Email;
+                                btndeletelink.id = "delete" + result.AffiliateDataModel[j].FirstName;
 
                                 btndeletelink.onclick = function () { deleteIdentity(value); };
 
@@ -401,41 +313,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 copyBasicData.style.color = "#ffffff";
                                 copyBasicData.style.marginLeft = "10px";
                                 copyBasicData.onclick = function () { copyPersonalData(value) };
-                                copyBasicData.id = "taskSchedule" + result.IdentityDataModel[j].Email;
+                                copyBasicData.id = "taskSchedule" + result.AffiliateDataModel[j].FirstName;
 
-
-                                var copyDataButton = document.createElement("input");
-                                copyDataButton.type = "button";
-                                copyDataButton.className = "btn btn-click";
-                                copyDataButton.value = "Copy All";
-                                copyDataButton.style.width = "auto";
-                                copyDataButton.style.backgroundColor = "#1565c0";
-                                copyDataButton.style.color = "#ffffff";
-                                copyDataButton.style.marginLeft = "10px";
-                                copyDataButton.onclick = function () { copyCompletePersonalData(value) };
-                                copyDataButton.id = "copyData" + result.IdentityDataModel[j].Email;
-
-                                var showTasksButton = document.createElement("input");
-                                showTasksButton.type = "button";
-                                showTasksButton.className = "btn btn-click";
-                                showTasksButton.value = "Show Tasks";
-                                showTasksButton.style.width = "auto";
-                                showTasksButton.style.backgroundColor = "#050500";
-                                showTasksButton.style.color = "#ffffff";
-                                showTasksButton.style.marginLeft = "10px";
-                                showTasksButton.onclick = function () { ShowTasks(value) };
-                                showTasksButton.id = "showTasks" + result.IdentityDataModel[j].Email;
-
-
-
-
-                                var cell7 = row.insertCell(7);
+                                var cell7 = row.insertCell(4);
                                 cell7.className = "tablecolumn";
                                 cell7.appendChild(btneditlink);
                                 cell7.appendChild(btndeletelink);
                                 cell7.appendChild(copyBasicData);
-                                cell7.appendChild(copyDataButton);
-                                cell7.appendChild(showTasksButton);
                                 srnumber++;
                             }
                         }

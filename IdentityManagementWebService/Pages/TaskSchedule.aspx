@@ -79,9 +79,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px">
-                            Statistics
+                        <a href="Affiliate.aspx">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            Affiliate
                         </a>
                     </li>
                     <li>
