@@ -82,12 +82,14 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="AddAffiliate.aspx" />
+    <Content Include="AddPosition.aspx" />
     <Content Include="AddTask.aspx" />
     <Content Include="css\addidentitystyle.css" />
     <Content Include="css\identitiesstyle.css" />
     <Content Include="Images\edit.jpg" />
     <Content Include="Images\sliderimage.png" />
     <Content Include="Pages\Affiliate.aspx" />
+    <Content Include="Pages\Position.aspx" />
     <Content Include="Pages\Signup.aspx" />
     <Content Include="Pages\TaskSchedule.aspx" />
     <Content Include="vendor\bootstrap\css\bootstrap.css.map" />
@@ -157,6 +159,13 @@
     <Compile Include="AddIdentity.aspx.designer.cs">
       <DependentUpon>AddIdentity.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddPosition.aspx.cs">
+      <DependentUpon>AddPosition.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddPosition.aspx.designer.cs">
+      <DependentUpon>AddPosition.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddTask.aspx.cs">
       <DependentUpon>AddTask.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -170,11 +179,13 @@
     <Compile Include="ModelClasses\AffiliateDataModel.cs" />
     <Compile Include="ModelClasses\AmazonDynamoDBAffiliateTable.cs" />
     <Compile Include="ModelClasses\AmazonDynamoDBIdentityTable.cs" />
+    <Compile Include="ModelClasses\AmazonDynamoDBPositionTable.cs" />
     <Compile Include="ModelClasses\AmazonDynamoDBTaskTable.cs" />
     <Compile Include="ModelClasses\Connection.cs" />
     <Compile Include="ModelClasses\IdentitiesFilterCriteria.cs" />
     <Compile Include="ModelClasses\IdentityDataModel.cs" />
     <Compile Include="ModelClasses\IdentityTaskData.cs" />
+    <Compile Include="ModelClasses\PositionData.cs" />
     <Compile Include="ModelClasses\Response.cs" />
     <Compile Include="ModelClasses\TasksFilterCriteria.cs" />
     <Compile Include="ModelClasses\WebsiteDataModel.cs" />
@@ -191,6 +202,13 @@
     </Compile>
     <Compile Include="Pages\Identities.aspx.designer.cs">
       <DependentUpon>Identities.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Position.aspx.cs">
+      <DependentUpon>Position.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Position.aspx.designer.cs">
+      <DependentUpon>Position.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Signup.aspx.cs">
       <DependentUpon>Signup.aspx</DependentUpon>

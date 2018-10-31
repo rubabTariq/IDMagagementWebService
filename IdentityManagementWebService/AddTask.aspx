@@ -25,7 +25,7 @@
     <link href="../css/addidentitystyle.css" type="text/css" rel="stylesheet" />
     <link href="../css/identitiesstyle.css" type="text/css" rel="stylesheet">
 </head>
-<body>
+<body style="overflow: hidden;">
     <form id="contact_form" runat="server" method="post">
         <asp:ScriptManager ID="ScriptManager1"
             EnablePageMethods="true"
@@ -79,8 +79,14 @@
                     </li>
                     <li>
                         <a href="Affiliate.aspx">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Affiliate
+                        </a>
+                    </li>
+                     <li>
+                        <a href="Position.aspx">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            Position
                         </a>
                     </li>
                     <li>
@@ -98,7 +104,7 @@
 
 
                         <fieldset>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <%--  Add line --%>
                                 <div style="border-right: 1px solid lightgray; display: inline;"></div>
                                 <%--  Dialog for adding website --%>
@@ -302,8 +308,8 @@
 
                                 </table>
                             </div>
-                            <div class="col-md-7 WebsiteList">
-                                <table style="float: right; padding-top: 10px; margin-right: auto; width: auto; display: inline; visibility: visible;">
+                            <div class="col-md-6 WebsiteList">
+                                <table style="float: right; padding-top: 8%; margin-right: auto; display: inline; visibility: visible;">
                                     <tbody style="background-color: white;">
                                         <tr>
                                             <td>
@@ -360,14 +366,14 @@
                     </div>
                 </div>
             </div>
-
+            <div class="copy_layout">
+                <p>Copyright © 2018 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
+            </div>
         </div>
     </form>
     <input id="hiddenselectedIdentities" type="hidden" runat="server" />
     <input id="hiddenselectedGames" type="hidden" runat="server" />
-    <div class="copy_layout">
-        <p>Copyright © 2018 . All Rights Reserved | Design by <a href="home1.aspx" target="_blank"></a></p>
-    </div>
+
     <!-- /.container -->
 
 

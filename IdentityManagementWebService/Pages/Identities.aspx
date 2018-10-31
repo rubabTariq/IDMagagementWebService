@@ -82,6 +82,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             Affiliate
                         </a>
                     </li>
+                     <li>
+                        <a href="Position.aspx">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            Position
+                        </a>
+                    </li>
                     <li>
                         <a href="Signup.aspx">
                             <span class="glyphicon glyphicon-lock" style="display: inline;"></span>

@@ -71,6 +71,12 @@
                             Affiliate
                         </a>
                     </li>
+                     <li>
+                        <a href="Position.aspx">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            Position
+                        </a>
+                    </li>
                     <li>
                         <a href="/Pages/Signup.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />

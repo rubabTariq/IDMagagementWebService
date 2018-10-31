@@ -25,7 +25,7 @@
     <!-- Custom css for AddIdentity form -->
     <link href="../css/addidentitystyle.css" type="text/css" rel="stylesheet" />
 </head>
-<body>
+<body style="overflow: hidden;">
     <form id="contact_form" runat="server" method="post">
         <asp:ScriptManager ID="ScriptManager1"
             EnablePageMethods="true"
@@ -84,6 +84,12 @@
                          <a href="Affiliate.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
                             Affiliate
+                        </a>
+                    </li>
+                     <li>
+                        <a href="Position.aspx">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            Position
                         </a>
                     </li>
                     <li>

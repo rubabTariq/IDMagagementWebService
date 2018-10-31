@@ -31,7 +31,12 @@ namespace IdentityManagementWebService.ModelClasses
             ResponseMessage = responseMessage;
             AffiliateDataModel = identity;
             }
-        
+        public Response (bool statusvalue, string responseMessage, List<PositionData> identity)
+            {
+            Statusvalue = statusvalue;
+            ResponseMessage = responseMessage;
+            PositionData = identity;
+            }
         private List<IdentityDataModel> identityDataModel;
 
         public List<IdentityDataModel> IdentityDataModel
@@ -43,6 +48,19 @@ namespace IdentityManagementWebService.ModelClasses
             set
                 {
                 identityDataModel = value;
+                }
+            }
+        private List<PositionData> positionModel;
+
+        public List<PositionData> PositionData
+            {
+            get
+                {
+                return positionModel;
+                }
+            set
+                {
+                positionModel = value;
                 }
             }
         private List<IdentityTaskData> identityTaskData;
