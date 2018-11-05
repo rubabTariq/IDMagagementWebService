@@ -144,8 +144,6 @@ namespace PositionManagementWebService.ModelClasses
                         {
                         return new Response(false, "Table not Found");
                         }
-                    foreach ( var PositionEmail in positionData.SelectedIdentities )
-                        {
                         var Positiontaskname = Table.GetItem(positionData.PositionLabel);
                         if ( null == Positiontaskname )
                             {
@@ -160,7 +158,6 @@ namespace PositionManagementWebService.ModelClasses
                             Document response = Table.UpdateItem(item);
 
                             }
-                        }
                     return new Response(true, "Table updated");
                     }
                 catch ( Exception exception )
@@ -245,82 +242,17 @@ namespace PositionManagementWebService.ModelClasses
 
             internal PositionData ConvertToLowerCase (PositionData PositionData)
                 {
-                List<string> listgames = new List<string>();
-                List<string> listIdentites = new List<string>();
-                //PositionData.BalanceLimit = PositionData.BalanceLimit.ToLower();
-                //PositionData.BalanceTarget = PositionData.BalanceTarget.ToLower();
-                //PositionData.BetSize = PositionData.BetSize.ToLower();
-                //PositionData.BetSizeOption = PositionData.BetSizeOption.ToLower();
-                //PositionData.MaxBetSize = PositionData.MaxBetSize.ToLower();
-                //PositionData.Section = PositionData.Section.ToLower();
-                //PositionData.SelectBrowser = PositionData.SelectBrowser.ToLower();
-                //PositionData.SelectMode = PositionData.SelectMode.ToLower();
-               // PositionData.SelectTask = PositionData.SelectTask.ToLower();
-                //PositionData.StopLoss = PositionData.StopLoss.ToLower();
-               // PositionData.TaskName = PositionData.TaskName.ToLower();
-               // PositionData.TaskWebsite = PositionData.TaskWebsite.ToLower();
-                //PositionData.WagerAmount = PositionData.WagerAmount.ToLower();
-                //if ( PositionData.SelectedGames.Count > 0 )
-                //    {
-
-                //    foreach ( string game in PositionData.SelectedGames )
-                //        {
-                //        listgames.Add(game.ToLower());
-                //        }
-
-                //    }
-                //PositionData.SelectedGames = listgames;
-                //if ( PositionData.SelectedIdentities.Count > 0 )
-                //    {
-
-                //    foreach ( var Position in PositionData.SelectedIdentities )
-                //        {
-                //        listIdentites.Add(Position.ToLower());
-                //        }
-
-                //    }
-                //PositionData.SelectedIdentities = listIdentites;
+                PositionData.PositionLabel = PositionData.PositionLabel.ToLower();
+                PositionData.PositionWebsite = PositionData.PositionWebsite.ToLower();
+                PositionData.Status = PositionData.Status.ToLower();
                 return PositionData;
                 }
             internal PositionData ConvertToTitleCase (PositionData PositionData)
                 {
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                List<string> listgames = new List<string>();
-                List<string> listIdentites = new List<string>();
-                //PositionData.BalanceLimit = textInfo.ToTitleCase(PositionData.BalanceLimit);
-                //PositionData.BalanceTarget = textInfo.ToTitleCase(PositionData.BalanceTarget);
-                //PositionData.BetSize = textInfo.ToTitleCase(PositionData.BetSize);
-                //PositionData.BetSizeOption = textInfo.ToTitleCase(PositionData.BetSizeOption);
-                //PositionData.Email = textInfo.ToTitleCase(PositionData.Email);
-                //PositionData.MaxBetSize = textInfo.ToTitleCase(PositionData.MaxBetSize);
-                //PositionData.Section = textInfo.ToTitleCase(PositionData.Section);
-                //PositionData.SelectBrowser = textInfo.ToTitleCase(PositionData.SelectBrowser);
-                //PositionData.SelectMode = textInfo.ToTitleCase(PositionData.SelectMode);
-               // PositionData.SelectTask = textInfo.ToTitleCase(PositionData.SelectTask);
-                //PositionData.StopLoss = textInfo.ToTitleCase(PositionData.StopLoss);
-               // PositionData.TaskName = textInfo.ToTitleCase(PositionData.TaskName);
-                //PositionData.TaskWebsite = textInfo.ToTitleCase(PositionData.TaskWebsite);
-                //PositionData.WagerAmount = textInfo.ToTitleCase(PositionData.WagerAmount);
-                //if ( PositionData.SelectedGames.Count > 0 )
-                //    {
-
-                //    foreach ( string game in PositionData.SelectedGames )
-                //        {
-                //        listgames.Add(textInfo.ToTitleCase(game));
-                //        }
-
-                //    }
-                //PositionData.SelectedGames = listgames;
-                //if ( PositionData.SelectedIdentities.Count > 0 )
-                //    {
-
-                //    foreach ( var Position in PositionData.SelectedIdentities )
-                //        {
-                //        listIdentites.Add(textInfo.ToTitleCase(Position));
-                //        }
-
-                //    }
-                //PositionData.SelectedIdentities = listIdentites;
+                PositionData.PositionLabel = textInfo.ToTitleCase(PositionData.PositionLabel);
+                PositionData.PositionWebsite = textInfo.ToTitleCase(PositionData.PositionWebsite);
+                PositionData.Status = textInfo.ToTitleCase(PositionData.Status);
                 return PositionData;
                 }
 
@@ -379,67 +311,56 @@ namespace PositionManagementWebService.ModelClasses
                     return new Response(false, exception.Message);
                     }
                 }
-            internal Response DynamoDbSearchTasks (TasksFilterCriteria taskCriteria)
+            internal Response DynamoDbSearchTasks (PositionFilterCriteria positionCriteria)
                 {
-                if ( (null == taskCriteria.TaskName || "" == taskCriteria.TaskName) && (null == taskCriteria.Task || "" == taskCriteria.Task)
-                    && (null == taskCriteria.Website || "" == taskCriteria.Website) && (null == taskCriteria.State || "" == taskCriteria.State) )
+                if ( (null == positionCriteria.PositionLabel || "" == positionCriteria.PositionLabel)  && (null == positionCriteria.Website || "" == positionCriteria.Website) && 
+                (null == positionCriteria.Status || "" == positionCriteria.Status) )
                     {
                     return new Response(false, "First enter Search String");
                     }
                 Dictionary<string, Condition> filter = new Dictionary<string, Condition>();
-                if ( null != taskCriteria.TaskName && "" != taskCriteria.TaskName )
+                if ( null != positionCriteria.PositionLabel && "" != positionCriteria.PositionLabel )
                     {
 
-                    filter.Add("TaskName", new Condition
+                    filter.Add("PositionLabel", new Condition
                         {
                         ComparisonOperator = "CONTAINS",
                         AttributeValueList = new List<AttributeValue>()
                                {
-                               new AttributeValue {S=taskCriteria.TaskName.ToLower() }
+                               new AttributeValue {S=positionCriteria.PositionLabel.ToLower() }
                                }
                         });
                     }
-                if ( null != taskCriteria.Task && "" != taskCriteria.Task )
+                if ( null != positionCriteria.Website && "" != positionCriteria.Website )
                     {
 
-                    filter.Add("SelectTask", new Condition
+                    filter.Add("Website", new Condition
                         {
                         ComparisonOperator = "CONTAINS",
                         AttributeValueList = new List<AttributeValue>()
                                {
-                               new AttributeValue {S=taskCriteria.Task.ToLower() }
+                               new AttributeValue {S=positionCriteria.Website.ToLower() }
                                }
                         });
                     }
-                if ( null != taskCriteria.Website && "" != taskCriteria.Website )
+                if ( null != positionCriteria.Status && "" != positionCriteria.Status )
                     {
 
-                    filter.Add("TaskWebsite", new Condition
+                    filter.Add("Status", new Condition
                         {
                         ComparisonOperator = "CONTAINS",
                         AttributeValueList = new List<AttributeValue>()
                                {
-                               new AttributeValue {S=taskCriteria.Website.ToLower() }
+                               new AttributeValue {S=positionCriteria.Status.ToLower() }
                                }
                         });
                     }
-                if ( null != taskCriteria.State && "" != taskCriteria.State )
-                    {
-
-                    filter.Add("State", new Condition
-                        {
-                        ComparisonOperator = "CONTAINS",
-                        AttributeValueList = new List<AttributeValue>()
-                               {
-                               new AttributeValue {S=taskCriteria.State.ToLower() }
-                               }
-                        });
-                    }
+                
 
                 ScanRequest request = new ScanRequest
                     {
                     TableName = _tablename,
-                    AttributesToGet = new List<string> { "PositionLabel", "PositionWebsite", "SelectSelection", "StartEndTime", "SelectTasks", "SelectCountries", "SelectedIdentities", "Note" },
+                    AttributesToGet = new List<string> { "PositionLabel", "PositionWebsite", "SelectSelection", "StartDateTime","EndDateTime" , "StartDate", "EndDate", "TotalDateTime", "SelectTasks", "SelectCountries", "SelectedIdentities", "Note" },
                     ScanFilter = filter
 
                     };

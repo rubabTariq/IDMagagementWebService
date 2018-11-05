@@ -186,6 +186,7 @@
     <Compile Include="ModelClasses\IdentityDataModel.cs" />
     <Compile Include="ModelClasses\IdentityTaskData.cs" />
     <Compile Include="ModelClasses\PositionData.cs" />
+    <Compile Include="ModelClasses\PositionFilterCriteria.cs" />
     <Compile Include="ModelClasses\Response.cs" />
     <Compile Include="ModelClasses\TasksFilterCriteria.cs" />
     <Compile Include="ModelClasses\WebsiteDataModel.cs" />

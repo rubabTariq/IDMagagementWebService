@@ -27,7 +27,31 @@ namespace IdentityManagementWebService.ModelClasses
         set;
         }
         [JsonProperty]
-        public string StartEndTime
+        public string TotalDateTime
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string StartTime
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string EndTime
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string StartDate
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string EndDate
             {
             get;
             set;
@@ -52,6 +76,12 @@ namespace IdentityManagementWebService.ModelClasses
             }
         [JsonProperty]
         public string Note
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string Status
             {
             get;
             set;

@@ -27,7 +27,7 @@
 </head>
 <body style="overflow: hidden;">
     <form id="contact_form" runat="server" method="post">
-        <asp:ScriptManager ID="ScriptManager1"
+          <asp:ScriptManager ID="ScriptManager1"
             EnablePageMethods="true"
             EnablePartialRendering="true" runat="server" />
         <div class="navbar-header" style="margin-right: auto">
@@ -170,12 +170,48 @@
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <label class="labelText" for="startendtime">
-                                                    Starting/Ending Time
+                                                <label class="labelText" for="startdate">
+                                                    Starting Date
                                                 </label>
                                                 <div>
                                                     <div class="input-group">
-                                                        <input id="startendtime" runat="server" name="startendtime" class="form-control" type="time" />
+                                                        <input id="startdate" runat="server" name="startdate" value="" class="form-control" type="date" style="width:180px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             </td>
+                                              <td>
+                                             <div class="form-group">
+                                                <label class="labelText" for="starttime">
+                                                    Starting Time
+                                                </label>
+                                                <div>
+                                                    <div class="input-group">
+                                                        <input id="starttime" runat="server" name="starttime" value="" class="form-control" type="time" style="width:100px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                         <td>
+                                               <div class="form-group">
+                                                <label class="labelText" for="enddate">
+                                                    Ending Date
+                                                </label>
+                                                <div>
+                                                    <div class="input-group">
+                                                        <input id="enddate" runat="server" name="enddate" class="form-control" type="date" style="width:180px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             </td>
+                                              <td>
+                                            <div class="form-group">
+                                                <label class="labelText" for="endtime">
+                                                    Ending Time
+                                                </label>
+                                                <div>
+                                                    <div class="input-group">
+                                                        <input id="endtime" runat="server" name="endtime" class="form-control" type="time" style="width:100px;" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -501,7 +537,7 @@
                             </div>
                             <div class="col-md-6 WebsiteList">
                                 <table style="float: right; padding-top: 8%; margin-right: auto; display: inline; visibility: visible;">
-                                    <tbody style="background-color: white;">
+                                    <tbody style="background-color:transparent;">
                                         <tr style="float: right;">
                                             <div class="form-group">
                                                 <td style="width: 10px">
@@ -519,7 +555,7 @@
                                             </div>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%;height: 50%;">
+                                            <td style="width: 50%;height: 50%;border: none;padding-top: 70px">
                                                  <label class="labelText" for="note" style="display: inline">
                                                         Special Notes
                                                     :</label>
@@ -568,16 +604,29 @@
         var selectedGames = [];
         $(window).on("load", function () {
             var urlParams = new URLSearchParams(location.search);
-            getEmail = urlParams.get('taskname');
-            if (null != getEmail) {
-                SetArrayValues();
-                EnableFields();
-                DisableTextField();
+            getPositionLabel = urlParams.get('positionlabel');
+            if (null != getPositionLabel) {
+                count = $("#task")[0].rows.length;
+                for (var i = 0; i < document.getElementById("addcountry").childElementCount; i++) {
+                    selectedCountries.push(document.getElementById("addcountry").children[i].id);
+                }
+                var checkboxes = document.getElementsByTagName('input');
+                        var j = 1;
+                        for (var i = 0; i < checkboxes.length; i++) {
+                            if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked == true) {
+                                if (undefined != $("#taskIdentities")[0].rows[j] && "" != $("#taskIdentities")[0].rows[j].id) {
+                                    if (!selectedIdentities.includes($("#taskIdentities")[0].rows[j].id)) {
+                                        selectedIdentities.push($("#taskIdentities")[0].rows[j].id);
+                                        j++;
+                                    }
+                                }
+                            }
+                        }
             }
         });
         $("#addtask").on("click", function () {
             count++;
-            var row = '<tr><td>' + count + '</td><td><input type="text" id="step"' + count + ' style="width: 80%;height: 10%;"/></tr>';
+            var row = '<tr><td>' + count + '</td><td><input type="text" id="step' + count + '" style="width: 80%;height: 10%;"/></tr>';
 
             $("#task").append(row);
 
@@ -605,11 +654,16 @@
             }
 
         });
+        function UpdateSelectedIdentitesList(selectedIdentites)
+        {
+            selectedIdentities.push(selectedIdentites);
+        }
         function deleteCountry(selectedcountryid)
         {
             document.getElementById("addcountry").removeChild(document.getElementById(selectedcountryid));
             selectedCountries.pop(selectedcountryid);
         }
+       
         function SetArrayValues() {
             var tempselectedgame = [];
             tempselectedgame = document.getElementById('hiddenselectedGames').value;
@@ -773,8 +827,13 @@
                 txt = "No";
             }
         }
-       
+        function Draft() {
+            Save("Start Scheduled");
+        }
         function Send() {
+            Save("Active");
+        }
+        function Save(status) {
             var positionlabel = $("#positionlabel")[0].value;
             if (positionlabel == null || positionlabel == '' || positionlabel == undefined )//|| !websiteName.match(re))
             {
@@ -795,9 +854,13 @@
                     PositionLabel: $("#positionlabel")[0].value,
                     PositionWebsite: $("#selectwebsite").find(":selected").text(),
                     SelectSelection: $("#selectselection").find(":selected").text(),
-                    StartEndTime: $("#startendtime").val(),
+                    StartTime: $("#starttime").val(),
+                    EndTime: $("#endtime").val(),
+                    StartDate: $("#startdate").val(),
+                    EndDate: $("#enddate").val(),
                     SelectTasks: tasklist,
-                    Notes: $("#notes").val(),
+                    Note: $("#notes").val(),
+                    Status:status,
                     SelectCountries: selectedCountries,
                     SelectedIdentities: selectedIdentities,
                 };
@@ -845,7 +908,7 @@
             }
         }
         $("#starttaskButton").off().on("click", Send);
-        $("#draftButton").off().on("click", Send);
+        $("#draftButton").off().on("click", Draft);
         $("#cancelButton").off().on("click", Cancel);
     </script>
 </body>

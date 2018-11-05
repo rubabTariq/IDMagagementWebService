@@ -31,7 +31,7 @@ namespace IdentityManagementWebService
 
         protected void Page_Load (object sender, EventArgs e)
             {
-            getPositionName = Request.QueryString["positionlabel"];
+            getPositionName = (Request.QueryString["positionlabel"]).ToLower();
             Response response = AmazonDynamoDBIdentityTable.Instance.GetAllDataInDynamoDb();
             List<IdentityDataModel> Identities = response.IdentityDataModel;
 
@@ -108,7 +108,7 @@ namespace IdentityManagementWebService
 
                 if ( null != getPositionName )
                     {
-                    response = AmazonDynamoDBPositionTable.Instance.GetDataInDynamoDb(getPositionName.ToLower());
+                    response = AmazonDynamoDBPositionTable.Instance.GetDataInDynamoDb(getPositionName);
                     if ( null != (response.PositionData) )
                         {
 
@@ -118,23 +118,37 @@ namespace IdentityManagementWebService
                         positionlabel.Value = positionData.PositionLabel;
                         ListItem selectSelection = selectselection.Items.FindByText(positionData.SelectSelection);
                         selectSelection.Selected = true;
-                        startendtime.Value = positionData.StartEndTime;
+                        starttime.Value = positionData.StartTime;
+                        endtime.Value = positionData.EndTime;
+                        startdate.Value = positionData.StartDate;
+                        enddate.Value = positionData.EndDate;
+                        int tasknumber = 3;
                         for ( int j = 0; j < positionData.SelectTasks.Count; j++ )
                             {
-                            if ( null != positionData.SelectTasks[j] && j == 1 )
+                            if ( null != positionData.SelectTasks[j] && j == 0 )
                                 step1.Value = positionData.SelectTasks[j];
-                            if ( null != positionData.SelectTasks[j] && j == 2 )
+                            if ( null != positionData.SelectTasks[j] && j == 1 )
                                 step2.Value = positionData.SelectTasks[j];
-                            if ( null != positionData.SelectTasks[j] && j == 3 )
+                            if ( null != positionData.SelectTasks[j] && j == 2 )
                                 step3.Value = positionData.SelectTasks[j];
-                            else
+                            if(j>2)
                                 {
+                                tasknumber++;
                                 HtmlTableRow tRow = new HtmlTableRow();
                                 HtmlTableCell tb1 = new HtmlTableCell();
-                                tb1.InnerText = j.ToString()+ ".";
+                                tb1.InnerText = tasknumber.ToString()+ ".";
                                 tRow.Controls.Add(tb1);
                                 HtmlTableCell tb2 = new HtmlTableCell();
-                                tb2.InnerText = positionData.SelectTasks[j];
+                                HtmlGenericControl inputelement = new HtmlGenericControl("input");
+                                inputelement.Attributes.Add("type", "text");
+                                inputelement.Attributes.Add("name", "step" + tasknumber);
+                                inputelement.Attributes.Add("value", positionData.SelectTasks[j]);
+                                inputelement.Attributes.Add("id", "step"+ tasknumber);
+                                inputelement.Style.Add("width", "80%");
+                                inputelement.Style.Add("height", "10%");
+                                tb2.Style.Add("width", "80%");
+                                tb2.Style.Add("height", "10%");
+                                tb2.Controls.Add(inputelement);
                                 tRow.Controls.Add(tb2);
                                 task.Rows.Add(tRow);
                                 }
@@ -143,11 +157,11 @@ namespace IdentityManagementWebService
                             {
                             HtmlGenericControl iDiv = new HtmlGenericControl("div");
                             iDiv.Attributes.Add("id", positionData.SelectCountries[j]);
-                            iDiv.Attributes.Add("classname","form-control");
+                            iDiv.Attributes.Add("class","form-control");
                             iDiv.Attributes.CssStyle.Add("height","auto");
                             iDiv.InnerHtml = positionData.SelectCountries[j] + "&nbsp<button class=\"glyphicon glyphicon-remove\" style=\"display:inline;background-color:white\" onclick=\"deleteCountry(\'' + iDiv.id + '\')\" />";
-                            addcountry.InnerHtml += iDiv;
-                                }
+                            addcountry.Controls.Add(iDiv);
+                            }
                         notes.Value = positionData.Note;
                         ListItem Selectedwebsite = selectwebsite.Items.FindByText(positionData.PositionWebsite);
                         if ( null == Selectedwebsite )
@@ -191,11 +205,21 @@ namespace IdentityManagementWebService
                 }
             }
         [System.Web.Services.WebMethod]
-        public static Response Send (PositionData positionData)
+        public static Response Send (PositionData PositionData)
             {
             Response status;
-            positionData = AmazonDynamoDBPositionTable.Instance.ConvertToLowerCase(positionData);
-            status = AmazonDynamoDBPositionTable.Instance.SaveDataInDynamoDb(positionData);
+            PositionData = AmazonDynamoDBPositionTable.Instance.ConvertToLowerCase(PositionData);
+            if ( !string.IsNullOrEmpty(PositionData.StartTime) && !string.IsNullOrEmpty(PositionData.EndTime) && !string.IsNullOrEmpty(PositionData.StartDate) && !string.IsNullOrEmpty(PositionData.EndDate ))
+                {
+                string hours= (DateTime.Parse(PositionData.EndTime) - DateTime.Parse(PositionData.StartTime)).TotalHours + "h ";
+                string minutes = (DateTime.Parse(PositionData.EndTime) - DateTime.Parse(PositionData.StartTime)).TotalMinutes + "m ";
+                string seconds = (DateTime.Parse(PositionData.EndTime) - DateTime.Parse(PositionData.StartTime)).TotalSeconds + "s ";
+
+                string totaltime = hours + minutes + seconds;
+                string totaldate = (DateTime.Parse(PositionData.EndDate)- DateTime.Parse(PositionData.StartDate)).TotalDays + "d ";
+                PositionData.TotalDateTime = totaldate + totaltime;
+                }
+            status = AmazonDynamoDBPositionTable.Instance.SaveDataInDynamoDb(PositionData);
             return status;
             }
         }

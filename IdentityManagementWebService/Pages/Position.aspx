@@ -112,24 +112,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <table id="position" class="tableidentities" runat="server" style="border-collapse: collapse; width: auto">
                                 <tbody>
                                     <tr class="tablerow">
-                                        <th class="tablecol">Sr.no</th>
-                                        <th class="tablecol">Identities</th>
-                                        <th class="tablecol" style="width: 10%;">PLV</th>
-                                        <th class="tablecol" style="width: 15%;">Position</th>
-                                        <th class="tablecol" style="width: 15%;">Website</th>
-                                        <th class="tablecol" style="width: 15%;">Starting</th>
-                                        <th class="tablecol" style="width: 15%;">Ending</th>
-                                        <th class="tablecol" style="width: 15%;">Cycles</th>
-                                        <th class="tablecol" style="width: 15%;">Time</th>
-                                        <th class="tablecol" style="width: 15%;">Status</th>
-                                        <th class="tablecol" style="width: 100%;">Action</th>
+                                        <th class="tablecol" style="width: 1%;">Sr.no</th>
+                                        <th class="tablecol" style="width: 2%;">Identities</th>
+                                        <th class="tablecol" style="width: 5%;">PLV</th>
+                                        <th class="tablecol" style="width: 5%;">Position</th>
+                                        <th class="tablecol" style="width: 5%;">Website</th>
+                                        <th class="tablecol" style="width: 5%;">Starting</th>
+                                        <th class="tablecol" style="width: 5%;">Ending</th>
+                                        <th class="tablecol" style="width: 5%;">Cycles</th>
+                                        <th class="tablecol" style="width: 10%;">Time</th>
+                                        <th class="tablecol" style="width: 5%;">Status</th>
+                                        <th class="tablecol" style="width: 5%;">Action</th>
                                     </tr>
                                     <tr class="tablerow">
                                         <th class="tablecol"></th>
                                         <th class="tablecol"></th>
                                         <th class="tablecol"></th>
                                         <th class="tablecol">
-                                            <input id="searchposition" type="text" style="width: 145px; font-size: 12px;" placeholder="Search Position" onsearch="searchIdentities()" />
+                                            <input id="searchposition" type="search" style="width: 145px; font-size: 12px;" placeholder="Search Position" onsearch="searchIdentities()" />
                                         </th>
                                         <th class="tablecol">
                                             <input id="searchwebsite" type="search" placeholder="Search Website" style="width: 145px; font-size: 12px;" onsearch="searchIdentities()" />
@@ -191,17 +191,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             var position = $("#searchposition").val();
             var website = $("#searchwebsite").val();
             var status = $("#searchstatus").val();
-            var FilterCriteria = {
+            var PositionFilterCriteria = {
                 
-                Position: position,
+                PositionLabel: position,
                 Website: website,
                 Status:status,
             };
-            if ("" == FilterCriteria.Position && "" == FilterCriteria.Website && "" == FilterCriteria.Status) {
+            if ("" == PositionFilterCriteria.Position && "" == PositionFilterCriteria.Website && "" == PositionFilterCriteria.Status) {
                 window.location.reload();
                 return false;
             }
-            PageMethods.SearchIdentities(FilterCriteria, function (result) {
+            PageMethods.SearchIdentities(PositionFilterCriteria, function (result) {
                 if (result.Statusvalue == true) {
                     var countofRows = $("#position")[0].rows.length;
                     for (var i = countofRows - 1; i != 1; i--) {
@@ -211,61 +211,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     var table = document.getElementById("position");
                     var rowcount = 2;
                     var srnumber = 1;
-                    for (var j = 0; j < result.AffiliateDataModel.length; j++) {
+                    for (var j = 0; j < result.PositionData.length; j++) {
 
-                        if (null != result.AffiliateDataModel[j]) {
+                        if (null != result.PositionData[j]) {
                             var row = table.insertRow(rowcount);
-                            row.id = result.AffiliateDataModel[j].Name;
-                            var value = result.AffiliateDataModel[j].Name;
+                            row.id = result.PositionData[j].PositionLabel;
+                            var value = result.PositionData[j].PositionLabel;
                             var cell1 = row.insertCell(0);
                             cell1.innerHTML = srnumber;
                             cell1.className = "tablecolumn";
                             var cell2 = row.insertCell(1);
-                            cell2.innerHTML = result.AffiliateDataModel[j].CurrentDate;
+                            cell2.innerHTML = result.PositionData[j].Identities.length;
                             cell2.className = "tablecolumn";
                             var cell3 = row.insertCell(2);
-                            cell3.innerHTML = result.AffiliateDataModel[j].Name;
+                            cell3.innerHTML = "";
                             cell3.className = "tablecolumn";
-                            var cell6 = row.insertCell(3);
-                            cell6.innerHTML = result.AffiliateDataModel[j].Identities.length;
+                            var cell4 = row.insertCell(3);
+                            cell4.innerHTML = result.PositionData[j].PositionLabel;
+                            cell4.className = "tablecolumn";
+                            var cell5 = row.insertCell(4);
+                            cell5.innerHTML = result.PositionData[j].PositionWebsite;
+                            cell5.className = "tablecolumn";
+                            var cell6 = row.insertCell(5);
+                            cell6.innerHTML = result.PositionData[j].StartDate;
                             cell6.className = "tablecolumn";
+                            var cell7 = row.insertCell(6);
+                            cell7.innerHTML = result.PositionData[j].EndDate;
+                            cell7.className = "tablecolumn";
+                            var cell8 = row.insertCell(7);
+                            cell8.innerHTML = "";
+                            cell8.className = "tablecolumn";
+                            var cell9 = row.insertCell(8);
+                            cell9.innerHTML = result.PositionData[j].TotalDateTime;
+                            cell9.className = "tablecolumn";
+                            var cell10 = row.insertCell(9);
+                            cell10.innerHTML = result.PositionData[j].Status;
+                            cell10.className = "tablecolumn";
 
                             //Edit link
                             var btneditimg = document.createElement('img');
                             btneditimg.src = "../Images/edit.png";
                             btneditimg.style.width = "15px";
                             var btneditlink = document.createElement('a');
-                            btneditlink.href = "/AddIdentity.aspx?email=" + result.AffiliateDataModel[j].Email;
+                            btneditlink.href = "/AddIdentity.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
                             btneditlink.style.marginLeft = "0px";
                             btneditlink.appendChild(btneditimg);
-                            btneditlink.id = "edit" + result.AffiliateDataModel[j].FirstName;
-                            //Delete Link
-                            var btndeleteimg = document.createElement('img');
-                            btndeleteimg.src = "../Images/delete.png";
-                            btndeleteimg.style.width = "30px";
-                            var btndeletelink = document.createElement('a');
-                            btndeletelink.style.marginLeft = "22px";
-                            btndeletelink.appendChild(btndeleteimg);
-                            btndeletelink.id = "delete" + result.AffiliateDataModel[j].FirstName;
+                            btneditlink.id = "edit" + result.PositionData[j].FirstName;
 
-                            btndeletelink.onclick = function () { deleteIdentity(value); };
-
+                            //Pause/Continue Link
                             var copyBasicData = document.createElement('input');
                             copyBasicData.type = "button";
                             copyBasicData.className = "btn btn-click";
-                            copyBasicData.value = "Copy Data";
+                            copyBasicData.value = "Continue";
                             copyBasicData.style.width = "auto";
-                            copyBasicData.style.backgroundColor = "#06d995";
+                            copyBasicData.style.backgroundColor = "#61d461";
                             copyBasicData.style.color = "#ffffff";
                             copyBasicData.style.marginLeft = "10px";
-                            copyBasicData.onclick = function () { copyPersonalData(value) };
-                            copyBasicData.id = "taskSchedule" + result.AffiliateDataModel[j].FirstName;
+                            copyBasicData.onclick = function () { SetPosition(value, "") };
+                            copyBasicData.id = "toggle" + result.PositionData[j].PositionLabel;
 
-                            var cell7 = row.insertCell(4);
-                            cell7.className = "tablecolumn";
-                            cell7.appendChild(btneditlink);
-                            cell7.appendChild(btndeletelink);
-                            cell7.appendChild(copyBasicData);
+                            var cell11 = row.insertCell(10);
+                            cell11.className = "tablecolumn";
+                            cell11.appendChild(btneditlink);
+                            cell11.appendChild(copyBasicData);
                             srnumber++;
                         }
                     }
@@ -276,6 +284,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
 
             });
+        }
+        function SetPosition(positionName, email) {
+            if ($("#toggle" + positionName).val() == "Continue") {
+                $("#toggle" + positionName).val("Pause");
+            }
+            else {
+                $("#toggle" + positionName).val("Continue");
+            }
+
         }
         function GetCurrentDate() {
             var today = new Date();
