@@ -173,7 +173,7 @@
                                     </tr>
                                     
                                 </table>
-                                <input id="AddNewTask" type="button" class="btn btn btn-click" style="width: 130px;" value="Add New Task" />
+                                <input id="addnewtaskbutton" type="button" class="btn btn btn-click" onclick="AddNewTask()" style="width: 130px;" value="Add New Task" />
                                             <input id="PLVHistory" class="btn btn-click" style="width: 200px;" value="PLV and Description History" type="button" />
                                         
                                 <legend style="padding-top: 10px;">Task
@@ -295,6 +295,112 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                             <!-- Modal content -->
+                        <div id="addNewTask" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 style="color: white">Website</h3>
+                                    <span class="close">&times;</span>
+
+                                </div>
+                                <div class="modal-body">
+                                    <table style="height: 350px;">
+                                        <tr>
+                                            <th style="display: none"></th>
+                                            <th style="display: none"></th>
+                                        </tr>
+                                        <tbody style="background-color: white;">
+                                            <tr>
+                                                <div class="input-group">
+                                                    <label class="labelText">
+                                                        Website Label
+                                               <p style="display: inline; color: red">*</p>
+                                                        :</label>
+                                                    <input id="websiteLabel" placeholder="Google" type="text" class="newwebsite" size="20" required="required" />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">
+                                                            Website
+                                        <p style="display: inline; color: red">*</p>
+                                                            :</label>
+                                                        <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required="required"
+                                                            pattern="www.[A-Za-z0-9]*.[A-Za-z]*" title="www is required" />
+                                                        <%--[http://|https://]--%>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText" for="username">
+                                                            Username
+                                        <p style="display: inline; color: red">*</p>
+                                                            :</label>
+                                                        <input id="username" name="username" placeholder="JohnSmith" type="text" class="newwebsite"
+                                                            required="required" maxlength="20" title="Only alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Password:</label>
+                                                        <input id="password" placeholder="*****" type="text" class="newwebsite" maxlength="20" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Account Number:</label>
+                                                        <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" maxlength="25"
+                                                            title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">PIN:</label>
+                                                        <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" minlength="5" maxlength="20"
+                                                            title="Only numbers are allowed" pattern="[0-9]*" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Security Question:</label>
+                                                        <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" minlength="5" maxlength="40"
+                                                            title="Only Alphabets,numbers and Question mark are allowed" pattern="[A-Za-z0-9?]*" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Security Answer:</label>
+                                                        <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" minlength="5" maxlength="40"
+                                                            title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <label class="labelText">Notes:</label>
+                                                        <input id="notes" placeholder="write note" type="text" class="newnote" minlength="5"
+                                                            title="Only Alphabets and numbers are allowed" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="input-group">
+                                        <input class="btn btn-click" type="button" onclick="SubmitWebsiteData()" value="Done" style="margin-left: 50%; margin-right: 50%;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                             <!-- Success message -->
 
                             <!-- Button -->
@@ -352,6 +458,20 @@
                 }
             }
         });
+        function AddNewTask() {
+            $("#addNewTask")[0].style.display = "block";
+            $("#buttonAddNewWebsite").disabled = true;
+        }
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+            $("#addNewTask")[0].style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == $("#addNewTask")[0]) {
+                $("#addNewTask")[0].style.display = "none";
+            }
+        }
         $("#addtask").on("click", function () {
             count++;
             var row = '<tr><td>' + count + '</td><td><input type="text" id="step' + count + '" style="width: 80%;height: 10%;"/></tr>';
