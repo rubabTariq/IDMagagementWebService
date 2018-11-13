@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Dashboard</title>
+    <title>Identities</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -32,8 +32,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             EnablePageMethods="true"
             EnablePartialRendering="true" runat="server" />
         <div class="navbar-header" style="margin-right: auto">
-            <a class="mainheading" href="index.html">Control Interface</a>
+            <a class="mainheading" href="#">Control Interface</a>
         </div>
+      
         <div id="wrapper" class="toggled">
             <!-- Navigation -->
             <nav class="nav top1 navbar navbar-default navbar-static-top" role="navigation" style="background-color: #1565c0; border-color: #1565c0;">
@@ -46,20 +47,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                 </div>
                 <!-- /.navbar-header -->
-                <%--<ul class="nav navbar-nav navbar-right">
+               
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
-                            <asp:Label Style="width: 70px" ID="username" runat="server" Text="Menu" /></a>
+                        <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown" style="color:white">
+                               <span class="glyphicon glyphicon-user" style="color:white;display: inline;"></span>
+                            <asp:Label Style="color:white;width: 70px" ID="username" runat="server" Text="Super Admin" /></a>
                         <ul class="dropdown-menu">
-                            <li class="m_2">
-                                <strong>Account</strong>
-                            </li>
-
-                            <li class="m_2"><a href="home1.aspx"><i class="fa fa-lock"></i>Logout</a></li>
+                            <li ><a href="Signin.aspx?logout=logout"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
                     </li>
-                </ul>--%>
+              
             </nav>
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
@@ -78,20 +76,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </li>
                     <li>
                         <a href="Affiliate.aspx">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <span class="glyphicon glyphicon-tasks" style="display: inline"></span>
                             Affiliate
                         </a>
                     </li>
                      <li>
                         <a href="Position.aspx">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <span class="glyphicon glyphicon-tasks" style="display: inline"></span>
                             Position
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Signup.aspx">
-                            <span class="glyphicon glyphicon-lock" style="display: inline;"></span>
-                            Access Control
                         </a>
                     </li>
                 </ul>

@@ -87,10 +87,12 @@
     <Content Include="css\addidentitystyle.css" />
     <Content Include="css\identitiesstyle.css" />
     <Content Include="Images\edit.jpg" />
+    <Content Include="Images\runningposition.png" />
     <Content Include="Images\sliderimage.png" />
     <Content Include="Pages\Affiliate.aspx" />
     <Content Include="Pages\Position.aspx" />
-    <Content Include="Pages\Signup.aspx" />
+    <Content Include="Pages\Signin.aspx" />
+    <Content Include="Pages\TaskAndHistorySection.aspx" />
     <Content Include="Pages\TaskSchedule.aspx" />
     <Content Include="vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="vendor\bootstrap\css\bootstrap.min.css.map" />
@@ -211,12 +213,19 @@
     <Compile Include="Pages\Position.aspx.designer.cs">
       <DependentUpon>Position.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Signup.aspx.cs">
-      <DependentUpon>Signup.aspx</DependentUpon>
+    <Compile Include="Pages\Signin.aspx.cs">
+      <DependentUpon>Signin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Signup.aspx.designer.cs">
-      <DependentUpon>Signup.aspx</DependentUpon>
+    <Compile Include="Pages\Signin.aspx.designer.cs">
+      <DependentUpon>Signin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TaskAndHistorySection.aspx.cs">
+      <DependentUpon>TaskAndHistorySection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\TaskAndHistorySection.aspx.designer.cs">
+      <DependentUpon>TaskAndHistorySection.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\TaskSchedule.aspx.cs">
       <DependentUpon>TaskSchedule.aspx</DependentUpon>

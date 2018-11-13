@@ -32,7 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             EnablePageMethods="true"
             EnablePartialRendering="true" runat="server" />
         <div class="navbar-header" style="margin-right: auto">
-            <a class="mainheading" href="index.html">Control Interface</a>
+            <a class="mainheading" href="#">Control Interface</a>
         </div>
         <div id="wrapper" class="toggled">
             <!-- Navigation -->
@@ -45,6 +45,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="togglemenu"></div>
                     </a>
                 </div>
+                 <div class="navbar-header" style="margin-left: auto">
+                  <a  href="#" style="color:white">Super Admin</a>
+                 </div>
                 <!-- /.navbar-header -->
                 <%--<ul class="nav navbar-nav navbar-right">
 
@@ -87,13 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Position
                         </a>
-                    </li>
-                    <li>
-                        <a href="Signup.aspx">
-                            <span class="glyphicon glyphicon-lock" style="display: inline;"></span>
-                            Access Control
-                        </a>
-                    </li>
+                    </li>  
                 </ul>
             </div>
 
@@ -122,7 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <th class="tablecol" style="width: 5%;">Cycles</th>
                                         <th class="tablecol" style="width: 10%;">Time</th>
                                         <th class="tablecol" style="width: 5%;">Status</th>
-                                        <th class="tablecol" style="width: 5%;">Action</th>
+                                        <th class="tablecol" style="width: 15%;">Action</th>
                                     </tr>
                                     <tr class="tablerow">
                                         <th class="tablecol"></th>
@@ -251,12 +248,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             //Edit link
                             var btneditimg = document.createElement('img');
                             btneditimg.src = "../Images/edit.png";
-                            btneditimg.style.width = "15px";
+                            btneditimg.style.width = "25px";
                             var btneditlink = document.createElement('a');
-                            btneditlink.href = "/AddIdentity.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
+                            btneditlink.href = "/AddPosition.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
                             btneditlink.style.marginLeft = "0px";
                             btneditlink.appendChild(btneditimg);
                             btneditlink.id = "edit" + result.PositionData[j].FirstName;
+
+                            //Edit link
+                            var btnOpenPosition = document.createElement('img');
+                            btnOpenPosition.src = "../Images/runningposition.png";
+                            btnOpenPosition.style.width = "15px";
+                            var OpenPositionlink = document.createElement('a');
+                            OpenPositionlink.href = "/Pages/TaskAndHistorySection.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
+                            OpenPositionlink.style.marginLeft = "0px";
+                            OpenPositionlink.appendChild(btnOpenPosition);
+                            OpenPositionlink.id = "running" + result.PositionData[j].FirstName;
 
                             //Pause/Continue Link
                             var copyBasicData = document.createElement('input');
@@ -273,6 +280,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             var cell11 = row.insertCell(10);
                             cell11.className = "tablecolumn";
                             cell11.appendChild(btneditlink);
+                            cell11.appendChild(OpenPositionlink);
                             cell11.appendChild(copyBasicData);
                             srnumber++;
                         }

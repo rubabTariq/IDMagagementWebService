@@ -31,7 +31,7 @@
             EnablePageMethods="true"
             EnablePartialRendering="true" runat="server" />
         <div class="navbar-header" style="margin-right: auto">
-            <a class="mainheading" href="index.html">Control Interface</a>
+            <a class="mainheading" href="#">Control Interface</a>
         </div>
         <div id="wrapper" class="toggled">
             <!-- Navigation -->
@@ -44,6 +44,9 @@
                         <div class="togglemenu"></div>
                     </a>
                 </div>
+                 <div class="navbar-header" style="margin-left: auto">
+                  <a  href="#" style="color:white">Super Admin</a>
+                 </div>
                 <!-- /.navbar-header -->
                 <%-- <ul class="nav navbar-nav navbar-right">
 
@@ -89,12 +92,7 @@
                             Position
                         </a>
                     </li>
-                    <li>
-                        <a id="accesscontrol" href="/Pages/Signup.aspx">
-                            <span class="glyphicon glyphicon-lock" style="display: inline;"></span>
-                            Access Control
-                        </a>
-                    </li>
+                    
                 </ul>
             </div>
             <!-- /#sidebar-wrapper -->

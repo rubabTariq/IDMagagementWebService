@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using IdentityManagementWebService.ModelClasses;
 using IdentityManagementWebService.Connection;
 
-namespace PositionManagementWebService.ModelClasses
+namespace IdentityManagementWebService.ModelClasses
     {
     public class AmazonDynamoDBPositionTable
         {

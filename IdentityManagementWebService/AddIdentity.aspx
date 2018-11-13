@@ -31,7 +31,7 @@
             EnablePageMethods="true"
             EnablePartialRendering="true" runat="server" />
         <div class="navbar-header" style="margin-right: auto">
-            <a class="mainheading" href="index.html">Control Interface</a>
+            <a class="mainheading" href="#">Control Interface</a>
         </div>
         <div id="wrapper" class="toggled">
             <!-- Navigation -->
@@ -44,6 +44,9 @@
                         <div class="togglemenu"></div>
                     </a>
                 </div>
+                 <div class="navbar-header" style="margin-left: auto">
+                  <a  href="#" style="color:white">Super Admin</a>
+                 </div>
                 <!-- /.navbar-header -->
                 <%-- <ul class="nav navbar-nav navbar-right">
 
@@ -82,22 +85,17 @@
                     </li>
                     <li>
                          <a href="Affiliate.aspx">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <span class="glyphicon glyphicon-tasks" style="display: inline"></span>
                             Affiliate
                         </a>
                     </li>
                      <li>
                         <a href="Position.aspx">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px"/>
+                            <span class="glyphicon glyphicon-tasks" style="display: inline"></span>
                             Position
                         </a>
                     </li>
-                    <li>
-                        <a href="/Pages/Signup.aspx">
-                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
-                            Access Control
-                        </a>
-                    </li>
+                   
                 </ul>
             </div>
 

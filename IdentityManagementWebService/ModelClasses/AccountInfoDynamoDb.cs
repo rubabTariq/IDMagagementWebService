@@ -127,7 +127,7 @@ namespace IdentityManagementWebService.ModelClasses
                 }
             return (table);
             }
-        public Response UpdateDataInDynamoDb (AcountInformation account,string email, string existingpassword)
+        public Response GetDataInDynamoDb (AcountInformation account,string email,string password)
             {
             try
                 {
@@ -136,25 +136,17 @@ namespace IdentityManagementWebService.ModelClasses
                     {
                     return new Response(false, "Table not Found");
                     }
-                account.AdminName = "admin";
+                account.AdminName = "SuperAdmin";
                 Document identityemail = Table.GetItem(account.AdminName);
-                //if ( null == identityemail )
-                //    {
-                //    string json = JsonConvert.SerializeObject(account);
-                //    var item = Document.FromJson(json);
-                //    Document response = Table.PutItem(item);
-                //    return new Response(true, null);
-                //    }
                 if ( null != identityemail )
                     {
                     string json = identityemail.ToJson();
                     AcountInformation existingaccount = JsonConvert.DeserializeObject<AcountInformation>(json);
-                    if ( existingpassword == existingaccount.Password && account.Password != existingaccount.Password )
+                    if ( account.Password.ToLower().Equals(existingaccount.Password.ToLower()) && 
+                        account.Email.ToLower().Equals(existingaccount.Email.ToLower()) && 
+                        account.UserName.ToLower().Equals(existingaccount .UserName.ToLower()))
                         {
-                        string jsonText = JsonConvert.SerializeObject(account);
-                        Document item = Document.FromJson(jsonText);
-                        Document response = Table.UpdateItem(item);
-                        return new Response(true, null);
+                        return new Response(true, "Signin Successfully");
                         }
                     }
                 return new Response(false, "Incorrect Email");

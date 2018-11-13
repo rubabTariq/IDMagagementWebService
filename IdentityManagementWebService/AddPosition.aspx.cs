@@ -7,7 +7,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using IdentityManagementWebService.ModelClasses;
 using IdentityManagementWebService.Pages;
-using PositionManagementWebService.ModelClasses;
+
 
 namespace IdentityManagementWebService
     {
@@ -31,6 +31,7 @@ namespace IdentityManagementWebService
 
         protected void Page_Load (object sender, EventArgs e)
             {
+            if(null!= Request.QueryString["positionlabel"] )
             getPositionName = (Request.QueryString["positionlabel"]).ToLower();
             Response response = AmazonDynamoDBIdentityTable.Instance.GetAllDataInDynamoDb();
             List<IdentityDataModel> Identities = response.IdentityDataModel;

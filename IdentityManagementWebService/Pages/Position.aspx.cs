@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using IdentityManagementWebService.ModelClasses;
-using PositionManagementWebService.ModelClasses;
 
 namespace IdentityManagementWebService.Pages
     {
@@ -112,7 +111,15 @@ namespace IdentityManagementWebService.Pages
                     editimage.Attributes.CssStyle.Add("width", "20px");
                     _edit.Controls.Add(editimage);
                     _edit.Attributes.Add("id", "edit" + m_position.PositionLabel);
-                   
+
+                    HtmlAnchor runningPosition = new HtmlAnchor();
+                    runningPosition.HRef = "/Pages/TaskAndHistorySection.aspx?positionlabel=" + m_position.PositionLabel;
+                    runningPosition.Attributes.CssStyle.Add("margin-left", "5px");
+                    HtmlImage runningPositionimage = new HtmlImage();
+                    runningPositionimage.Attributes.Add("src", "../Images/runningposition.png");
+                    runningPositionimage.Attributes.CssStyle.Add("width", "25px");
+                    runningPosition.Controls.Add(runningPositionimage);
+                    runningPosition.Attributes.Add("id", "edit" + m_position.PositionLabel);
 
                     HtmlGenericControl toggleButton = new HtmlGenericControl("input");
                     toggleButton.Attributes.Add("type", "button");
@@ -130,6 +137,7 @@ namespace IdentityManagementWebService.Pages
 
                     HtmlTableCell actioncell = new HtmlTableCell();
                     actioncell.Controls.Add(_edit);
+                    actioncell.Controls.Add(runningPosition);
                     actioncell.Controls.Add(toggleButton);
                     actioncell.Attributes.Add("class", "tablecolumn");
                     tr.Cells.Add(actioncell);

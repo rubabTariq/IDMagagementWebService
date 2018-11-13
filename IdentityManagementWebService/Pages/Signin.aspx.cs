@@ -9,20 +9,23 @@ using IdentityManagementWebService.ModelClasses;
 
 namespace IdentityManagementWebService.Pages
     {
-    public partial class Signup : System.Web.UI.Page
+    public partial class Signin : System.Web.UI.Page
         {
         protected void Page_Load (object sender, EventArgs e)
             {
-            countDiv.InnerText = DashBoard.Count.ToString();
+            if ( null != Request.QueryString["logout"] )
+                {
+                Session["UserEmail"] = null;
+                }
             }
         [WebMethod]
-        public static bool EditAccount (string email,string newemailsignup, string username, string password,string existingpassword)
+        public static bool SigninAccount (string email,string username, string password)
             {
             AcountInformation account = new AcountInformation();
-            account.Email = newemailsignup;
+            account.Email = email;
             account.UserName = username;
             account.Password = password;
-            Response response = AccountInfoDynamoDb.Instance.UpdateDataInDynamoDb(account, email, existingpassword);
+            Response response = AccountInfoDynamoDb.Instance.GetDataInDynamoDb(account, email,password);
             return response.Statusvalue;
             }
 
