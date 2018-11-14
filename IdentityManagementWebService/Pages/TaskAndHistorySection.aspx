@@ -300,104 +300,43 @@
                         <div id="addNewTask" class="modal">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h3 style="color: white">Website</h3>
+                                    <h3 style="color: white">Add Task</h3>
                                     <span class="close">&times;</span>
 
                                 </div>
                                 <div class="modal-body">
-                                    <table style="height: 350px;">
-                                        <tr>
-                                            <th style="display: none"></th>
-                                            <th style="display: none"></th>
-                                        </tr>
-                                        <tbody style="background-color: white;">
-                                            <tr>
-                                                <div class="input-group">
-                                                    <label class="labelText">
-                                                        Website Label
-                                               <p style="display: inline; color: red">*</p>
-                                                        :</label>
-                                                    <input id="websiteLabel" placeholder="Google" type="text" class="newwebsite" size="20" required="required" />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText">
-                                                            Website
-                                        <p style="display: inline; color: red">*</p>
-                                                            :</label>
-                                                        <input id="websiteName" placeholder="www.example.com" type="url" class="newwebsite" size="20" required="required"
-                                                            pattern="www.[A-Za-z0-9]*.[A-Za-z]*" title="www is required" />
-                                                        <%--[http://|https://]--%>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText" for="username">
-                                                            Username
-                                        <p style="display: inline; color: red">*</p>
-                                                            :</label>
-                                                        <input id="username" name="username" placeholder="JohnSmith" type="text" class="newwebsite"
-                                                            required="required" maxlength="20" title="Only alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
+                                    <div style="overflow-y:auto;max-height:200px;">
+                                <table name="task" runat="server" id="task" style="background: none; background-color: white;">
+                                    
+                                    <!-- Text input-->
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>
+                                            <input type="text" id="step1" runat="server" style="width: 80%;height: 10%;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>
+                                            <input type="text" id="step2" runat="server" style="width: 80%;height: 10%;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.</td>
+                                        <td style="width: 80%;height: 10%;">
+                                            <input type="text" id="step3" runat="server" style="width: 80%;height: 10%;" />
+                                             <button id="addtask" type="button" class="glyphicon glyphicon-plus"></button>
+                                        </td>
+                                    </tr>
+                                   
+                                </table>
 
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText">Password:</label>
-                                                        <input id="password" placeholder="*****" type="text" class="newwebsite" maxlength="20" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText">Account Number:</label>
-                                                        <input id="websiteAccountNumber" placeholder="BBBBAAAAAAAAAAAAAAAA" type="text" class="newwebsite" maxlength="25"
-                                                            title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText">PIN:</label>
-                                                        <input id="websitePIN" placeholder="123456" type="text" class="newwebsite" minlength="5" maxlength="20"
-                                                            title="Only numbers are allowed" pattern="[0-9]*" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText">Security Question:</label>
-                                                        <input id="websitequestion" placeholder="What is your favourite Place" type="text" class="newwebsite" minlength="5" maxlength="40"
-                                                            title="Only Alphabets,numbers and Question mark are allowed" pattern="[A-Za-z0-9?]*" />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText">Security Answer:</label>
-                                                        <input id="websiteAnswer" placeholder="London" type="text" class="newwebsite" minlength="5" maxlength="40"
-                                                            title="Only Alphabets and numbers are allowed" pattern="[A-Za-z0-9]*" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <label class="labelText">Notes:</label>
-                                                        <input id="notes" placeholder="write note" type="text" class="newnote" minlength="5"
-                                                            title="Only Alphabets and numbers are allowed" />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="input-group">
-                                        <input class="btn btn-click" type="button" onclick="SubmitWebsiteData()" value="Done" style="margin-left: 50%; margin-right: 50%;" />
                                     </div>
+                                     <div class="modal-footer">
+                                    <div class="input-group">
+                                        <input class="btn btn-click" type="button" onclick="SubmitTaskData()" value="Done" style="margin-left: 50%; margin-right: 50%;" />
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -458,9 +397,14 @@
                 }
             }
         });
+      
         function AddNewTask() {
             $("#addNewTask")[0].style.display = "block";
             $("#buttonAddNewWebsite").disabled = true;
+            count = 3;
+            $("#task").find("tr:gt(2)").remove();
+              
+          
         }
         var span = document.getElementsByClassName("close")[0];
         span.onclick = function () {
@@ -473,7 +417,7 @@
             }
         }
         $("#addtask").on("click", function () {
-            count++;
+            count++
             var row = '<tr><td>' + count + '</td><td><input type="text" id="step' + count + '" style="width: 80%;height: 10%;"/></tr>';
 
             $("#task").append(row);
@@ -487,16 +431,23 @@
                 var trow = $(this);
                 if(trow.index() === 0)
                 {
-                    trow.find('th').eq(columnvalue).before('<th class="tablecolu"><a id="PLVLink' + iter + '" onclick="Remove(PLVLink' + iter + ',' + columnvalue + ')">PLV' + iter + '<span class="glyphicon glyphicon-minus-sign"></span></a></th>');
+                    while ($('#PLVLink' + iter).length != 0)
+                    {
+                        iter += 1;
+                      
+                    }
+                        
+                    trow.find('th').eq(columnvalue).before('<th id="PLVLink' + iter + '" class="tablecolu"><a onclick="Remove(\'PLVLink' + iter + '\',\'PLV' + iter + '\')">PLV' + iter + '<span class="glyphicon glyphicon-minus-sign"></span></a></th>');
                 }
                 else
                 {
                     var id = trow.attr('id') + iter;
-                    trow.find('td').eq(columnvalue).before('<td class="tablecolumn"><input id="PLV' + iter + '" type="text" onchange="calculate('+iter+')" name="cb' + iter + '" style="width:50px;" pattern="[0-9]*"/></td>');
+                    trow.find('td').eq(columnvalue).before('<td id="PLV' + iter + '" class="tablecolumn"><input type="text" onchange="calculate('+iter+')" name="cb' + iter + '" style="width:50px;" pattern="[0-9]*"/></td>');
                 }
             });
             iter += 1;
             columnvalue += 1;
+           
         });
         function calculate(val) {
             var total = 0;
@@ -505,18 +456,22 @@
             }
             $('#total'+val).html(total);
         }
-        function Remove(val,colval)
+        function Remove(val,tdval)
         {
             identitytable.find('tr').each(function () {
                 var trow = $(this);
                 if (trow.index() === 0) {
-                    trow.find('th').eq(colval).remove();
+                    $('#' + val).remove();
                 }
                 else {
-                    var id = trow.attr('id') + iter;
-                    trow.find('td').eq(columnvalue).before('<td class="tablecolumn"><input id="PLV' + iter + '" type="text" onchange="calculate(' + iter + ')" name="cb' + iter + '" style="width:50px;" pattern="[0-9]*"/></td>');
+
+                    $('#' + tdval).remove();
                 }
             });
+            iter -= 1;
+            columnvalue -= 1;
+
+             
         }
         function startTime() {
             var today = new Date();
@@ -532,6 +487,24 @@
         function checkTime(i) {
             if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
             return i;
+        }
+        var tasklistdiv = 0;
+        function SubmitTaskData()
+        {
+            var tasklist = 1;
+            tasklistdiv += 1;
+            $("#TaskContainer").append("<div id=\"tasklistdiv" + tasklistdiv + "\" style=\"border:solid;Background-color:white;width:auto;height:auto;word-wrap: break-word;\">" +
+                "<div style=\"\"><button class=\"btn btn-default\" type=\"button\" onclick=\"EditWebsite('tasklistdiv" + tasklistdiv + "')\" style=\"margin-left: 75%;display:inline;\" ><span class=\"glyphicon glyphicon-edit\"></span></button><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('tasklistdiv" + tasklistdiv + "')\" style=\"display:inline;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br /></div>")
+                for(var i=1;i<=count;i++)
+                {
+                    $("#tasklistdiv" + tasklistdiv).append("<p type=\"text\" id=\"tasklist" + tasklistdiv+ tasklist + "\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />")
+                    $("#tasklist" + tasklistdiv + tasklist).text($("#step" + tasklist)[0].value);
+                    tasklist += 1;
+                }
+          
+                $("#TaskContainer")[0].style.visibility = 'visible';
+
+            
         }
         var selectedCountries = [];
         $("#country").on("change", function () {
