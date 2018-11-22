@@ -179,7 +179,7 @@
                                 <legend style="padding-top: 10px;">Task
                                 </legend>
                                 <div style="overflow-y: auto; max-height: 200px;background-color:white">
-                                    <div id="TaskContainer" runat="server" class="box-body">
+                                    <div id="TaskContainer" runat="server" class="box-body" style="margin-left: 1%;">
                                     </div>
                                 </div>
                                 <legend style="padding-top: 10px;">IDENTITIES
@@ -237,7 +237,7 @@
                                                 <label class="labelText" for="note" style="display: inline">
                                                     Special Notes
                                                     :</label>
-                                                <input type="text" id="notes" runat="server" name="note" style="width: 100%; height: 200px;" />
+                                                <textarea type="text" id="notes" runat="server" name="note" style="width: 100%; height: 200px;background-color:white;resize: none;" ></textarea>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -251,14 +251,14 @@
                                                     <label class="labelText" for="totalplvlabel" style="display: inline">
                                                         Total PLV
                                                     </label>
-                                                    <div class="input-group" runat="server" id="totalplv" style="width: 100px">
+                                                    <div class="input-group" runat="server" id="totalplv" style="width: 100px">0
                                                     </div>
                                                 </div>
                                             </td>
                                             <td style="width: 50%">
                                                 <div class="form-group" style="display: inline">
                                                     <label class="labelText" for="avgplvform" style="display: inline">Average PLV</label>
-                                                    <div class="input-group" id="avgplv" runat="server" style="width: 100px">
+                                                    <div class="input-group" id="avgplv" runat="server" style="width: 100px">0
                                                     </div>
                                                 </div>
                                             </td>
@@ -276,12 +276,6 @@
                                                 </div>
                                             </td>
                                             <td style="width: 50%">
-
-                                                <input id="AddNewPLVColumn" type="button" class="btn btn btn-click" style="width: 200px;" value="Add New PLV Column" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 50%">
                                                 <div class="form-group">
                                                     <label class="labelText" for="currentavg" style="display: inline">Current Average</label>
                                                     <div>
@@ -290,8 +284,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                        </tr>
+                                            <td style="width: 50%">
 
+                                                <input id="AddNewPLVColumn" type="button" class="btn btn btn-click" style="width: 200px;" value="Add New PLV Column" />
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -380,9 +377,6 @@
             getPositionLabel = urlParams.get('positionlabel');
             if (null != getPositionLabel) {
                 count = $("#task")[0].rows.length;
-                for (var i = 0; i < document.getElementById("addcountry").childElementCount; i++) {
-                    selectedCountries.push(document.getElementById("addcountry").children[i].id);
-                }
                 var checkboxes = document.getElementsByTagName('input');
                 var j = 1;
                 for (var i = 0; i < checkboxes.length; i++) {
@@ -400,10 +394,12 @@
       
         function AddNewTask() {
             $("#addNewTask")[0].style.display = "block";
-            $("#buttonAddNewWebsite").disabled = true;
+            $("#addnewtaskbutton").disabled = true;
             count = 3;
             $("#task").find("tr:gt(2)").remove();
-              
+            $("#step1").val('');
+            $("#step2").val('');
+            $("#step3").val('');
           
         }
         var span = document.getElementsByClassName("close")[0];
@@ -436,38 +432,70 @@
                         iter += 1;
                       
                     }
-                        
-                    trow.find('th').eq(columnvalue).before('<th id="PLVLink' + iter + '" class="tablecolu"><a onclick="Remove(\'PLVLink' + iter + '\',\'PLV' + iter + '\')">PLV' + iter + '<span class="glyphicon glyphicon-minus-sign"></span></a></th>');
+                    var rownum = trow.index()+1;
+                    trow.find('th').eq(columnvalue).before('<th id="PLVLink' + iter + '" class="tablecolu"><a onclick="Remove(\'PLVLink' + iter + '\',\'tdPLV' + iter + '\',' + columnvalue + ',' + rownum + ')">PLV' + iter + '<span class="glyphicon glyphicon-minus-sign"></span></a></th>');
                 }
                 else
                 {
                     var id = trow.attr('id') + iter;
-                    trow.find('td').eq(columnvalue).before('<td id="PLV' + iter + '" class="tablecolumn"><input type="text" onchange="calculate('+iter+')" name="cb' + iter + '" style="width:50px;" pattern="[0-9]*"/></td>');
+                    var rownum = trow.index();
+                    trow.find('td').eq(columnvalue).before('<td id="tdPLV' + iter + '" class="tablecolumn"><input id="PLV' + rownum + columnvalue + '" type="text" onchange="calculate(' + columnvalue + ',' + rownum + ')" name="cb' + iter + '" style="width:50px;" pattern="[0-9]*"/></td>');
                 }
             });
             iter += 1;
             columnvalue += 1;
            
         });
-        function calculate(val) {
+        var fixPLVtotalValue = parseInt($("#totalplv")[0].innerHTML);
+        function calculate(val,rowval) {
             var total = 0;
-                if ($('#PLV'+val).val() != '') {
-                    total += parseInt($('#PLV'+val).val());
+            var countplvcolumn = 0;
+            for (var i = 5; i < columnvalue; i++) {
+                if ($('#PLV' + rowval + i).val() != '') {
+                    total += parseInt($('#PLV' + rowval + i).val());
+                    countplvcolumn++;
+                }
             }
-            $('#total'+val).html(total);
+            rowval -= 1;
+            $('#total' + rowval).html(total);
+            var totalplv=0;
+            for(var j=0;j<$("#taskIdentities")[0].rows.length-1;j++)
+            {
+                if($('#total' + j).html()!='')
+                    totalplv+=parseInt($('#total' + j).html());
+            }
+            var totalplvvalue = 0;
+            totalplvvalue = fixPLVtotalValue;
+            totalplvvalue += totalplv;
+            $("#totalplv")[0].innerHTML = totalplvvalue;
+            if (totalplvvalue > 0)
+                $("#avgplv")[0].innerHTML = totalplvvalue / countplvcolumn;
+            else
+                $("#avgplv")[0].innerHTML = totalplvvalue;
+            $("#currentplv")[0].innerHTML = totalplv;
+            if (totalplv > 0)
+                $("#currentavgplv")[0].innerHTML = totalplv / countplvcolumn;
+            else
+                $("#currentavgplv")[0].innerHTML = totalplv;
         }
-        function Remove(val,tdval)
+        function Remove(val, tdval, colval, rowval)
         {
+            for (var j = 0; j < $("#taskIdentities")[0].rows.length - 1; j++) {
+                var id = 'PLV' + j + colval;
+                $('#' + id).val('');
+                calculate(colval, j);
+            }
+           
             identitytable.find('tr').each(function () {
                 var trow = $(this);
                 if (trow.index() === 0) {
                     $('#' + val).remove();
                 }
                 else {
-
                     $('#' + tdval).remove();
                 }
             });
+
             iter -= 1;
             columnvalue -= 1;
 
@@ -488,23 +516,63 @@
             if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
             return i;
         }
+       
+        var totaltasks = [];
         var tasklistdiv = 0;
         function SubmitTaskData()
         {
+            var totaltasksteps = [];
             var tasklist = 1;
             tasklistdiv += 1;
-            $("#TaskContainer").append("<div id=\"tasklistdiv" + tasklistdiv + "\" style=\"border:solid;Background-color:white;width:auto;height:auto;word-wrap: break-word;\">" +
-                "<div style=\"\"><button class=\"btn btn-default\" type=\"button\" onclick=\"EditWebsite('tasklistdiv" + tasklistdiv + "')\" style=\"margin-left: 75%;display:inline;\" ><span class=\"glyphicon glyphicon-edit\"></span></button><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('tasklistdiv" + tasklistdiv + "')\" style=\"display:inline;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br /></div>")
-                for(var i=1;i<=count;i++)
+            $("#TaskContainer").append("<div id=\"tasklistdiv" + tasklistdiv + "\" style=\"border:solid;Background-color:white;width:auto;height:auto;word-wrap: break-word;\">Task" + tasklistdiv+
+                "<div style=\"display:inline;\"><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('tasklistdiv" + tasklistdiv + "')\" style=\"display:inline;float:right;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br /></div>")
+            totaltasksteps.push('tasklistdiv' + tasklistdiv);
+            for (var i = 1; i <= count; i++)
                 {
                     $("#tasklistdiv" + tasklistdiv).append("<p type=\"text\" id=\"tasklist" + tasklistdiv+ tasklist + "\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />")
                     $("#tasklist" + tasklistdiv + tasklist).text($("#step" + tasklist)[0].value);
+                    totaltasksteps.push($("#step" + tasklist)[0].value);
                     tasklist += 1;
+                  
                 }
           
                 $("#TaskContainer")[0].style.visibility = 'visible';
-
+                $("#addNewTask")[0].style.display = "none";
+                $("#addnewtaskbutton").disabled = false;
+                totaltasks.push(totaltasksteps);
             
+        }
+        //function EditWebsite(divId, countdiv) {
+        //    $("#addNewTask")[0].style.display = "block";
+        //    $("#addnewtaskbutton").disabled = true;
+        //    count = 3;
+        //    $("#task").find("tr:gt(2)").remove();
+        //    $("#step1").val('');
+        //    $("#step2").val('');
+        //    $("#step3").val('');
+        //    var elementtext=$("#" + divId).find("p");
+        //    for (var i = 1; i <= countdiv; i++)
+        //    {
+        //        var text = elementtext[i-1].innerText;
+        //        if (countdiv > 3 && i>3)
+        //        {
+        //            var row = '<tr><td>' + i + '</td><td><input type="text" id="step' + i + '" style="width: 80%;height: 10%;"/></tr>';
+        //            $("#task").append(row);
+        //            $("#step" + i).val(text);
+        //        }
+        //        else
+        //            $("#step" + i).val(text);
+               
+        //    }
+        //}
+        function DeleteWebsite(divId) {
+            $('#' + divId).remove();
+            for (var i = 0; i < totaltasks.length; i++) {
+                if (divId == (totaltasks[i])[0]) {
+                    totaltasks.pop([i]);
+                }
+
+            }
         }
         var selectedCountries = [];
         $("#country").on("change", function () {

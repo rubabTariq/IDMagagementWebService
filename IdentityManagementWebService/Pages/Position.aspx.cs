@@ -104,7 +104,7 @@ namespace IdentityManagementWebService.Pages
 
 
                     HtmlAnchor _edit = new HtmlAnchor();
-                    _edit.HRef = "/AddPosition.aspx?positionlabel=" + m_position.PositionLabel;
+                    _edit.HRef = "/Pages/TaskAndHistorySection.aspx?positionlabel=" + m_position.PositionLabel;
                     _edit.Attributes.CssStyle.Add("margin-left", "5px");
                     HtmlImage editimage = new HtmlImage();
                     editimage.Attributes.Add("src", "../Images/edit.png");
@@ -137,7 +137,7 @@ namespace IdentityManagementWebService.Pages
 
                     HtmlTableCell actioncell = new HtmlTableCell();
                     actioncell.Controls.Add(_edit);
-                    actioncell.Controls.Add(runningPosition);
+                    //actioncell.Controls.Add(runningPosition);
                     actioncell.Controls.Add(toggleButton);
                     actioncell.Attributes.Add("class", "tablecolumn");
                     tr.Cells.Add(actioncell);

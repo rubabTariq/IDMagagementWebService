@@ -250,7 +250,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             btneditimg.src = "../Images/edit.png";
                             btneditimg.style.width = "25px";
                             var btneditlink = document.createElement('a');
-                            btneditlink.href = "/AddPosition.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
+                            btneditlink.href = "/Pages/TaskAndHistorySection.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
                             btneditlink.style.marginLeft = "0px";
                             btneditlink.appendChild(btneditimg);
                             btneditlink.id = "edit" + result.PositionData[j].FirstName;
@@ -280,7 +280,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             var cell11 = row.insertCell(10);
                             cell11.className = "tablecolumn";
                             cell11.appendChild(btneditlink);
-                            cell11.appendChild(OpenPositionlink);
+                            //cell11.appendChild(OpenPositionlink);
                             cell11.appendChild(copyBasicData);
                             srnumber++;
                         }

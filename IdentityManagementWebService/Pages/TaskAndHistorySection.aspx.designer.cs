@@ -130,13 +130,13 @@ namespace IdentityManagementWebService.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTable taskIdentities;
         
         /// <summary>
-        /// notes control.
+        /// note control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText notes;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl note;
         
         /// <summary>
         /// totalplv control.
