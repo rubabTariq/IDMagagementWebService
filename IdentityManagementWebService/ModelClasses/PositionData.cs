@@ -57,6 +57,13 @@ namespace IdentityManagementWebService.ModelClasses
             set;
             }
         [JsonProperty]
+        public List<List<string>> TasksList
+            {
+            get;
+            set;
+            }
+
+        [JsonProperty]
         public List<string> SelectTasks
             {
             get;
@@ -82,6 +89,58 @@ namespace IdentityManagementWebService.ModelClasses
             }
         [JsonProperty]
         public string Status
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string TotalRunTime
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public string OpenPositionTime
+            {
+            get;
+            set;
+            }
+        public string StartPositionTime
+            {
+            get;
+            set;
+            }
+        public string IntervalPositionTime
+            {
+            get;
+            set;
+            }
+        public string PositionIdentitiesCount
+            {
+            get;
+            set;
+            }
+        public string CycleProgress
+            {
+            get;
+            set;
+            }
+        public string TotalPLV
+            {
+            get;
+            set;
+            }
+        public string AveragePLV
+            {
+            get;
+            set;
+            }
+        public string CurrentAveragePLV
+            {
+            get;
+            set;
+            }
+        public string CurrentPLV
             {
             get;
             set;

@@ -44,24 +44,14 @@
                         <div class="togglemenu"></div>
                     </a>
                 </div>
-                 <div class="navbar-header" style="margin-left: auto">
-                  <a  href="#" style="color:white">Super Admin</a>
-                 </div>
-                <!-- /.navbar-header -->
-                <%-- <ul class="nav navbar-nav navbar-right">
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
-                            <asp:Label Style="width: 70px" ID="_username" runat="server" Text="Menu" /></a>
+                <li class="dropdown">
+                        <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown" style="color:white">
+                               <span class="glyphicon glyphicon-user" style="color:white;display: inline;"></span>
+                            <asp:Label Style="color:white;width: 70px" ID="username" runat="server" Text="Super Admin" /></a>
                         <ul class="dropdown-menu">
-                            <li class="m_2" <%--class="dropdown-menu-header text-center"-->
-                                <strong>Account</strong>
-                            </li>
-
-                            <li class="m_2"><a href="home1.aspx"><i class="fa fa-lock"></i>Logout</a></li>
+                            <li ><a href="Signin.aspx?logout=logout"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
                     </li>
-                </ul>--%>
             </nav>
 
             <div id="sidebar-wrapper">

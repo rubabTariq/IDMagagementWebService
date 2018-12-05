@@ -44,9 +44,14 @@
                         <div class="togglemenu"></div>
                     </a>
                 </div>
-                 <div class="navbar-header" style="margin-left: auto">
-                  <a  href="#" style="color:white">Super Admin</a>
-                 </div>
+                <li class="dropdown">
+                        <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown" style="color:white">
+                               <span class="glyphicon glyphicon-user" style="color:white;display: inline;"></span>
+                            <asp:Label Style="color:white;width: 70px" ID="username" runat="server" Text="Super Admin" /></a>
+                        <ul class="dropdown-menu">
+                            <li ><a href="Signin.aspx?logout=logout"><i class="fa fa-lock"></i>Logout</a></li>
+                        </ul>
+                    </li>
             </nav>
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">

@@ -190,6 +190,7 @@
     <Compile Include="ModelClasses\PositionData.cs" />
     <Compile Include="ModelClasses\PositionFilterCriteria.cs" />
     <Compile Include="ModelClasses\Response.cs" />
+    <Compile Include="ModelClasses\Tasks.cs" />
     <Compile Include="ModelClasses\TasksFilterCriteria.cs" />
     <Compile Include="ModelClasses\WebsiteDataModel.cs" />
     <Compile Include="Pages\Affiliate.aspx.cs">

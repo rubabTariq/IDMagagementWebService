@@ -103,6 +103,46 @@ namespace IdentityManagementWebService.Pages
                         startedpositiontime.InnerHtml = identityPositionData.StartDate + " " + identityPositionData.StartTime;
                         intervalpositiontime.InnerHtml = identityPositionData.StartDate + " " + identityPositionData.StartTime;
                         positionidentities.InnerHtml = (string) identityPositionData.SelectedIdentities.Count.ToString();
+                        notes.Value=  identityPositionData.Note.ToString();
+                        int tasknumber = 1;
+                        
+                        for ( int j = 0; j < identityPositionData.TasksList.Count; j++ )
+                            {
+                            HtmlGenericControl tasklistdiv = new HtmlGenericControl("div");
+                            tasklistdiv.InnerText= "Task" + tasknumber;
+                            tasklistdiv.Style.Add("border", "solid");
+                            tasklistdiv.Style.Add("Background-color", "white");
+                            tasklistdiv.Style.Add("width", "auto");
+                            tasklistdiv.Style.Add("height", "auto");
+                            tasklistdiv.Style.Add("word-wrap", "break-word");
+                            HtmlGenericControl innertasklistdiv = new HtmlGenericControl("div");
+                            innertasklistdiv.Style.Add("display", "inline");
+                            HtmlGenericControl deletebutton = new HtmlGenericControl("button");
+                            deletebutton.Attributes.Add("class", "btn btn-default");
+                            deletebutton.Attributes.Add("type", "button");
+                            deletebutton.Attributes.Add("onclick", "DeleteWebsite('tasklistdiv" + tasknumber + "')");
+                            deletebutton.Style.Add("display", "inline");
+                            deletebutton.Style.Add("float", "right");
+                            HtmlGenericControl deletebuttonspan = new HtmlGenericControl("span");
+                            deletebuttonspan.Attributes.Add("class", "glyphicon glyphicon-trash");
+                            deletebutton.Controls.Add(deletebuttonspan);
+                            innertasklistdiv.Controls.Add(deletebutton);
+                            tasklistdiv.Controls.Add(innertasklistdiv);
+                            for ( int task = 0; task < identityPositionData.TasksList[j].Count; task++ )
+                                {
+                                HtmlGenericControl tasklistParagragh = new HtmlGenericControl("p");
+                                tasklistParagragh.Attributes.Add("id", "tasklist" + "Task" + tasknumber + tasknumber);
+                                tasklistParagragh.Attributes.Add("readonly", "readonly");
+                                tasklistParagragh.Style.Add("border", "none");
+                                tasklistParagragh.Style.Add("background", "none");
+                                tasklistParagragh.Style.Add("display", "inline");
+                                tasklistParagragh.InnerText = identityPositionData.TasksList[j][task];
+                                tasklistParagragh.InnerHtml += "<br/>";
+                                tasklistdiv.Controls.Add(tasklistParagragh);
+                                }
+                            tasknumber += 1;
+                            TaskContainer.Controls.Add(tasklistdiv);                          
+                            }
                         List<string> selectedIdentities = new List<string>();
                         int i = 0;
                         for ( var j = 1; j < taskIdentities.Rows.Count; j++ )
@@ -136,6 +176,13 @@ namespace IdentityManagementWebService.Pages
 
                 }
             }
-
+        [System.Web.Services.WebMethod]
+        public static Response Send (PositionData PositionData)
+            {
+            Response status;
+            PositionData = AmazonDynamoDBPositionTable.Instance.ConvertToLowerCase(PositionData);
+            status = AmazonDynamoDBPositionTable.Instance.UpdateDataInDynamoDb(PositionData);
+            return status;
+            }
         }
     }

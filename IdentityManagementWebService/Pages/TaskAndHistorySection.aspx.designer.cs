@@ -31,6 +31,15 @@ namespace IdentityManagementWebService.Pages {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// username control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label username;
+        
+        /// <summary>
         /// taskcount control.
         /// </summary>
         /// <remarks>
@@ -130,13 +139,13 @@ namespace IdentityManagementWebService.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTable taskIdentities;
         
         /// <summary>
-        /// note control.
+        /// notes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl note;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea notes;
         
         /// <summary>
         /// totalplv control.

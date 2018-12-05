@@ -44,24 +44,14 @@
                         <div class="togglemenu"></div>
                     </a>
                 </div>
-                <div class="navbar-header" style="margin-left: auto">
-                    <a href="#" style="color: white">Super Admin</a>
-                </div>
-                <!-- /.navbar-header -->
-                <%-- <ul class="nav navbar-nav navbar-right">
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
-                            <asp:Label Style="width: 70px" ID="_username" runat="server" Text="Menu" /></a>
+               <li class="dropdown">
+                        <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown" style="color:white">
+                               <span class="glyphicon glyphicon-user" style="color:white;display: inline;"></span>
+                            <asp:Label Style="color:white;width: 70px" ID="username" runat="server" Text="Super Admin" /></a>
                         <ul class="dropdown-menu">
-                            <li class="m_2" <%--class="dropdown-menu-header text-center"-->
-                                <strong>Account</strong>
-                            </li>
-
-                            <li class="m_2"><a href="home1.aspx"><i class="fa fa-lock"></i>Logout</a></li>
+                            <li ><a href="Signin.aspx?logout=logout"><i class="fa fa-lock"></i>Logout</a></li>
                         </ul>
                     </li>
-                </ul>--%>
             </nav>
 
             <div id="sidebar-wrapper">
@@ -370,6 +360,8 @@
     <script src="../script/bootstrap.min.js"></script>
     <script type="text/javascript" language="javascript">
         var selectedIdentities = [];
+        var tasklist = [];
+      
         var count = 3;
         var selectedGames = [];
         $(window).on("load", function () {
@@ -389,6 +381,16 @@
                         }
                     }
                 }
+            }
+           
+            var para = $("#TaskContainer div p");
+            var paradiv = $("#TaskContainer div");
+            for (var j = 0; j <= paradiv.length - 1 ; j++) {
+                var tasksteps = [];
+                for (var i = 0; i <= para.length - 1 ; i++) {
+                    tasksteps.push(para[i].innerHTML);
+                }
+                tasklist.push(tasksteps);
             }
         });
       
@@ -480,7 +482,7 @@
         }
         function Remove(val, tdval, colval, rowval)
         {
-            for (var j = 0; j < $("#taskIdentities")[0].rows.length - 1; j++) {
+            for (var j = 0; j < $("#taskIdentities")[0].rows.length; j++) {
                 var id = 'PLV' + j + colval;
                 $('#' + id).val('');
                 calculate(colval, j);
@@ -766,14 +768,22 @@
                 txt = "No";
             }
         }
-        function Draft() {
-            Save("Start Scheduled");
+        function restartPosition() {
+            
         }
-        function Send() {
-            Save("Active");
+        function stopPosition() {
+            PositionButton("Stop");
         }
-        function Save(status) {
-            var positionlabel = $("#positionlabel")[0].value;
+        function PauseContinuePositionButton() {
+           PositionButton("Continue");
+        }
+        function editPosition() {
+            var positionlabel = $("#runpositionlabel")[0].innerText;
+            window.location.href = '/AddPosition.aspx?positionlabel=' + positionlabel;
+            return false;
+        }
+        function PositionButton(status) {
+            var positionlabel = $("#runpositionlabel")[0].innerHTML;
             if (positionlabel == null || positionlabel == '' || positionlabel == undefined)//|| !websiteName.match(re))
             {
                 $("#error_message")[0].style.visibility = 'visible';
@@ -781,26 +791,34 @@
                 $("#error_message").text("Error: Fill all mandatory(*) fields in correct format");
             }
             else {
-                var tasklist = [];
-                for (var i = 1; i <= count ; i++) {
-                    var id = "#step" + i;
-                    var value = $(id)[0].value;
-                    tasklist.push(value);
+               
+                for (var j = 1; j <= totaltasks.length ; j++)
+                {
+                    var tasksteps = [];
+                    for (var i = 1; i <= count ; i++) {
+                        var id = "#step" + i;
+                        var value = $(id)[0].value;
+                        tasksteps.push(value);
+                    }
+                    tasklist.push(tasksteps);
                 }
 
                 var PositionData = {
-                    PositionLabel: $("#positionlabel")[0].value,
-                    PositionWebsite: $("#selectwebsite").find(":selected").text(),
-                    SelectSelection: $("#selectselection").find(":selected").text(),
-                    StartTime: $("#starttime").val(),
-                    EndTime: $("#endtime").val(),
-                    StartDate: $("#startdate").val(),
-                    EndDate: $("#enddate").val(),
-                    SelectTasks: tasklist,
+                    PositionLabel: $("#runpositionlabel")[0].innerHTML,
+                    TotalRunTime: $("#totalruntime")[0].innerHTML,
+                    OpenPositionTime: $("#openpositiontime")[0].innerHTML,
+                    StartPositionTime: $("#startedpositiontime")[0].innerHTML,
+                    IntervalPositionTime: $("#intervalpositiontime")[0].innerHTML,
+                    PositionIdentitiesCount: $("#positionidentities")[0].innerHTML,
+                    CycleProgress: $("#cycleprogress")[0].innerHTML,
+                    TasksList: tasklist,
                     Note: $("#notes").val(),
-                    Status: status,
-                    SelectCountries: selectedCountries,
+                    TotalPLV: $("#totalplv")[0].innerHTML,
+                    AveragePLV: $("#avgplv")[0].innerHTML,
+                    CurrentPLV: $("#currentplv")[0].innerHTML,
+                    CurrentAveragePLV: $("#currentavgplv")[0].innerHTML,
                     SelectedIdentities: selectedIdentities,
+                    Status: status
                 };
                 updateIdentityTask(PositionData);
                 //var identityData = { title, firstName, last_Name, email, phone, address, date, country, zip, city, state, language, currency, birthCountry };
@@ -810,7 +828,7 @@
         function updateIdentityTask(PositionData) {
             $.ajax({
                 type: "POST",
-                url: "AddPosition.aspx/Send",
+                url: "TaskAndHistorySection.aspx/Send",
                 data: JSON.stringify({ PositionData: PositionData }),//'{"Title":"' + identityData.Title + '","City":"' + identityData.City+ '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -836,18 +854,19 @@
                 }
             });
         }
-        function Cancel() {
-            try {
-                window.location.href = '/Pages/Position.aspx';
-                return false;
-            }
-            catch (err) {
-                alert("Error: " + err);
-            }
-        }
-        $("#starttaskButton").off().on("click", Send);
-        $("#draftButton").off().on("click", Draft);
-        $("#cancelButton").off().on("click", Cancel);
+        //function stopPosition() {
+        //    try {
+        //        window.location.href = '/Pages/Position.aspx';
+        //        return false;
+        //    }
+        //    catch (err) {
+        //        alert("Error: " + err);
+        //    }
+        //}
+        $("#EditPosition").off().on("click", editPosition);
+        $("#RestartPosition").off().on("click", restartPosition);
+        $("#StopPosition").off().on("click", stopPosition);
+        $("#pauseContinuePositionButton").off().on("click", PauseContinuePositionButton);
     </script>
 </body>
 </html>

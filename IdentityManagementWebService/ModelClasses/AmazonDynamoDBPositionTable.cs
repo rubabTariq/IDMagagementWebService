@@ -6,6 +6,7 @@ using Amazon.DynamoDBv2.Model;
 using Newtonsoft.Json;
 using IdentityManagementWebService.ModelClasses;
 using IdentityManagementWebService.Connection;
+using System.Linq;
 
 namespace IdentityManagementWebService.ModelClasses
     {
@@ -166,7 +167,50 @@ namespace IdentityManagementWebService.ModelClasses
                     return new Response(false, exception.Message);
                     }
                 }
-            public Response deleteCustomTaskDataInDynamoDb (string email)
+        public Response UpdateDataInDynamoDb (PositionData positionData)
+            {
+            try
+                {
+                if ( null == Table )
+                    {
+                    return new Response(false, "Table not Found");
+                    }
+                Response _response = GetDataInDynamoDb(positionData.PositionLabel);
+                PositionData _positionData=CreateSingleUpdatedObject(_response.PositionData, positionData);
+
+                    string jsonText = JsonConvert.SerializeObject(_positionData);
+                    Document item = Document.FromJson(jsonText);
+                    Document response = Table.UpdateItem(item);
+                return new Response(true, "Table updated");
+                }
+            catch ( Exception exception )
+                {
+                Console.WriteLine(exception.Message);
+                return new Response(false, exception.Message);
+                }
+            }
+
+        private PositionData CreateSingleUpdatedObject (List<PositionData> positionData1, PositionData positionData2)
+            {
+            positionData2.PositionLabel = positionData1.FirstOrDefault().PositionLabel;
+            positionData2.PositionWebsite = positionData1.FirstOrDefault().PositionWebsite;
+            positionData2.SelectCountries= positionData1.FirstOrDefault().SelectCountries;
+            positionData2.SelectSelection = positionData1.FirstOrDefault().SelectSelection;
+            positionData2.StartDate = positionData1.FirstOrDefault().StartDate;
+            positionData2.StartTime = positionData1.FirstOrDefault().StartTime;
+            positionData2.EndDate = positionData1.FirstOrDefault().EndDate;
+            positionData2.EndTime = positionData1.FirstOrDefault().EndTime;
+            positionData2.TotalDateTime= positionData1.FirstOrDefault().TotalDateTime;
+            if(0< positionData1.FirstOrDefault().TasksList.Count)
+            positionData2.SelectTasks = positionData1.FirstOrDefault().TasksList.FirstOrDefault();
+            if ( null == positionData2.Note )
+                {
+                positionData2.Note = positionData1.FirstOrDefault().Note;
+                }
+            return positionData2;
+            }
+
+        public Response deleteCustomTaskDataInDynamoDb (string email)
                 {
             return null;
                 }
@@ -243,6 +287,7 @@ namespace IdentityManagementWebService.ModelClasses
             internal PositionData ConvertToLowerCase (PositionData PositionData)
                 {
                 PositionData.PositionLabel = PositionData.PositionLabel.ToLower();
+                if(null != PositionData.PositionWebsite )
                 PositionData.PositionWebsite = PositionData.PositionWebsite.ToLower();
                 PositionData.Status = PositionData.Status.ToLower();
                 return PositionData;
@@ -251,6 +296,7 @@ namespace IdentityManagementWebService.ModelClasses
                 {
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
                 PositionData.PositionLabel = textInfo.ToTitleCase(PositionData.PositionLabel);
+                if(null!= PositionData.PositionWebsite )
                 PositionData.PositionWebsite = textInfo.ToTitleCase(PositionData.PositionWebsite);
                 PositionData.Status = textInfo.ToTitleCase(PositionData.Status);
                 return PositionData;
@@ -414,6 +460,9 @@ namespace IdentityManagementWebService.ModelClasses
                     position = JsonConvert.DeserializeObject<PositionData>(jsonString);
                     position.SelectedIdentities = listofselectedIdentities;
                     position.SelectTasks = listofTasks;
+                    List<List<string>> tasklist = new List<List<string>>();
+                    tasklist.Add(position.SelectTasks);
+                    position.TasksList= tasklist;
                     position.SelectCountries = listofCountries;
                    positionList.Add(position);
 
