@@ -87,6 +87,18 @@ namespace IdentityManagementWebService.ModelClasses
                 websiteName = value;
                 }
             }
+        private string affiliate;
 
+        public string Affiliate
+            {
+            get
+                {
+                return affiliate;
+                }
+            set
+                {
+                affiliate = value;
+                }
+            }
         }
     }

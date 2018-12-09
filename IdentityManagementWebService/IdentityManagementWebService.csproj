@@ -90,6 +90,7 @@
     <Content Include="Images\runningposition.png" />
     <Content Include="Images\sliderimage.png" />
     <Content Include="Pages\Affiliate.aspx" />
+    <Content Include="Pages\PLV.aspx" />
     <Content Include="Pages\Position.aspx" />
     <Content Include="Pages\Signin.aspx" />
     <Content Include="Pages\TaskAndHistorySection.aspx" />
@@ -206,6 +207,13 @@
     </Compile>
     <Compile Include="Pages\Identities.aspx.designer.cs">
       <DependentUpon>Identities.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PLV.aspx.cs">
+      <DependentUpon>PLV.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PLV.aspx.designer.cs">
+      <DependentUpon>PLV.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Position.aspx.cs">
       <DependentUpon>Position.aspx</DependentUpon>

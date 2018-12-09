@@ -49,5 +49,19 @@ namespace IdentityManagementWebService.ModelClasses
                 status = value;
                 }
             }
+
+        private string totalplv;
+
+        public string TotalPLV
+            {
+            get
+                {
+                return totalplv;
+                }
+            set
+                {
+                totalplv = value;
+                }
+            }
         }
     }

@@ -57,7 +57,7 @@ namespace IdentityManagementWebService.ModelClasses
             set;
             }
         [JsonProperty]
-        public List<List<string>> TasksList
+        public List<string> TasksHistoryList
             {
             get;
             set;
@@ -69,8 +69,15 @@ namespace IdentityManagementWebService.ModelClasses
             get;
             set;
             }
+
         [JsonProperty]
         public List<string> SelectCountries
+            {
+            get;
+            set;
+            }
+        [JsonProperty]
+        public List<string> IdentitiesPLV
             {
             get;
             set;

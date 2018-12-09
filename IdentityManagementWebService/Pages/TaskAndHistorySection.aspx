@@ -82,7 +82,12 @@
                             Position
                         </a>
                     </li>
-
+                     <li>
+                        <a href="PLV.aspx">
+                            <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
+                            PLV
+                        </a>
+                    </li> 
                 </ul>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -164,14 +169,20 @@
                                     
                                 </table>
                                 <input id="addnewtaskbutton" type="button" class="btn btn btn-click" onclick="AddNewTask()" style="width: 130px;" value="Add New Task" />
-                                            <input id="PLVHistory" class="btn btn-click" style="width: 200px;" value="PLV and Description History" type="button" />
+                                <input id="PLVHistory" class="btn btn-click" style="width: 200px;" value="PLV and Description History" type="button" onclick="TaskHistory()" />
                                         
                                 <legend style="padding-top: 10px;">Task
                                 </legend>
                                 <div style="overflow-y: auto; max-height: 200px;background-color:white">
-                                    <div id="TaskContainer" runat="server" class="box-body" style="margin-left: 1%;">
+                                    <div id="TaskContainer" runat="server" class="box-body" style="margin-left: 1%;max-height: 200px;">
+                                         <div id="tasksteps" runat="server" style="display:inline;visibility:hidden;max-height: 200px;Background-color:white;word-wrap: break-word;">
+                                             <button class="btn btn-default" type="button" onclick="DeleteWebsite('tasksteps')" style="display:inline;float:right"><span class="glyphicon glyphicon-trash"></span></button>
+                                             <p type="text" id="tasklist" runat="server"  readonly="readonly" style="border:none;background:none;display:inline"></p>
+                                             <br />
+                                         </div>
+                                        <br />
+                                         </div>  
                                     </div>
-                                </div>
                                 <legend style="padding-top: 10px;">IDENTITIES
                                 </legend>
                                 <div style="overflow-y:scroll; height:150%; width:150%;">
@@ -327,6 +338,31 @@
                                 </div>
                             </div>
                         </div>
+                                <div id="taskandPLVHistory" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 style="color: white">PLV and Task History</h3>
+                                    <span class="close">&times;</span>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div style="overflow-y:auto;max-height:200px;">
+                                <table name="taskHistory" runat="server" id="taskHistory" style="background: none; background-color: white;">
+                                    
+                                    <!-- Text input-->
+                                    
+                                   
+                                </table>
+
+                                    </div>
+                                     <div class="modal-footer">
+                                    <div class="input-group">
+                                        <input class="btn btn-click" type="button" onclick="CloseTaskHistory()" value="Done" style="margin-left: 50%; margin-right: 50%;" />
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                             <!-- Success message -->
 
                             <!-- Button -->
@@ -383,15 +419,15 @@
                 }
             }
            
-            var para = $("#TaskContainer div p");
-            var paradiv = $("#TaskContainer div");
-            for (var j = 0; j <= paradiv.length - 1 ; j++) {
-                var tasksteps = [];
-                for (var i = 0; i <= para.length - 1 ; i++) {
-                    tasksteps.push(para[i].innerHTML);
-                }
-                tasklist.push(tasksteps);
-            }
+            //var para = $("#TaskContainer div p");
+            //var paradiv = $("#TaskContainer div");
+            //for (var j = 0; j <= paradiv.length - 1 ; j++) {
+            //    var tasksteps = [];
+            //    for (var i = 0; i <= para.length - 1 ; i++) {
+            //        tasksteps.push(para[i].innerHTML);
+            //    }
+            //    tasklist.push(tasksteps);
+            //}
         });
       
         function AddNewTask() {
@@ -404,15 +440,27 @@
             $("#step3").val('');
           
         }
+
+        function TaskHistory() {
+            $("#taskandPLVHistory")[0].style.display = "block";
+            $("#addnewtaskbutton").disabled = true;
+
+        }
         var span = document.getElementsByClassName("close")[0];
         span.onclick = function () {
             $("#addNewTask")[0].style.display = "none";
+            $("#taskandPLVHistory")[0].style.display = "none";
         }
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == $("#addNewTask")[0]) {
                 $("#addNewTask")[0].style.display = "none";
+                $("#taskandPLVHistory")[0].style.display = "none";
             }
+        }
+        function CloseTaskHistory()
+        {
+            $("#taskandPLVHistory")[0].style.display = "none";
         }
         $("#addtask").on("click", function () {
             count++
@@ -518,7 +566,6 @@
             if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
             return i;
         }
-       
         var totaltasks = [];
         var tasklistdiv = 0;
         function SubmitTaskData()
@@ -526,19 +573,23 @@
             var totaltasksteps = [];
             var tasklist = 1;
             tasklistdiv += 1;
-            $("#TaskContainer").append("<div id=\"tasklistdiv" + tasklistdiv + "\" style=\"border:solid;Background-color:white;width:auto;height:auto;word-wrap: break-word;\">Task" + tasklistdiv+
-                "<div style=\"display:inline;\"><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('tasklistdiv" + tasklistdiv + "')\" style=\"display:inline;float:right;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br /></div>")
-            totaltasksteps.push('tasklistdiv' + tasklistdiv);
+            $("#tasklist")[0].innerHTML ="";
+            //$("#TaskContainer").append("<div id=\"tasklistdiv" + tasklistdiv + "\" style=\"border:solid;Background-color:white;width:auto;height:auto;word-wrap: break-word;\">Task" + tasklistdiv+
+            //    "<div style=\"display:inline;\"><button class=\"btn btn-default\" type=\"button\" onclick=\"DeleteWebsite('tasklistdiv" + tasklistdiv + "')\" style=\"display:inline;float:right;\"><span class=\"glyphicon glyphicon-trash\"></span></button></div><br /></div>")
+            //totaltasksteps.push('tasklistdiv' + tasklistdiv);
             for (var i = 1; i <= count; i++)
-                {
-                    $("#tasklistdiv" + tasklistdiv).append("<p type=\"text\" id=\"tasklist" + tasklistdiv+ tasklist + "\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />")
-                    $("#tasklist" + tasklistdiv + tasklist).text($("#step" + tasklist)[0].value);
+            {
+                    $("#tasklist")[0].innerHTML += $("#step" + tasklist)[0].value;
+                    $("#tasklist")[0].innerHTML += "<br/>";
+                    //$("#tasklistdiv" + tasklistdiv).append("<p type=\"text\" id=\"tasklist" + tasklistdiv+ tasklist + "\"  readonly=\"readonly\" style=\"border:none;background:none;display:inline\"></p><br />")
+                    //$("#tasklist" + tasklistdiv + tasklist).text($("#step" + tasklist)[0].value);
                     totaltasksteps.push($("#step" + tasklist)[0].value);
                     tasklist += 1;
-                  
+                
                 }
           
-                $("#TaskContainer")[0].style.visibility = 'visible';
+            $("#TaskContainer")[0].style.visibility = 'visible';
+            $("#tasksteps")[0].style.visibility = 'visible';
                 $("#addNewTask")[0].style.display = "none";
                 $("#addnewtaskbutton").disabled = false;
                 totaltasks.push(totaltasksteps);
@@ -791,16 +842,22 @@
                 $("#error_message").text("Error: Fill all mandatory(*) fields in correct format");
             }
             else {
-               
-                for (var j = 1; j <= totaltasks.length ; j++)
-                {
-                    var tasksteps = [];
-                    for (var i = 1; i <= count ; i++) {
-                        var id = "#step" + i;
-                        var value = $(id)[0].value;
-                        tasksteps.push(value);
-                    }
-                    tasklist.push(tasksteps);
+                var identityPLV = [];
+                var j=1;
+                for (var i = 0; i < ($("#taskIdentities")[0].rows.length-1) ; i++) {
+                    var id = "#total" + i;
+                    var value = $(id)[0].innerHTML;
+                    if ("" != value)
+                        identityPLV.push($("#taskIdentities")[0].rows[j].id + "\n" + value);
+                    j++;
+                }
+
+                var tasklist = [];
+                for (var i = 1; i <= count ; i++) {
+                    var id = "#step" + i;
+                    var value = $(id)[0].value;
+                    if ("" != value)
+                    tasklist.push(value);
                 }
 
                 var PositionData = {
@@ -811,13 +868,14 @@
                     IntervalPositionTime: $("#intervalpositiontime")[0].innerHTML,
                     PositionIdentitiesCount: $("#positionidentities")[0].innerHTML,
                     CycleProgress: $("#cycleprogress")[0].innerHTML,
-                    TasksList: tasklist,
+                    SelectTasks: tasklist,
                     Note: $("#notes").val(),
                     TotalPLV: $("#totalplv")[0].innerHTML,
                     AveragePLV: $("#avgplv")[0].innerHTML,
                     CurrentPLV: $("#currentplv")[0].innerHTML,
                     CurrentAveragePLV: $("#currentavgplv")[0].innerHTML,
                     SelectedIdentities: selectedIdentities,
+                    IdentitiesPLV: identityPLV,
                     Status: status
                 };
                 updateIdentityTask(PositionData);

@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Position.aspx.cs" Inherits="IdentityManagementWebService.Pages.Position" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PLV.aspx.cs" Inherits="IdentityManagementWebService.Pages.PLV" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Position</title>
+    <title>PLV</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -80,13 +80,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Position
                         </a>
-                    </li>
+                    </li>  
                      <li>
                         <a href="PLV.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             PLV
                         </a>
-                    </li>   
+                    </li> 
                 </ul>
             </div>
 
@@ -96,45 +96,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     <h3 style="padding-top: 2%; padding-left: 2%;">
                         <span class="glyphicon glyphicon-user" style="display: inline;"></span>
-                        Position     
-                      <a style="color: cornflowerblue; display: inline; font-size: large; background-color: #1565c0; color: white;" href="/AddPosition.aspx">Add Position</a>
+                        PLV    
                     </h3>
-                    <div class="col-md-8 inbox_right" style="width: 1000px; height: 600px;">
-                        <div class="mailbox-content" style="height: 450px; width: 1640px;">
+                    <div class="mailbox-content" style="height: 450px; width: 1640px;">
+                    <div class="col-md-6" style="width: 1000px; height: 600px;">
+                            <table id="plv" class="tableidentities" runat="server" style="border-collapse: collapse;width:auto;display: inline;">
 
-                            <table id="position" class="tableidentities" runat="server" style="border-collapse: collapse; width: auto">
                                 <tbody>
                                     <tr class="tablerow">
                                         <th class="tablecol" style="width: 1%;">Sr.no</th>
-                                        <th class="tablecol" style="width: 2%;">Identities</th>
+                                        <th class="tablecol" style="width: 2%;">Country</th>
+                                        <th class="tablecol" style="width: 5%;">Affiliate</th>
+                                        <th class="tablecol" style="width: 5%;">Identity</th>
                                         <th class="tablecol" style="width: 5%;">PLV</th>
-                                        <th class="tablecol" style="width: 5%;">Position</th>
-                                        <th class="tablecol" style="width: 5%;">Website</th>
-                                        <th class="tablecol" style="width: 5%;">Starting</th>
-                                        <th class="tablecol" style="width: 5%;">Ending</th>
-                                        <th class="tablecol" style="width: 5%;">Cycles</th>
-                                        <th class="tablecol" style="width: 10%;">Time</th>
-                                        <th class="tablecol" style="width: 5%;">Status</th>
-                                        <th class="tablecol" style="width: 15%;">Action</th>
                                     </tr>
                                     <tr class="tablerow">
                                         <th class="tablecol"></th>
-                                        <th class="tablecol"></th>
-                                        <th class="tablecol"></th>
                                         <th class="tablecol">
-                                            <input id="searchposition" type="search" style="width: 145px; font-size: 12px;" placeholder="Search Position" onsearch="searchIdentities()" />
+                                             <input id="searchCountry" type="search" style="width: 145px; font-size: 12px;" placeholder="Search Country" onsearch="searchIdentities()" />
                                         </th>
                                         <th class="tablecol">
-                                            <input id="searchwebsite" type="search" placeholder="Search Website" style="width: 145px; font-size: 12px;" onsearch="searchIdentities()" />
+                                           <input id="searchAffiliate" type="search" style="width: 145px; font-size: 12px;" placeholder="Search Affiliate" onsearch="searchIdentities()" />
                                         </th>
-                                        <th class="tablecol"></th>
-                                        <th class="tablecol"></th>
-                                        <th class="tablecol"></th>
+                                        <th class="tablecol">
+                                          <input id="searchIdentity" type="search" style="width: 145px; font-size: 12px;" placeholder="Search Identity" onsearch="searchIdentities()" />
+                                        </th>
+                                        <th class="tablecol"></th>  
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            </div>
+                          <div class="col-md-6 WebsiteList">
+                              <table id="plvposition" class="tableidentities" runat="server" style="border-collapse: collapse;width:auto; float:right;display: inline;">
+                                <tbody>
+                                    <tr class="tablerow">
+                                        <th class="tablecol" style="width: 1%;">Sr.no</th>
+                                        <th class="tablecol" style="width: 5%;">Website</th>
+                                        <th class="tablecol" style="width: 5%;">Total PLV</th>
+                                        <th class="tablecol" style="width: 5%;">Positions</th>
+                                    </tr>
+                                    <tr class="tablerow">
                                         <th class="tablecol"></th>
                                         <th class="tablecol">
-                                            <input id="searchstatus" type="search" placeholder="Search Status" style="width: 145px; font-size: 12px;" onsearch="searchIdentities()" />
+                                          <input id="searchWebsite" type="search" style="width: 145px; font-size: 12px;" placeholder="Search Website" onsearch="searchPositions()" />
                                         </th>
                                         <th class="tablecol"></th>
+                                        <th class="tablecol"></th>   
                                     </tr>
                                 </tbody>
 
@@ -142,7 +150,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                </div>
+              
 
 
             </div>
@@ -181,27 +189,83 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $("#wrapper").toggleClass("toggled");
         });
         function searchIdentities() {
-            var position = $("#searchposition").val();
-            var website = $("#searchwebsite").val();
-            var status = $("#searchstatus").val();
-            var PositionFilterCriteria = {
+            var Country = $("#searchCountry").val();
+            var Affiliate = $("#searchAffiliate").val();
+            var Email = $("#searchIdentity").val();
+         //   var Website = $("#searchWebsite").val();
+            
+            var IdentitiesFilterCriteria = {
                 
-                PositionLabel: position,
-                Website: website,
-                Status:status,
+                CountryofResidence: Country,
+                Affiliate: Affiliate,
+                Email: Email,
             };
-            if ("" == PositionFilterCriteria.Position && "" == PositionFilterCriteria.Website && "" == PositionFilterCriteria.Status) {
+            if ("" == IdentitiesFilterCriteria.CountryofResidence && "" == IdentitiesFilterCriteria.Affiliate && "" == IdentitiesFilterCriteria.Email) {
                 window.location.reload();
                 return false;
             }
-            PageMethods.SearchIdentities(PositionFilterCriteria, function (result) {
+            PageMethods.SearchIdentities(IdentitiesFilterCriteria, function (result) {
                 if (result.Statusvalue == true) {
-                    var countofRows = $("#position")[0].rows.length;
+                    var countofRows = $("#plv")[0].rows.length;
                     for (var i = countofRows - 1; i != 1; i--) {
-                        document.getElementById("position").deleteRow(i);
+                        document.getElementById("plv").deleteRow(i);
                     }
 
-                    var table = document.getElementById("position");
+                    var table = document.getElementById("plv");
+                    var rowcount = 2;
+                    var srnumber = 1;
+                    for (var j = 0; j < result.IdentityDataModel.length; j++) {
+
+                        if (null != result.IdentityDataModel[j]) {
+                            var row = table.insertRow(rowcount);
+                            row.id = result.IdentityDataModel[j].PositionLabel;
+                            var value = result.IdentityDataModel[j].PositionLabel;
+                            var cell1 = row.insertCell(0);
+                            cell1.innerHTML = srnumber;
+                            cell1.className = "tablecolumn";
+                            var cell2 = row.insertCell(1);
+                            cell2.innerHTML = result.IdentityDataModel[j].CountryOfResidence;
+                            cell2.className = "tablecolumn";
+                            var cell4 = row.insertCell(2);
+                            cell4.innerHTML = result.IdentityDataModel[j].Affiliate;
+                            cell4.className = "tablecolumn";
+                            var cell5 = row.insertCell(3);
+                            cell5.innerHTML = result.IdentityDataModel[j].Email;
+                            cell5.className = "tablecolumn";
+                            var cell6 = row.insertCell(4);
+                            cell6.innerHTML = result.IdentityDataModel[j].PLV;
+                            cell6.className = "tablecolumn";  
+                            srnumber++;
+                        }
+                    }
+                }
+                else {
+                    window.location.reload();
+                    return false;
+                }
+
+            });
+        }
+        function searchPositions() {
+            
+            var Website = $("#searchWebsite").val();
+
+            var PositionFilterCriteria = {
+
+                Website: Website,
+            };
+            if ("" == PositionFilterCriteria.Website) {
+                window.location.reload();
+                return false;
+            }
+            PageMethods.SearchPositions(PositionFilterCriteria, function (result) {
+                if (result.Statusvalue == true) {
+                    var countofRows = $("#plvposition")[0].rows.length;
+                    for (var i = countofRows - 1; i != 1; i--) {
+                        document.getElementById("plvposition").deleteRow(i);
+                    }
+
+                    var table = document.getElementById("plvposition");
                     var rowcount = 2;
                     var srnumber = 1;
                     for (var j = 0; j < result.PositionData.length; j++) {
@@ -209,75 +273,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         if (null != result.PositionData[j]) {
                             var row = table.insertRow(rowcount);
                             row.id = result.PositionData[j].PositionLabel;
-                            var value = result.PositionData[j].PositionLabel;
                             var cell1 = row.insertCell(0);
                             cell1.innerHTML = srnumber;
                             cell1.className = "tablecolumn";
                             var cell2 = row.insertCell(1);
-                            cell2.innerHTML = result.PositionData[j].Identities.length;
+                            cell2.innerHTML = result.PositionData[j].PositionWebsite;
                             cell2.className = "tablecolumn";
                             var cell3 = row.insertCell(2);
-                            cell3.innerHTML = "";
+                            cell3.innerHTML = result.PositionData[j].TotalPLV;
                             cell3.className = "tablecolumn";
+                            var count = 0;
+                            for ( var k=0; k< result.PositionData.length; k++ )
+                            {
+                                if (result.PositionData[j].PositionWebsite === result.PositionData[k].PositionWebsite)
+                                    count++;
+                            }
                             var cell4 = row.insertCell(3);
-                            cell4.innerHTML = result.PositionData[j].PositionLabel;
+                            cell4.innerHTML = count;
                             cell4.className = "tablecolumn";
-                            var cell5 = row.insertCell(4);
-                            cell5.innerHTML = result.PositionData[j].PositionWebsite;
-                            cell5.className = "tablecolumn";
-                            var cell6 = row.insertCell(5);
-                            cell6.innerHTML = result.PositionData[j].StartDate;
-                            cell6.className = "tablecolumn";
-                            var cell7 = row.insertCell(6);
-                            cell7.innerHTML = result.PositionData[j].EndDate;
-                            cell7.className = "tablecolumn";
-                            var cell8 = row.insertCell(7);
-                            cell8.innerHTML = "";
-                            cell8.className = "tablecolumn";
-                            var cell9 = row.insertCell(8);
-                            cell9.innerHTML = result.PositionData[j].TotalDateTime;
-                            cell9.className = "tablecolumn";
-                            var cell10 = row.insertCell(9);
-                            cell10.innerHTML = result.PositionData[j].Status;
-                            cell10.className = "tablecolumn";
-
-                            //Edit link
-                            var btneditimg = document.createElement('img');
-                            btneditimg.src = "../Images/edit.png";
-                            btneditimg.style.width = "25px";
-                            var btneditlink = document.createElement('a');
-                            btneditlink.href = "/Pages/TaskAndHistorySection.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
-                            btneditlink.style.marginLeft = "0px";
-                            btneditlink.appendChild(btneditimg);
-                            btneditlink.id = "edit" + result.PositionData[j].FirstName;
-
-                            //Edit link
-                            var btnOpenPosition = document.createElement('img');
-                            btnOpenPosition.src = "../Images/runningposition.png";
-                            btnOpenPosition.style.width = "15px";
-                            var OpenPositionlink = document.createElement('a');
-                            OpenPositionlink.href = "/Pages/TaskAndHistorySection.aspx?positionlabel=" + result.PositionData[j].PositionLabel;
-                            OpenPositionlink.style.marginLeft = "0px";
-                            OpenPositionlink.appendChild(btnOpenPosition);
-                            OpenPositionlink.id = "running" + result.PositionData[j].FirstName;
-
-                            //Pause/Continue Link
-                            var copyBasicData = document.createElement('input');
-                            copyBasicData.type = "button";
-                            copyBasicData.className = "btn btn-click";
-                            copyBasicData.value = "Continue";
-                            copyBasicData.style.width = "auto";
-                            copyBasicData.style.backgroundColor = "#61d461";
-                            copyBasicData.style.color = "#ffffff";
-                            copyBasicData.style.marginLeft = "10px";
-                            copyBasicData.onclick = function () { SetPosition(value, "") };
-                            copyBasicData.id = "toggle" + result.PositionData[j].PositionLabel;
-
-                            var cell11 = row.insertCell(10);
-                            cell11.className = "tablecolumn";
-                            cell11.appendChild(btneditlink);
-                            //cell11.appendChild(OpenPositionlink);
-                            cell11.appendChild(copyBasicData);
                             srnumber++;
                         }
                     }
@@ -319,4 +332,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
 </body>
 </html>
+
 

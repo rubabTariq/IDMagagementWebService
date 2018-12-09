@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -103,45 +104,65 @@ namespace IdentityManagementWebService.Pages
                         startedpositiontime.InnerHtml = identityPositionData.StartDate + " " + identityPositionData.StartTime;
                         intervalpositiontime.InnerHtml = identityPositionData.StartDate + " " + identityPositionData.StartTime;
                         positionidentities.InnerHtml = (string) identityPositionData.SelectedIdentities.Count.ToString();
+                        if(null!= identityPositionData.Note )
                         notes.Value=  identityPositionData.Note.ToString();
                         int tasknumber = 1;
-                        
-                        for ( int j = 0; j < identityPositionData.TasksList.Count; j++ )
+                        foreach ( var taskhistory in identityPositionData.TasksHistoryList )
                             {
+                            var tableRow = new HtmlTableRow();
+                            HtmlTableCell tableCell = new HtmlTableCell();
                             HtmlGenericControl tasklistdiv = new HtmlGenericControl("div");
-                            tasklistdiv.InnerText= "Task" + tasknumber;
+                            tasklistdiv.InnerText = "Task" + tasknumber;
                             tasklistdiv.Style.Add("border", "solid");
                             tasklistdiv.Style.Add("Background-color", "white");
                             tasklistdiv.Style.Add("width", "auto");
                             tasklistdiv.Style.Add("height", "auto");
                             tasklistdiv.Style.Add("word-wrap", "break-word");
-                            HtmlGenericControl innertasklistdiv = new HtmlGenericControl("div");
-                            innertasklistdiv.Style.Add("display", "inline");
-                            HtmlGenericControl deletebutton = new HtmlGenericControl("button");
-                            deletebutton.Attributes.Add("class", "btn btn-default");
-                            deletebutton.Attributes.Add("type", "button");
-                            deletebutton.Attributes.Add("onclick", "DeleteWebsite('tasklistdiv" + tasknumber + "')");
-                            deletebutton.Style.Add("display", "inline");
-                            deletebutton.Style.Add("float", "right");
-                            HtmlGenericControl deletebuttonspan = new HtmlGenericControl("span");
-                            deletebuttonspan.Attributes.Add("class", "glyphicon glyphicon-trash");
-                            deletebutton.Controls.Add(deletebuttonspan);
-                            innertasklistdiv.Controls.Add(deletebutton);
-                            tasklistdiv.Controls.Add(innertasklistdiv);
-                            for ( int task = 0; task < identityPositionData.TasksList[j].Count; task++ )
+                            tasklistdiv.InnerText = taskhistory;
+                            tasklistdiv.InnerHtml += "<br/>";
+                            tableCell.Controls.Add(tasklistdiv);
+                            tableRow.Cells.Add(tableCell);
+                            tasknumber += 1;
+                            taskHistory.Rows.Add(tableRow);
+                            }
+                          if(null!= identityPositionData.SelectTasks)
+                            {
+                            //HtmlGenericControl tasklistdiv = new HtmlGenericControl("div");
+                            //tasklistdiv.InnerText= "Task" + tasknumber;
+                            //tasklistdiv.Style.Add("border", "solid");
+                            //tasklistdiv.Style.Add("Background-color", "white");
+                            //tasklistdiv.Style.Add("width", "auto");
+                            //tasklistdiv.Style.Add("height", "auto");
+                            //tasklistdiv.Style.Add("word-wrap", "break-word");
+                            //HtmlGenericControl innertasklistdiv = new HtmlGenericControl("div");
+                            //innertasklistdiv.Style.Add("display", "inline");
+                            //HtmlGenericControl deletebutton = new HtmlGenericControl("button");
+                            //deletebutton.Attributes.Add("class", "btn btn-default");
+                            //deletebutton.Attributes.Add("type", "button");
+                            //deletebutton.Attributes.Add("onclick", "DeleteWebsite('tasklistdiv" + tasknumber + "')");
+                            //deletebutton.Style.Add("display", "inline");
+                            //deletebutton.Style.Add("float", "right");
+                            //HtmlGenericControl deletebuttonspan = new HtmlGenericControl("span");
+                            //deletebuttonspan.Attributes.Add("class", "glyphicon glyphicon-trash");
+                            //deletebutton.Controls.Add(deletebuttonspan);
+                            //innertasklistdiv.Controls.Add(deletebutton);
+                            //tasklistdiv.Controls.Add(innertasklistdiv);
+                            foreach ( var tasksteps in identityPositionData.SelectTasks )
                                 {
-                                HtmlGenericControl tasklistParagragh = new HtmlGenericControl("p");
-                                tasklistParagragh.Attributes.Add("id", "tasklist" + "Task" + tasknumber + tasknumber);
-                                tasklistParagragh.Attributes.Add("readonly", "readonly");
-                                tasklistParagragh.Style.Add("border", "none");
-                                tasklistParagragh.Style.Add("background", "none");
-                                tasklistParagragh.Style.Add("display", "inline");
-                                tasklistParagragh.InnerText = identityPositionData.TasksList[j][task];
-                                tasklistParagragh.InnerHtml += "<br/>";
-                                tasklistdiv.Controls.Add(tasklistParagragh);
+                                tasklist.InnerHtml += tasksteps;
+                                tasklist.InnerHtml += "<br />";
+                                //HtmlGenericControl tasklistParagragh = new HtmlGenericControl("p");
+                                //tasklistParagragh.Attributes.Add("id", "tasklist" + "Task" + tasknumber + tasknumber);
+                                //tasklistParagragh.Attributes.Add("readonly", "readonly");
+                                //tasklistParagragh.Style.Add("border", "none");
+                                //tasklistParagragh.Style.Add("background", "none");
+                                //tasklistParagragh.Style.Add("display", "inline");
+                                //tasklistParagragh.InnerText = tasksteps;
+                                //tasklistParagragh.InnerHtml += "<br/>";
+                                //tasklistdiv.Controls.Add(tasklistParagragh);
                                 }
                             tasknumber += 1;
-                            TaskContainer.Controls.Add(tasklistdiv);                          
+                            tasksteps.Style.Add("visibility", "visible");                          
                             }
                         List<string> selectedIdentities = new List<string>();
                         int i = 0;
@@ -182,6 +203,13 @@ namespace IdentityManagementWebService.Pages
             Response status;
             PositionData = AmazonDynamoDBPositionTable.Instance.ConvertToLowerCase(PositionData);
             status = AmazonDynamoDBPositionTable.Instance.UpdateDataInDynamoDb(PositionData);
+            foreach ( var identity in PositionData.IdentitiesPLV )
+                {
+                string[] identityList= Regex.Split(identity, "\n");
+                if( null!= identityList[1] && Convert.ToInt32(identityList [1])>0)
+                status = AmazonDynamoDBIdentityTable.Instance.AddExistingIdentityDataInDynamoDb(identityList[0], identityList[1]);
+                }
+           
             return status;
             }
         }

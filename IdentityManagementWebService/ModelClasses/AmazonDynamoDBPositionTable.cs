@@ -190,24 +190,48 @@ namespace IdentityManagementWebService.ModelClasses
                 }
             }
 
-        private PositionData CreateSingleUpdatedObject (List<PositionData> positionData1, PositionData positionData2)
+        private PositionData CreateSingleUpdatedObject (List<PositionData> GetpositionData, PositionData SetpositionData)
             {
-            positionData2.PositionLabel = positionData1.FirstOrDefault().PositionLabel;
-            positionData2.PositionWebsite = positionData1.FirstOrDefault().PositionWebsite;
-            positionData2.SelectCountries= positionData1.FirstOrDefault().SelectCountries;
-            positionData2.SelectSelection = positionData1.FirstOrDefault().SelectSelection;
-            positionData2.StartDate = positionData1.FirstOrDefault().StartDate;
-            positionData2.StartTime = positionData1.FirstOrDefault().StartTime;
-            positionData2.EndDate = positionData1.FirstOrDefault().EndDate;
-            positionData2.EndTime = positionData1.FirstOrDefault().EndTime;
-            positionData2.TotalDateTime= positionData1.FirstOrDefault().TotalDateTime;
-            if(0< positionData1.FirstOrDefault().TasksList.Count)
-            positionData2.SelectTasks = positionData1.FirstOrDefault().TasksList.FirstOrDefault();
-            if ( null == positionData2.Note )
+            SetpositionData.PositionLabel = GetpositionData.FirstOrDefault().PositionLabel;
+            SetpositionData.PositionWebsite = GetpositionData.FirstOrDefault().PositionWebsite;
+            SetpositionData.SelectCountries= GetpositionData.FirstOrDefault().SelectCountries;
+            SetpositionData.SelectSelection = GetpositionData.FirstOrDefault().SelectSelection;
+            SetpositionData.StartDate = GetpositionData.FirstOrDefault().StartDate;
+            SetpositionData.StartTime = GetpositionData.FirstOrDefault().StartTime;
+            SetpositionData.EndDate = GetpositionData.FirstOrDefault().EndDate;
+            SetpositionData.EndTime = GetpositionData.FirstOrDefault().EndTime;
+            SetpositionData.TotalDateTime= GetpositionData.FirstOrDefault().TotalDateTime;
+            if ( 0 < GetpositionData.FirstOrDefault().TasksHistoryList.Count )
                 {
-                positionData2.Note = positionData1.FirstOrDefault().Note;
+                SetpositionData.TasksHistoryList = GetpositionData.FirstOrDefault().TasksHistoryList;
                 }
-            return positionData2;
+                
+                if(null== SetpositionData.SelectTasks || 0== SetpositionData.SelectTasks.Count )
+                SetpositionData.SelectTasks = GetpositionData.FirstOrDefault().SelectTasks;
+            if ( null != SetpositionData.SelectTasks && 0< SetpositionData.SelectTasks.Count)
+                {
+                List<string> tempHistoryList = new List<string>();
+                tempHistoryList = GetpositionData.FirstOrDefault().TasksHistoryList;
+                string value = null;
+                foreach ( var taskssteps in SetpositionData.SelectTasks )
+                    {
+                    value += taskssteps;
+                    value += "@";
+                    }
+                value += "TotalPLV: " + SetpositionData.TotalPLV;
+                value += "@";
+                value += "AveragePLV: " + SetpositionData.AveragePLV;
+                value = value.Replace("@", "@" + System.Environment.NewLine);
+                tempHistoryList.Add(value);
+                SetpositionData.TasksHistoryList = tempHistoryList;
+                }
+          
+
+            if ( null == SetpositionData.Note )
+                {
+                SetpositionData.Note = GetpositionData.FirstOrDefault().Note;
+                }
+            return SetpositionData;
             }
 
         public Response deleteCustomTaskDataInDynamoDb (string email)
@@ -380,7 +404,7 @@ namespace IdentityManagementWebService.ModelClasses
                 if ( null != positionCriteria.Website && "" != positionCriteria.Website )
                     {
 
-                    filter.Add("Website", new Condition
+                    filter.Add("PositionWebsite", new Condition
                         {
                         ComparisonOperator = "CONTAINS",
                         AttributeValueList = new List<AttributeValue>()
@@ -415,7 +439,53 @@ namespace IdentityManagementWebService.ModelClasses
                 return new Response(true, "Search data found", positionList);
                 }
 
-            private List<PositionData> CovertresponseIntoJSON (ScanResponse response)
+        internal Response DynamoDbSearchPositions (PositionFilterCriteria positionCriteria)
+            {
+            if ( (null == positionCriteria.TotalPLV|| "" == positionCriteria.TotalPLV) && (null == positionCriteria.Website || "" == positionCriteria.Website))
+                {
+                return new Response(false, "First enter Search String");
+                }
+            Dictionary<string, Condition> filter = new Dictionary<string, Condition>();
+            if ( null != positionCriteria.TotalPLV && "" != positionCriteria.TotalPLV )
+                {
+
+                filter.Add("TotalPLV", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=positionCriteria.TotalPLV.ToLower() }
+                               }
+                    });
+                }
+            if ( null != positionCriteria.Website && "" != positionCriteria.Website )
+                {
+
+                filter.Add("PositionWebsite", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=positionCriteria.Website.ToLower() }
+                               }
+                    });
+                }
+                
+
+
+            ScanRequest request = new ScanRequest
+                {
+                TableName = _tablename,
+                AttributesToGet = new List<string> { "TotalPLV", "PositionWebsite"},
+                ScanFilter = filter
+
+                };
+            ScanResponse response = AmazonDynamoDBClientConnection.Client.Scan(request);
+            List<PositionData> positionList = CovertresponseIntoJSON(response);
+            return new Response(true, "Search data found", positionList);
+            }
+
+        private List<PositionData> CovertresponseIntoJSON (ScanResponse response)
                 {
                 List<Dictionary<string, AttributeValue>> result = response.Items;
                 List<PositionData> positionList = new List<PositionData>();
@@ -426,6 +496,7 @@ namespace IdentityManagementWebService.ModelClasses
                     List<string> listofselectedIdentities = new List<string>();
                     List<string> listofTasks = new List<string>();
                 List<string> listofCountries = new List<string>();
+                List<string> tasklistHistory = new List<string>();
                 Dictionary<string, string> item = new Dictionary<string, string>();
                     foreach ( var val in items )
                         {
@@ -454,15 +525,21 @@ namespace IdentityManagementWebService.ModelClasses
                                 listofCountries.Add(web.S);
                             }
                         }
+                    if ( val.Key == "TasksHistoryList" )
+                        {
+                        foreach ( var web in val.Value.L )
+                            {
+                            if ( !tasklistHistory.Contains(web.S) )
+                                tasklistHistory.Add(web.S);
+                            }
+                        }
                     item.Add(val.Key, val.Value.S);
                         }
                     string jsonString = JsonConvert.SerializeObject(item, Formatting.Indented);
                     position = JsonConvert.DeserializeObject<PositionData>(jsonString);
                     position.SelectedIdentities = listofselectedIdentities;
                     position.SelectTasks = listofTasks;
-                    List<List<string>> tasklist = new List<List<string>>();
-                    tasklist.Add(position.SelectTasks);
-                    position.TasksList= tasklist;
+                    position.TasksHistoryList= tasklistHistory;
                     position.SelectCountries = listofCountries;
                    positionList.Add(position);
 

@@ -149,5 +149,11 @@ namespace IdentityManagementWebService.ModelClasses
             get;
             set;
             }
+        [JsonProperty]
+        public string TotalPLV
+            {
+            get;
+            set;
+            }
         }
     }

@@ -130,6 +130,24 @@ namespace IdentityManagementWebService.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl TaskContainer;
         
         /// <summary>
+        /// tasksteps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tasksteps;
+        
+        /// <summary>
+        /// tasklist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tasklist;
+        
+        /// <summary>
         /// taskIdentities control.
         /// </summary>
         /// <remarks>
@@ -218,6 +236,15 @@ namespace IdentityManagementWebService.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText step3;
+        
+        /// <summary>
+        /// taskHistory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable taskHistory;
         
         /// <summary>
         /// hiddenselectedIdentities control.

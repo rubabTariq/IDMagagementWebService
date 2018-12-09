@@ -182,6 +182,34 @@ namespace IdentityManagementWebService.ModelClasses
                 return new Response(false, exception.Message);
                 }
             }
+        public Response AddExistingIdentityDataInDynamoDb (string identityEmail, string TotalPLVValue)
+            {
+            try
+                {
+                if ( null == Table )
+                    {
+                    return new Response(false, "Table not Found");
+                    }
+                Response _response = GetDataInDynamoDb(identityEmail);
+                IdentityDataModel _identityData = CreateSingleUpdatedObject(_response.IdentityDataModel, TotalPLVValue);
+
+                string jsonText = JsonConvert.SerializeObject(_identityData);
+                Document item = Document.FromJson(jsonText);
+                Document response = Table.UpdateItem(item);
+                return new Response(true, "Table updated");
+                }
+            catch ( Exception exception )
+                {
+                Console.WriteLine(exception.Message);
+                return new Response(false, exception.Message);
+                }
+            }
+        private IdentityDataModel CreateSingleUpdatedObject (List<IdentityDataModel> IdentityData, string TotalPLV)
+            {
+            IdentityData.FirstOrDefault().TotalPLV = TotalPLV;
+            return IdentityData.FirstOrDefault();
+            }
+
         public Response GetDataInDynamoDb (string email)
             {
             List<IdentityDataModel> Identities = new List<IdentityDataModel>();
@@ -403,6 +431,62 @@ namespace IdentityManagementWebService.ModelClasses
                 {
                 TableName = _tableName,
                 AttributesToGet = new List<string> { "CurrentDate", "FirstName", "LastName", "Email", "CountryOfResidence", "WebsiteDataModel" },
+                ScanFilter = filter
+
+                };
+            ScanResponse response = AmazonDynamoDBClientConnection.Client.Scan(request);
+            List<IdentityDataModel> identityList = CovertresponseIntoJSON(response);
+            return new Response(true, "Search data found", identityList);
+            }
+
+        internal Response DynamoDbSearchPLVIdentities (IdentitiesFilterCriteria filterCriteria)
+            {
+            if ( (null == filterCriteria.Email || "" == filterCriteria.Email) && (null == filterCriteria.CountryofResidence || "" == filterCriteria.CountryofResidence)
+                && (null == filterCriteria.Affiliate || "" == filterCriteria.Affiliate) )
+                {
+                return new Response(false, "First enter Search String");
+                }
+            Dictionary<string, Condition> filter = new Dictionary<string, Condition>();   
+            if ( null != filterCriteria.Email && "" != filterCriteria.Email )
+                {
+
+                filter.Add("Email", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.Email.ToLower() }
+                               }
+                    });
+                }
+            if ( null != filterCriteria.CountryofResidence && "" != filterCriteria.CountryofResidence )
+                {
+
+                filter.Add("CountryOfResidence", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.CountryofResidence.ToLower() }
+                               }
+                    });
+                }
+            if ( null != filterCriteria.Affiliate && "" != filterCriteria.Affiliate )
+                {
+
+                filter.Add("Affiliate", new Condition
+                    {
+                    ComparisonOperator = "CONTAINS",
+                    AttributeValueList = new List<AttributeValue>()
+                               {
+                               new AttributeValue {S=filterCriteria.Affiliate.ToLower() }
+                               }
+                    });
+                }
+            ScanRequest request = new ScanRequest
+                {
+                TableName = _tableName,
+                AttributesToGet = new List<string> { "Affiliate", "CountryOfResidence", "Email", "PLV" },
                 ScanFilter = filter
 
                 };
