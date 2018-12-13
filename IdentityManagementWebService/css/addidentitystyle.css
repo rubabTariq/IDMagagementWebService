@@ -48,7 +48,7 @@ table {
     position: relative;
     margin-bottom: 0;
     border: 1px solid black;
-    width: 120px;
+    width: 120px !important;
 }
 
 td, th {

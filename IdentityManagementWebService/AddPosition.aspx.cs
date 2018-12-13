@@ -68,6 +68,7 @@ namespace IdentityManagementWebService
                     email.Attributes.Add("class", "tablecolumn");
                     tr.Cells.Add(email);
                     HtmlTableCell country = new HtmlTableCell();
+                    country.ID = identity.CountryOfResidence;
                     country.InnerText = identity.CountryOfResidence;
                     country.Attributes.Add("class", "tablecolumn");
                     tr.Cells.Add(country);
@@ -117,8 +118,7 @@ namespace IdentityManagementWebService
                         positionData = AmazonDynamoDBPositionTable.Instance.ConvertToTitleCase(positionData);
                         //find identity from azure table and render content in fields.
                         positionlabel.Value = positionData.PositionLabel;
-                        ListItem selectSelection = selectselection.Items.FindByText(positionData.SelectSelection);
-                        selectSelection.Selected = true;
+                        selectselection.Value = positionData.SelectSelection;
                         starttime.Value = positionData.StartTime;
                         endtime.Value = positionData.EndTime;
                         startdate.Value = positionData.StartDate;
@@ -163,7 +163,7 @@ namespace IdentityManagementWebService
                             iDiv.InnerHtml = positionData.SelectCountries[j] + "&nbsp<button class=\"glyphicon glyphicon-remove\" style=\"display:inline;background-color:white\" onclick=\"deleteCountry(\'' + iDiv.id + '\')\" />";
                             addcountry.Controls.Add(iDiv);
                             }
-                        notes.Value = positionData.Note;
+                        notes.Value = positionData.Note.ToString();
                         ListItem Selectedwebsite = selectwebsite.Items.FindByText(positionData.PositionWebsite);
                         if ( null == Selectedwebsite )
                             {

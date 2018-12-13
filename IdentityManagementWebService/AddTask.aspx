@@ -71,19 +71,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Affiliate.aspx">
+                        <a href="/Pages/Affiliate.aspx">
                             <span class="glyphicon glyphicon-tasks" style="display: inline"></span>
                             Affiliate
                         </a>
                     </li>
                      <li>
-                        <a href="Position.aspx">
+                        <a href="/Pages/Position.aspx">
                              <span class="glyphicon glyphicon-tasks" style="display: inline"></span>
                             Position
                         </a>
                     </li>
                     <li>
-                        <a href="PLV.aspx">
+                        <a href="/Pages/PLV.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             PLV
                         </a>

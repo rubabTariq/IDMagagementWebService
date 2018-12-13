@@ -24,6 +24,11 @@
     <!-- Custom css for AddIdentity form -->
     <link href="../css/addidentitystyle.css" type="text/css" rel="stylesheet" />
     <link href="../css/identitiesstyle.css" type="text/css" rel="stylesheet">
+    <!-- datetimepicker  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+
+
 </head>
 <body style="overflow: hidden;">
     <form id="contact_form" runat="server" method="post">
@@ -71,19 +76,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Affiliate.aspx">
+                        <a href="/Pages/Affiliate.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Affiliate
                         </a>
                     </li>
                     <li>
-                        <a href="Position.aspx">
+                        <a href="/Pages/Position.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             Position
                         </a>
                     </li>
                      <li>
-                        <a href="PLV.aspx">
+                        <a href="/Pages/PLV.aspx">
                             <img src="../Images/TaskSchedule.png" alt="User logo" style="display: inline; width: 10px" />
                             PLV
                         </a>
@@ -148,15 +153,12 @@
                                         <!-- Text input-->
                                         <td>
                                             <div class="form-group">
-                                                <label class="labelText" for="selectselection">Select Selection</label>
+                                                <label class="labelText" for="selectSelection">Website Section</label>
                                                 <div>
                                                     <div class="input-group">
-                                                        <select id="selectselection" runat="server" name="selectselection" class="form-control" style="border: 1px solid black;" onchange="EnableFields()">
-                                                            <option disabled="disabled">Choose task type</option>
-                                                            <option value="Playing game(s)">Playing Game(S)</option>
-                                                            <%-- <option value="Uploading file(s)">Uploading File(S)</option>
-                                                        <option value="Registering account(s)">Registering Account(S)</option>--%>
-                                                        </select>
+                                                         <input id="selectselection" runat="server" name="selectSelection" placeholder="website section" class="form-control" type="text"
+                                                            required="required" maxlength="30" minlength="3" title="only alphabets allowed"/>
+                                                  
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,12 +177,12 @@
                                              </td>
                                               <td>
                                              <div class="form-group">
-                                                <label class="labelText" for="starttime">
+                                                <label class="labelText" for="startntime">
                                                     Starting Time
                                                 </label>
                                                 <div>
                                                     <div class="input-group">
-                                                        <input id="starttime" runat="server" name="starttime" value="" class="form-control" type="time" style="width:100px;" />
+                                                        <input id="starttime" runat="server" name="startntime" placeholder="start time" class="form-control" type="text" style="width:100px;" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,12 +201,12 @@
                                              </td>
                                               <td>
                                             <div class="form-group">
-                                                <label class="labelText" for="endtime">
+                                                <label class="labelText" for="endntime">
                                                     Ending Time
                                                 </label>
                                                 <div>
                                                     <div class="input-group">
-                                                        <input id="endtime" runat="server" name="endtime" class="form-control" type="time" style="width:100px;" />
+                                                        <input id="endtime" runat="server" name="endntime" placeholder="end time" class="form-control" type="text" style="width:100px;" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -552,7 +554,7 @@
                                                  <label class="labelText" for="note" style="display: inline">
                                                         Special Notes
                                                     :</label>
-                                                <input type="text" id="notes" runat="server" name="note" style="width: 100%;height: 200px;" />
+                                        <textarea type="text" id="notes" runat="server" name="note" style="width: 100%; height: 200px;background-color:white;resize: none;" ></textarea>
                                             </td>
                                         </tr>
                                    
@@ -581,7 +583,9 @@
 
     <!-- /.container -->
 
-
+<%--        <script src="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+   <link href="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>--%>
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
@@ -591,7 +595,19 @@
     <script src="../script/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="../script/bootstrap.min.js"></script>
+      <!-- datetimepicker  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
     <script type="text/javascript" language="javascript">
+         $('#endtime').datetimepicker({
+            format: 'HH:mm',
+            useCurrent: false,
+        });
+        $('#starttime').datetimepicker({
+            format: 'HH:mm',
+            useCurrent: false,
+        });
         var selectedIdentities = [];
         var count=3;
         var selectedGames = [];
@@ -647,6 +663,25 @@
             }
 
         });
+function checkbyCountry(country) {
+            var checkboxes = document.getElementsByTagName('input');
+                
+               
+                    var j = 1;
+                    for (var i = 0; i < checkboxes.length; i++) {
+                        if (checkboxes[i].type == 'checkbox') {
+                            checkboxes[i].checked = true;
+                            if (undefined != $("#taskIdentities")[0].rows[j] && "" != $("#taskIdentities")[0].rows[j].id && $("#taskIdentities")[0].rows[j].) {
+                                if (!selectedIdentities.includes($("#taskIdentities")[0].rows[j].id)) {
+                                    selectedIdentities.push($("#taskIdentities")[0].rows[j].id);
+                                    j++;
+                                }
+                            }
+                        }
+                    }
+            
+           
+        }
         function UpdateSelectedIdentitesList(selectedIdentites)
         {
             selectedIdentities.push(selectedIdentites);
@@ -846,7 +881,7 @@
                 var PositionData = {
                     PositionLabel: $("#positionlabel")[0].value,
                     PositionWebsite: $("#selectwebsite").find(":selected").text(),
-                    SelectSelection: $("#selectselection").find(":selected").text(),
+                    SelectSelection: $("#selectselection")[0].value,
                     StartTime: $("#starttime").val(),
                     EndTime: $("#endtime").val(),
                     StartDate: $("#startdate").val(),

@@ -82,7 +82,7 @@ namespace IdentityManagementWebService {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selectselection;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText selectselection;
         
         /// <summary>
         /// startdate control.
@@ -100,7 +100,7 @@ namespace IdentityManagementWebService {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl starttime;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText starttime;
         
         /// <summary>
         /// enddate control.
@@ -118,7 +118,7 @@ namespace IdentityManagementWebService {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl endtime;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText endtime;
         
         /// <summary>
         /// task control.
@@ -190,7 +190,7 @@ namespace IdentityManagementWebService {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText notes;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea notes;
         
         /// <summary>
         /// hiddenselectedIdentities control.
