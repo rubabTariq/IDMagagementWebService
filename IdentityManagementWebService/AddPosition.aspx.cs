@@ -35,7 +35,7 @@ namespace IdentityManagementWebService
             getPositionName = (Request.QueryString["positionlabel"]).ToLower();
             Response response = AmazonDynamoDBIdentityTable.Instance.GetAllDataInDynamoDb();
             List<IdentityDataModel> Identities = response.IdentityDataModel;
-
+            int itemnmber = 0;
             if ( null != Identities )
                 {
                 foreach ( IdentityDataModel Identity in Identities )
@@ -68,7 +68,7 @@ namespace IdentityManagementWebService
                     email.Attributes.Add("class", "tablecolumn");
                     tr.Cells.Add(email);
                     HtmlTableCell country = new HtmlTableCell();
-                    country.ID = identity.CountryOfResidence;
+                    country.ID = identity.CountryOfResidence+ itemnmber;
                     country.InnerText = identity.CountryOfResidence;
                     country.Attributes.Add("class", "tablecolumn");
                     tr.Cells.Add(country);
@@ -105,7 +105,7 @@ namespace IdentityManagementWebService
                         if ( null == item )
                             selectwebsite.Items.Add(website.WebsiteName);
                         }
-
+                    itemnmber++;
                     }
 
                 if ( null != getPositionName )
@@ -160,7 +160,7 @@ namespace IdentityManagementWebService
                             iDiv.Attributes.Add("id", positionData.SelectCountries[j]);
                             iDiv.Attributes.Add("class","form-control");
                             iDiv.Attributes.CssStyle.Add("height","auto");
-                            iDiv.InnerHtml = positionData.SelectCountries[j] + "&nbsp<button class=\"glyphicon glyphicon-remove\" style=\"display:inline;background-color:white\" onclick=\"deleteCountry(\'' + iDiv.id + '\')\" />";
+                            iDiv.InnerHtml = positionData.SelectCountries[j] + "&nbsp<button class=\"glyphicon glyphicon-remove\" style=\"display:inline;background-color:white\" onclick=\"deleteCountry(\'" + positionData.SelectCountries[j] + "\')\" />";
                             addcountry.Controls.Add(iDiv);
                             }
                         notes.Value = positionData.Note.ToString();

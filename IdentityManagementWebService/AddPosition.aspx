@@ -236,6 +236,7 @@
                                         <td style="width: 80%;height: 10%;">
                                             <input type="text" id="step3" runat="server" style="width: 80%;height: 10%;" />
                                              <button id="addtask" type="button" class="glyphicon glyphicon-plus"></button>
+                                             <button id="removetask" type="button" class="glyphicon glyphicon-minus"></button>
                                         </td>
                                     </tr>
                                    
@@ -524,7 +525,7 @@
                                             <th class="tablecolu">Name</th>
                                             <th class="tablecolu">Email</th>
                                             <th class="tablecolu">Country of Residence</th>
-                                            <th class="tablecolu">Action</th>
+                                         
                                         </tr>
                                     </tbody>
 
@@ -550,7 +551,7 @@
                                             </div>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%;height: 50%;border: none;padding-top: 70px">
+                                            <td style="width: 50%;height: 50%;border: none;padding-top: 70px !important">
                                                  <label class="labelText" for="note" style="display: inline">
                                                         Special Notes
                                                     :</label>
@@ -640,6 +641,11 @@
             $("#task").append(row);
 
         });
+        $("#removetask").on("click", function () {
+            var rows =$("#task tr")
+            rows[count-1].remove();
+            count--;
+        });
         var selectedCountries = [];
         $("#country").on("change", function () {
             var selectedcountry = $("#country").find(":selected").text();
@@ -661,27 +667,54 @@
                 $("#addcountry").append(iDiv)
                 selectedCountries.push(selectedcountry);
             }
-
+            checkCountry(selectedcountry)
         });
-function checkbyCountry(country) {
-            var checkboxes = document.getElementsByTagName('input');
-                
+        function checkCountry(country) {
+            var checkboxes = document.getElementById("taskIdentities").getElementsByTagName('input');
+            var x = document.getElementById("taskIdentities").getElementsByTagName("td");
+            var j = 1;
+            var cellindex = 4;
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    if (undefined != $("#taskIdentities")[0].rows[j] && cellindex <= x.length && country == x[cellindex].id.substring(0, country.length)) {
+                  
+                        checkboxes[i+1].checked = true;
+                        if (undefined != $("#taskIdentities")[0].rows[j] && "" != $("#taskIdentities")[0].rows[j].id) {
+                            if (!selectedIdentities.includes($("#taskIdentities")[0].rows[j].id)) {
+                                selectedIdentities.push($("#taskIdentities")[0].rows[j].id);
+                                
+                            }
+                        }
+                }
+                    cellindex += 5;
+                    j++;
+                }
                
-                    var j = 1;
-                    for (var i = 0; i < checkboxes.length; i++) {
-                        if (checkboxes[i].type == 'checkbox') {
-                            checkboxes[i].checked = true;
-                            if (undefined != $("#taskIdentities")[0].rows[j] && "" != $("#taskIdentities")[0].rows[j].id && $("#taskIdentities")[0].rows[j].) {
-                                if (!selectedIdentities.includes($("#taskIdentities")[0].rows[j].id)) {
-                                    selectedIdentities.push($("#taskIdentities")[0].rows[j].id);
-                                    j++;
-                                }
+            }
+        }
+        function uncheckCountry(countryvaule) {
+            var checkboxes = document.getElementById("taskIdentities").getElementsByTagName('input');
+            var x = document.getElementById("taskIdentities").getElementsByTagName("td");
+            var j = 1;
+            var cellindex = 4;
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    if (undefined != $("#taskIdentities")[0].rows[j] && cellindex <= x.length && countryvaule == x[cellindex].id.substring(0, countryvaule.length)) {
+                        checkboxes[i + 1].checked = false;
+                        if (undefined != $("#taskIdentities")[0].rows[j] && "" != $("#taskIdentities")[0].rows[j].id) {
+                            if (!selectedIdentities.includes($("#taskIdentities")[0].rows[j].id)) {
+                                selectedIdentities.pop($("#taskIdentities")[0].rows[j].id);
+                                
                             }
                         }
                     }
-            
-           
-        }
+                    }
+                cellindex += 5;
+                j++;
+                }
+
+            }
+        
         function UpdateSelectedIdentitesList(selectedIdentites)
         {
             selectedIdentities.push(selectedIdentites);
@@ -690,6 +723,7 @@ function checkbyCountry(country) {
         {
             document.getElementById("addcountry").removeChild(document.getElementById(selectedcountryid));
             selectedCountries.pop(selectedcountryid);
+            uncheckCountry(selectedcountryid)
         }
        
         function SetArrayValues() {
